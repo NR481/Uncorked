@@ -52,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
     return { id, username, email };
   };
 
-  User.prototype.validatePassword = function() {
+  User.prototype.validatePassword = function(password) {
     return bcrypt.compareSync(password, this.hashedPassword.toString());
   };
 
@@ -84,7 +84,7 @@ module.exports = (sequelize, DataTypes) => {
     });
     return await User.scope('currentUser').findByPk(user.id);
   };
-  
+
   User.associate = function(models) {
     // associations can be defined here
   };
