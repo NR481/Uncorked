@@ -1,12 +1,14 @@
 body {
-  background-image: url(https://images.unsplash.com/photo-1636116461481-4c3ec444c9f8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1166&q=80);
+  background: url(https://images.unsplash.com/photo-1504279577054-acfeccf8fc52?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80) no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
 }
 
-form {
+.form {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  margin-right: 400px;
+  margin: 0 600px 0 300px;
 }
 
 label, input {

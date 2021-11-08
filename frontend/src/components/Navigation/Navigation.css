@@ -1,0 +1,14 @@
+.nav {
+  display: flex;
+  list-style-type: none;
+  justify-content: flex-end;
+  margin-right: 150px;
+}
+
+.link {
+  margin: 15px;
+  padding: 6px;
+  text-decoration: none;
+  border: 1px solid gray;
+  border-radius: 10%;
+}
