@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Winery_admins', [
+    return queryInterface.bulkInsert('WineryAdmins', [
       {
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
@@ -313,6 +313,6 @@ module.exports = {
 },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Winery_admins', null, {});
+    return queryInterface.bulkDelete('WineryAdmins', null, {});
   }
 };

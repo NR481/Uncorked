@@ -43,6 +43,13 @@ router.post('/', validateSignup, asyncHandler(async (req, res) => {
   return res.json({ user });
 }));
 
+router.get('/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
+  const userId = req.params.id;
+  const user = await User.getCurrentUserById(userId);
+
+  return res.json({ user });
+}))
+
 
 
 module.exports = router;
