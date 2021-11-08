@@ -8,7 +8,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   Winery.associate = function(models) {
-    // associations can be defined here
+    Winery.hasMany(models.Checkin, { foreignKey: 'wineryId' }),
+    Winery.hasMany(models.Wine, { foreignKey: 'wineryId' }),
+    Winery.hasOne(models.WineryAdmin, { foreignKey: 'wineryId' })
   };
   return Winery;
 };

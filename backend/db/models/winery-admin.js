@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Wine_admin = sequelize.define('Winery_admin', {
+  const WineryAdmin = sequelize.define('WineryAdmin', {
     firstName: {
       type: DataTypes.STRING(50),
       allowNull: false
@@ -28,8 +28,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   }, {});
-  Wine_admin.associate = function(models) {
-    // associations can be defined here
+  WineryAdmin.associate = function(models) {
+    WineryAdmin.belongsTo(models.Winery, { foreignKey: 'wineryId' })
   };
-  return Wine_admin;
+  return WineryAdmin;
 };
