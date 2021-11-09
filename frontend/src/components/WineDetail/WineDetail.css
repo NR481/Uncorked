@@ -1,0 +1,9 @@
+.wine-entry {
+  display: flex;
+  height: 350px;
+}
+
+.wine-info {
+  display: flex;
+  flex-direction: column;
+}

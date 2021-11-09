@@ -12,17 +12,27 @@ const WinesPage = () => {
   }, [dispatch]);
 
   const wineObj = useSelector((state) => state.wine.allWines);
+  const wineryObj = useSelector((state) => state.wine.wineries);
 
   if (!wineObj) return null;
 
   const wineList = Object.values(wineObj);
+  const wineries = Object.values(wineryObj);
 
   return (
     <div>
       <h1>Wines</h1>
-      <div>
+      <div className='wine-detail'>
         {wineList.map((wine) => (
-          <WineDetail key={wine.id} id={wine.id} image={wine.image} />
+          <WineDetail
+            key={wine.id}
+            id={wine.id}
+            image={wine.image}
+            name={wine.name}
+            winery={wineries.find((winery => (
+              winery.id === wine.wineryId
+            )))}
+          />
         ))}
       </div>
     </div>
