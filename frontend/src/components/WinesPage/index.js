@@ -1,7 +1,9 @@
 import { getWines } from "../../store/wines";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Switch, Route } from "react-router";
 import WineDetail from "../WineDetail";
+import SingleWine from "../SingleWine";
 import './WinesPage.css';
 
 const WinesPage = () => {
@@ -22,7 +24,7 @@ const WinesPage = () => {
   return (
     <div>
       <h1>Wines</h1>
-      <div className='wine-detail'>
+      <div className='wine-page'>
         {wineList.map((wine) => (
           <WineDetail
             key={wine.id}
