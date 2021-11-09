@@ -4,9 +4,11 @@ const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth.j
 const { User } = require('../../db/models');
 const sessionRouter = require('./session');
 const usersRouter = require('./users');
+const winesRouter = require('./wines');
 
 router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
+router.use('/wines', winesRouter);
 
 router.post('/test', (req, res) => {
   res.json({ requestbody: req.body });
