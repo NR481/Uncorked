@@ -25,8 +25,9 @@ const wineReducer = (state = initialState, action) => {
     case LOAD_WINES:
       newState = {...state, allWines: {...state.allWines }};
       action.payload.wines.forEach((wine) => {
-        newState.wines[wine.id] = wine;
+        newState.allWines[wine.id] = wine;
       });
+      console.log(newState);
       return newState;
     default:
       return state;
