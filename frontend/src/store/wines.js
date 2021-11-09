@@ -17,17 +17,19 @@ export const getWines = () => async (dispatch) => {
   };
 };
 
-const initialState = { allWines: null };
+const initialState = { allWines: null, wineries: null };
 
 const wineReducer = (state = initialState, action) => {
   let newState;
   switch (action.type){
     case LOAD_WINES:
-      newState = {...state, allWines: {...state.allWines }};
+      newState = {...state, allWines: { ...state.allWines }, wineries: { ...state.wineries }};
       action.payload.wines.forEach((wine) => {
         newState.allWines[wine.id] = wine;
       });
-      console.log(newState);
+      action.payload.wineries.forEach((winery) => {
+        newState.wineries[winery.id] = winery;
+      });
       return newState;
     default:
       return state;
