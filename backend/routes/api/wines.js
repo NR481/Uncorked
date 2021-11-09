@@ -12,6 +12,12 @@ router.get('/', asyncHandler(async (req, res) => {
   return res.json({ wines, wineries });
 }));
 
+router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  const wine = await Wine.findByPk(id);
+  return res.json({ wine })
+}));
+
 
 
 module.exports = router;
