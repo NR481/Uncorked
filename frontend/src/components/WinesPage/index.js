@@ -1,29 +1,29 @@
 import { getWines } from "../../store/wines";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import WineDetail from "../WineDetail";
+import './WinesPage.css';
 
 const WinesPage = () => {
   const dispatch = useDispatch();
 
-  const [wines, setWines] = useState([]);
-
-  const wineObj = useSelector((state) => state.wine.allWines);
-  const wineList = Object.values(wineObj);
-
-
   useEffect(() => {
-
     dispatch(getWines());
   }, [dispatch]);
+
+  const wineObj = useSelector((state) => state.wine.allWines);
+
+  if (!wineObj) return null;
+
+  const wineList = Object.values(wineObj);
 
   return (
     <div>
       <h1>Wines</h1>
       <div>
-        {wineList.map(({ id, image }) => {
-          <WineDetail key={id} id={id} image={image} />
-        })}
+        {wineList.map((wine) => (
+          <WineDetail key={wine.id} id={wine.id} image={wine.image} />
+        ))}
       </div>
     </div>
   )
