@@ -14,7 +14,7 @@ const UserPage = () => {
 
   useEffect(() => {
     dispatch(getCheckins(user.id));
-  }, [dispatch]);
+  }, [dispatch, user.id]);
 
   useEffect(() => {
     dispatch(getWines());
