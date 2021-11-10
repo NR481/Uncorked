@@ -48,7 +48,9 @@ router.get('/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
   const user = await User.getCurrentUserById(userId);
   const checkins = await Checkin.findAll({
     where: { userId }
+
   })
+
   return res.json({ user, checkins });
 }))
 

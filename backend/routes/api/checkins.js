@@ -13,10 +13,8 @@ router.post('/', requireAuth, asyncHandler(async (req, res) => {
     wineryId,
     wineId
   });
-
   return res.json({ checkin });
 }));
-
 
 
 module.exports = router;
