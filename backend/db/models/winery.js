@@ -3,7 +3,10 @@ module.exports = (sequelize, DataTypes) => {
   const Winery = sequelize.define('Winery', {
     name: {
       type: DataTypes.STRING(50),
-      location: DataTypes.STRING(50),
+      allowNull: false
+    },
+    location: {
+      type: DataTypes.STRING(50),
       allowNull: false
     }
   }, {});
