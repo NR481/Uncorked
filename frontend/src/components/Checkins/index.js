@@ -10,8 +10,8 @@ const Checkins = ({ user, checkins, wineList, wineries }) => {
     <div>
       <h2>My Checkins</h2>
       {checkins.map((checkin) => (
-        <div>
-          {user.firstName + ' ' + lastInitial + '.' + ' is drinking a '}
+        <div key={checkin.id}>
+          {`${user.firstName} ${lastInitial}. is drinking a `}
           <NavLink to={`/wines/${checkin.wineId}`}>
             {wineList[checkin.wineId-1].name}
           </NavLink>
