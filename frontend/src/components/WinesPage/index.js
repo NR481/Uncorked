@@ -1,10 +1,9 @@
 import { getWines } from "../../store/wines";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Switch, Route } from "react-router";
 import WineDetail from "../WineDetail";
-import SingleWine from "../SingleWine";
 import './WinesPage.css';
+
 
 const WinesPage = () => {
   const dispatch = useDispatch();
