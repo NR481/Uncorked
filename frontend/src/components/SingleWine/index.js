@@ -1,8 +1,9 @@
 import { getWines } from "../../store/wines";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import WineDetail from "../WineDetail";
+import { newCheckin } from "../../store/checkins";
 
 const SingleWine = () => {
   const [revealForm, setRevealForm] = useState(false);
@@ -10,6 +11,7 @@ const SingleWine = () => {
   const [comment, setComment] = useState('');
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getWines());
@@ -19,9 +21,11 @@ const SingleWine = () => {
     setRevealForm(true);
   };
 
+
   const { id } = useParams();
   const wineObj = useSelector((state) => state.wine.allWines);
   const wineryObj = useSelector((state) => state.wine.wineries);
+  const userId = useSelector((state) => state.session.user.id);
 
   if (!wineObj) return null;
 
@@ -29,7 +33,26 @@ const SingleWine = () => {
   const wineries = Object.values(wineryObj);
   const winery = wineries.find((winery) => (
     winery.id === wine.wineryId
-  ));
+    ));
+
+  const reset = () => {
+    setRevealForm(false);
+    setComment('');
+    setLocation();
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const checkin = {
+      comment,
+      userId,
+      wineryId: winery.id,
+      wineId: wine.id
+    }
+    await dispatch(newCheckin(checkin));
+    reset();
+    history.push(`/users/${userId}`);
+  }
 
   return (
     <div>
@@ -48,7 +71,7 @@ const SingleWine = () => {
       </div>
 
       {revealForm && (
-        <form>
+        <form onSubmit={handleSubmit}>
           <select>
             <option>--Choose A Location--</option>
             <option

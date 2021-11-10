@@ -17,6 +17,7 @@ const WineDetail = ({ id, image, name, winery }) => {
       <div className='wine-info'>
         <NavLink to={`/wines/${id}`}>{name}</NavLink>
         <NavLink to={`/wineries/${winery.id}`}>{winery.name}</NavLink>
+        <p>{winery.location}</p>
       </div>
     </div>
   );

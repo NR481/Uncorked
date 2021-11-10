@@ -6,6 +6,7 @@ const { Checkin } = require('../../db/models');
 const router = express.Router();
 
 router.post('/', requireAuth, asyncHandler(async (req, res) => {
+  const { comment, userId, wineryId, wineId } = req.body;
   const checkin = await Checkin.create({
     comment,
     userId,
