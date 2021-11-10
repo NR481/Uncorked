@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const ADD_CHECKIN = 'checkins/addCheckin';
 const LOAD_CHECKINS = 'checkins/loadCheckins';
+const REMOVE_CHECKINS = 'checkins/removeCheckins'
 
 const addCheckin = (payload) => {
   return {
@@ -14,6 +15,12 @@ const loadCheckins = (checkins) => {
   return {
     type: LOAD_CHECKINS,
     checkins
+  };
+};
+
+const removeCheckins = () => {
+  return {
+    type: REMOVE_CHECKINS
   };
 };
 
@@ -35,6 +42,10 @@ export const getCheckins = (id) => async (dispatch) => {
   return data;
 }
 
+export const deleteCheckins = () => (dispatch) => {
+  dispatch(removeCheckins());
+}
+
 
 const checkinsReducer = (state = {}, action) => {
   let newState;
@@ -50,6 +61,9 @@ const checkinsReducer = (state = {}, action) => {
         newState[checkin.id] = checkin;
       })
       return newState;
+    case REMOVE_CHECKINS:
+      newState = null;
+      return newState
     default:
       return state;
     };
