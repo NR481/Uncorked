@@ -9,6 +9,7 @@ import UserPage from "./components/UserPage";
 import WinesPage from "./components/WinesPage";
 import SingleWine from "./components/SingleWine";
 import CheckinDetail from "./components/CheckinDetail";
+import SingleCheckinPage from "./components/SingleCheckinPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ function App() {
             <SingleWine />
           </Route>
           <Route path='/checkins/:id'>
-            <CheckinDetail />
+            <SingleCheckinPage />
           </Route>
         </Switch>
       )}
