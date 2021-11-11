@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation";
 import UserPage from "./components/UserPage";
 import WinesPage from "./components/WinesPage";
 import SingleWine from "./components/SingleWine";
+import CheckinDetail from "./components/CheckinDetail";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,6 +39,9 @@ function App() {
           </Route>
           <Route path='/wines/:id'>
             <SingleWine />
+          </Route>
+          <Route path='/checkins/:id'>
+            <CheckinDetail />
           </Route>
         </Switch>
       )}
