@@ -2,7 +2,8 @@
   display: flex;
   list-style-type: none;
   justify-content: flex-end;
-  margin-right: 150px;
+  /* margin-right: 150px; */
+  background-color: rgb(233, 230, 224);
 }
 
 .link {

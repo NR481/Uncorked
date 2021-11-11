@@ -1,10 +1,12 @@
 import { NavLink } from "react-router-dom";
 
 const CheckinDetail = ({ user, checkin, wineList, wineries }) => {
-  const lastInitial = user.lastName.split('')[0];
+  const lastInitial = user?.lastName.split('')[0];
+
+
   return (
     <div key={checkin.id}>
-      {`${user.firstName} ${lastInitial}. is drinking a `}
+      {`${user?.firstName} ${lastInitial}. is drinking a `}
       <NavLink to={`/wines/${checkin.wineId}`}>
         {wineList[checkin.wineId - 1].name}
       </NavLink>
