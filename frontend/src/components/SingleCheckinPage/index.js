@@ -1,73 +1,85 @@
-import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useParams, useLocation, useHistory, Redirect } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { getCheckins } from "../../store/checkins";
-import { getWines } from "../../store/wines";
+import { useState } from "react";
+import { updateCheckin } from "../../store/checkins";
+
 
 const SingleCheckinPage = () => {
-  // const [wine, setWine] = useState();
-  // const [winery, setWinery] = useState();
-  // const [checkin, setCheckin] = useState();
-
   const { id } = useParams();
-  const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
-  const checkinsObj = useSelector((state) => state.checkins[id]?.wineId);
-  // const wineObj = useSelector((state) => state.wine.allWines[checkinsObj?.wineId]);
-  const wineryObj = useSelector((state) => state.wine.wineries);
+  const history = useHistory();
+  const location = useLocation();
+  const { user, checkin, wineList, wineries } = location.state;
+  const wine = wineList.find((wine) => wine.id === checkin.wineId);
 
-  console.log(checkinsObj, wineryObj, user);
-  return null;
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [wineChoice, setWineChoice] = useState(wine);
+  const [comment, setComment] = useState(checkin.comment);
 
-
-  // const wineList = Object.values(wineObj);
-  // const wineries = Object.values(wineryObj);
-
-
-
-  // const lastInitial = user.lastName.split('')[0];
-
-  // useEffect(() => {
-  //   dispatch(getCheckins(user.id))
-  //     .then(() => setCheckin(checkinsObj[id]));
-  // }, [dispatch, user.id, checkinsObj, id]);
+  const winery = wineries.find((winery) => winery.id === checkin.wineryId);
+  const lastInitial = user?.lastName.split('')[0];
 
 
-  // useEffect(() => {
-  //   dispatch(getWines())
-  //     .then(() => setWine(wineList.find((wine) => wine.id === checkin.wineId)))
-  //     .then(() => setWinery(wineries.find((winery) => winery.id === checkin.wineryId)))
-  // }, [dispatch, ]);
+  const reset = () => {
+    setWineChoice('');
+    setComment('')
+  }
 
-  // if (!checkinsObj) return null;
-  // const checkin = checkinsObj[id];
+  const showForm = () => {
+    setIsLoaded(true);
+  }
 
-  // if(!wineObj) return null;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const checkinEdit = {
+      comment,
+      wineId: +wineChoice.split(',')[0],
+      wineryId: +wineChoice.split(',')[1]
+    };
+    console.log(checkinEdit);
+    await dispatch(updateCheckin(id, checkinEdit));
+    reset();
+    history.push(`/users/${user.id}`)
+  }
 
-
-
-
-
-  // const wine = wineList.find((wine) => wine.id === checkin.wineId);
-  // const winery = wineries.find((winery) => winery.id === checkin.wineryId);
-
-
-
-
-
-
-  // return (
-  //   <div>
-  //     <h2>{`${user.firstName} ${lastInitial}.`}</h2>
-  //     <NavLink to={`/wines/${wine.id}`}>
-  //       {wine.name}
-  //     </NavLink>
-  //     <NavLink to={`/wineries/${winery.id}`}>
-  //       {winery.name}
-  //     </NavLink>
-  //   </div>
-  // )
+  return (
+    <div>
+      <h2>{`${user.firstName} ${lastInitial}.`}</h2>
+      <NavLink to={`/wines/${wine.id}`}>
+        {wine.name}
+      </NavLink>
+      <p>{winery.name}</p>
+      <p>{winery.location}</p>
+      <img src={wine.image} alt='wine label'/>
+      {checkin.comment}
+      <button onClick={showForm}>Edit</button>
+      <button>Delete</button>
+      {isLoaded &&
+        <form onSubmit={handleSubmit}>
+          <select
+            onChange={(e) => setWineChoice(e.target.value)}
+            value={wineChoice}
+          >
+            <option>--Select A Wine--</option>
+              {wineList.map((wine) => (
+                <option
+                  key={wine.id}
+                  value={`${wine.id}, ${wine.wineryId}`}
+                >
+                {wine.name}
+                </option>
+              ))}
+          </select>
+          <textarea
+            onChange={(e) => setComment(e.target.value)}
+            value={comment}
+          />
+          <button>Submit Changes</button>
+        </form>
+      }
+    </div>
+  )
 }
 
 export default SingleCheckinPage;

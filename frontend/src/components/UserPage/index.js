@@ -20,6 +20,7 @@ const UserPage = () => {
     dispatch(getWines());
   }, [dispatch]);
 
+
   if(!checkinsObj) return null;
 
   const checkins = Object.values(checkinsObj);
@@ -30,6 +31,7 @@ const UserPage = () => {
 
   const wineList = Object.values(wineObj);
   const wineries = Object.values(wineryObj);
+
 
   return (
     <div>

@@ -7,7 +7,7 @@ const CheckinDetail = ({ user, checkin, wineList, wineries }) => {
   return (
     <div key={checkin.id}>
       {`${user?.firstName} ${lastInitial}. is drinking a `}
-      <NavLink to={`/wines/${checkin.wineId}`}>
+      <NavLink to={`/wines/${checkin?.wineId}`}>
         {wineList[checkin.wineId - 1].name}
       </NavLink>
       {' from '}
@@ -16,7 +16,7 @@ const CheckinDetail = ({ user, checkin, wineList, wineries }) => {
       </NavLink>
       <img src={wineList[checkin.wineId - 1].image} alt='wine label' />
       <p>{checkin.comment}</p>
-      <NavLink to={`/checkins/${checkin.id}`}>Edit This Checkin</NavLink>
+      <NavLink to={{pathname: `/checkins/${checkin.id}`, state: {user, checkin, wineList, wineries}}}>Edit This Checkin</NavLink>
     </div>
   )
 };
