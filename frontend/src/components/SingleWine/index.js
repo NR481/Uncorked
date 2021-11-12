@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import WineDetail from "../WineDetail";
 import { newCheckin } from "../../store/checkins";
+import { removeWine } from "../../store/wines";
 
 const SingleWine = () => {
   const [revealForm, setRevealForm] = useState(false);
@@ -54,6 +55,12 @@ const SingleWine = () => {
     history.push(`/users/${userId}`);
   };
 
+  const handleDelete = (e) => {
+    e.preventDefault();
+    dispatch(removeWine(wine.id));
+    history.push('/wines');
+  }
+
   return (
     <div>
       <h1>Single Wine</h1>
@@ -67,7 +74,7 @@ const SingleWine = () => {
       <p>{wine.description}</p>
       <div>
         <button onClick={handleCheckin}>Check-in </button>
-        <button>Delete</button>
+        <button onClick={handleDelete}>Delete</button>
       </div>
 
       {revealForm && (

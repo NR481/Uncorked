@@ -8,7 +8,6 @@ import Navigation from "./components/Navigation";
 import UserPage from "./components/UserPage";
 import WinesPage from "./components/WinesPage";
 import SingleWine from "./components/SingleWine";
-import CheckinDetail from "./components/CheckinDetail";
 import SingleCheckinPage from "./components/SingleCheckinPage";
 import HomePage from "./components/HomePage";
 

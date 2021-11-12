@@ -1,5 +1,4 @@
 import { useSelector, useDispatch } from 'react-redux';
-import List from '../Lists';
 import Checkins from '../Checkins';
 import { useEffect } from 'react';
 import { getCheckins } from '../../store/checkins';

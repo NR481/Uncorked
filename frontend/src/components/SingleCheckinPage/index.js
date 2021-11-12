@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
-import { useParams, useLocation, useHistory, Redirect } from "react-router-dom";
+import { useParams, useLocation, useHistory } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
-import { updateCheckin, removeCheckin, getCheckins } from "../../store/checkins";
+import { updateCheckin, removeCheckin } from "../../store/checkins";
 
 
 const SingleCheckinPage = () => {
