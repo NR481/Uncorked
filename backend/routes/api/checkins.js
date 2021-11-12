@@ -30,7 +30,18 @@ router.put('/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
     await checkin.save();
   }
   return res.json({ checkin });
-}))
+}));
+
+router.delete('/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
+  const id = req.params.id;
+
+  const checkin = await Checkin.findByPk(id);
+
+  if (checkin) {
+    await checkin.destroy();
+  }
+  return res.json({ checkin });
+}));
 
 
 

@@ -4,6 +4,7 @@ const ADD_CHECKIN = 'checkins/addCheckin';
 const LOAD_CHECKINS = 'checkins/loadCheckins';
 const REMOVE_CHECKINS = 'checkins/removeCheckins';
 const EDIT_CHECKIN = 'checkins/editCheckins';
+const DELETE_CHECKIN = 'checkins/deleteCheckin';
 
 const addCheckin = (payload) => {
   return {
@@ -29,6 +30,12 @@ const editCheckin = (checkin) => {
 const removeCheckins = () => {
   return {
     type: REMOVE_CHECKINS
+  };
+};
+
+const deleteCheckin = () => {
+  return {
+    type: DELETE_CHECKIN
   };
 };
 
@@ -63,6 +70,15 @@ export const deleteCheckins = () => (dispatch) => {
   dispatch(removeCheckins());
 }
 
+export const removeCheckin = (id) => async (dispatch) =>  {
+  await csrfFetch(`/api/checkins/${id}`, {
+    method: 'DELETE'
+  });
+  dispatch(deleteCheckin())
+  return;
+}
+
+
 
 const checkinsReducer = (state = {}, action) => {
   let newState;
@@ -83,7 +99,11 @@ const checkinsReducer = (state = {}, action) => {
       return newState
     case EDIT_CHECKIN:
       newState = { ...state }
-      newState[action.checkin.checkin.id] = action.checkin.checkin;
+      newState.checkins[action.checkin.checkin.id] = action.checkin.checkin;
+      return newState;
+    case DELETE_CHECKIN:
+      newState = { ...state }
+      delete newState[action.checkin];
       return newState;
     default:
       return state;

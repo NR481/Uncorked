@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { useParams, useLocation, useHistory, Redirect } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
-import { updateCheckin } from "../../store/checkins";
+import { updateCheckin, removeCheckin, getCheckins } from "../../store/checkins";
 
 
 const SingleCheckinPage = () => {
@@ -37,10 +37,16 @@ const SingleCheckinPage = () => {
       wineId: +wineChoice.split(',')[0],
       wineryId: +wineChoice.split(',')[1]
     };
-    console.log(checkinEdit);
+
     await dispatch(updateCheckin(id, checkinEdit));
     reset();
     history.push(`/users/${user.id}`)
+  }
+
+  const handleDelete =  (e) => {
+    e.preventDefault();
+    dispatch(removeCheckin(id));
+    history.push(`/users/${user.id}`);
   }
 
   return (
@@ -54,7 +60,7 @@ const SingleCheckinPage = () => {
       <img src={wine.image} alt='wine label'/>
       {checkin.comment}
       <button onClick={showForm}>Edit</button>
-      <button>Delete</button>
+      <button onClick={handleDelete}>Delete</button>
       {isLoaded &&
         <form onSubmit={handleSubmit}>
           <select

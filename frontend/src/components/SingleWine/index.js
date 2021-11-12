@@ -52,7 +52,7 @@ const SingleWine = () => {
     await dispatch(newCheckin(checkin));
     reset();
     history.push(`/users/${userId}`);
-  }
+  };
 
   return (
     <div>
@@ -67,7 +67,7 @@ const SingleWine = () => {
       <p>{wine.description}</p>
       <div>
         <button onClick={handleCheckin}>Check-in </button>
-        <button>Add To List</button>
+        <button>Delete</button>
       </div>
 
       {revealForm && (

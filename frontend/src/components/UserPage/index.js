@@ -36,7 +36,6 @@ const UserPage = () => {
   return (
     <div>
       <h2>Welcome, {user.firstName + ' ' + user.lastName}</h2>
-      <h3>My Lists</h3>
       <Checkins
         user={user}
         checkins={checkins}
