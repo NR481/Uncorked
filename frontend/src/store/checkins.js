@@ -99,7 +99,7 @@ const checkinsReducer = (state = {}, action) => {
       return newState
     case EDIT_CHECKIN:
       newState = { ...state }
-      newState.checkins[action.checkin.checkin.id] = action.checkin.checkin;
+      newState[action.checkin.checkin.id] = action.checkin.checkin;
       return newState;
     case DELETE_CHECKIN:
       newState = { ...state }
