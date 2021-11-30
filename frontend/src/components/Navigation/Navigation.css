@@ -1,17 +1,31 @@
 .nav {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  background-color: rgb(233, 230, 224);
+  border-bottom: 1px solid rgba(109, 109, 108, 0.3);
+}
+
+ul {
   display: flex;
   list-style-type: none;
   justify-content: flex-end;
-  background-color: rgb(233, 230, 224);
-  height: 75px;
+  height: 60px;
+  align-items: center;
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 1;
 }
 
 .link {
   margin: 15px;
   padding: 6px;
   text-decoration: none;
-  border: 1px solid gray;
+  text-transform: uppercase;
   border-radius: 10%;
+  font-family: 'Jost', sans-serif;
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: rgba(109, 109, 108, 1);
 }
 
 .logo {
@@ -19,5 +33,18 @@
   width: 50px;
   opacity: 100%;
   float: left;
-  margin: 10px 900px 0px 20px;
+  margin: 5px;
+}
+
+.banner {
+  display: inline-block;
+  margin-left: 20px;
+  width: fit-content;
+}
+
+.banner-logo {
+  display: flex;
+  align-items: center;
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 1;
 }

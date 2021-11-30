@@ -24,7 +24,10 @@ function Navigation({ isLoaded }){
 
   return (
     <div className="nav">
-      <img className="logo" src={logo}/>
+      <div className='banner-logo'>
+        <img className="logo" src={logo}/>
+        <h1 className='banner'>Uncorked</h1>
+      </div>
       <ul>
         <li >
           <NavLink exact to="/" className="link">Home</NavLink>
