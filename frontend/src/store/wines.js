@@ -10,9 +10,10 @@ const loadWines = (payload) => {
   };
 };
 
-const deleteWine = () => {
+const deleteWine = (id) => {
   return {
-    type: DELETE_WINE
+    type: DELETE_WINE,
+    id
   };
 };
 
@@ -30,7 +31,7 @@ export const removeWine = (id) => async (dispatch) => {
   await csrfFetch(`/api/wines/${id}`, {
     method: 'DELETE'
   });
-  dispatch(deleteWine())
+  dispatch(deleteWine(id))
   return;
 }
 
