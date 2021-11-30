@@ -33,9 +33,10 @@ const removeCheckins = () => {
   };
 };
 
-const deleteCheckin = () => {
+const deleteCheckin = (id) => {
   return {
-    type: DELETE_CHECKIN
+    type: DELETE_CHECKIN,
+    id
   };
 };
 
@@ -74,7 +75,7 @@ export const removeCheckin = (id) => async (dispatch) =>  {
   await csrfFetch(`/api/checkins/${id}`, {
     method: 'DELETE'
   });
-  dispatch(deleteCheckin())
+  dispatch(deleteCheckin(id))
   return;
 }
 
@@ -103,7 +104,7 @@ const checkinsReducer = (state = {}, action) => {
       return newState;
     case DELETE_CHECKIN:
       newState = { ...state }
-      delete newState[action.checkin];
+      delete newState[action.id];
       return newState;
     default:
       return state;
