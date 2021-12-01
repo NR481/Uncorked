@@ -1,14 +1,14 @@
-form {
+/* form {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   margin: 0 600px 0 300px;
-}
+} */
 
 label, input {
   margin: 10px;
 }
 
-button {
+/* button {
   margin-right: 120px;
-}
+} */

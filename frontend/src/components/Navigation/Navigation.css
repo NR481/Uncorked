@@ -1,3 +1,7 @@
+.container {
+  position: relative;
+}
+
 .nav {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -21,7 +25,6 @@ ul {
   padding: 6px;
   text-decoration: none;
   text-transform: uppercase;
-  border-radius: 10%;
   font-family: 'Jost', sans-serif;
   font-weight: 400;
   letter-spacing: 1px;
@@ -33,13 +36,18 @@ ul {
   width: 50px;
   opacity: 100%;
   float: left;
-  margin: 5px;
+  margin: 7px;
 }
 
 .banner {
   display: inline-block;
-  margin-left: 20px;
+  margin-left: 15px;
   width: fit-content;
+  text-transform: uppercase;
+  font-family: 'Jost', sans-serif;
+  font-size: 30px;
+  letter-spacing: 3px;
+  color: rgb(133, 19, 54);
 }
 
 .banner-logo {
@@ -47,4 +55,14 @@ ul {
   align-items: center;
   grid-column: 1 / span 1;
   grid-row: 1 / span 1;
+}
+
+.login-form {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  right: 60px;
+  top: 20px;
+  z-index: 1;
 }
