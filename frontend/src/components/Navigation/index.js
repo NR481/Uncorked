@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
 import logo from "../../assets/default-img.png"
+import LoginFormPage from '../LoginFormPage';
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
+  const [revealForm, setRevealForm] = useState(false);
+
+  const showForm = (e) => {
+    e.preventDefault();
+    setRevealForm(true);
+  };
 
   let sessionLinks;
   if (sessionUser) {
@@ -16,7 +23,7 @@ function Navigation({ isLoaded }){
   } else {
     sessionLinks = (
       <>
-        <NavLink to="/login" className="link">Log In</NavLink>
+        <NavLink onClick={showForm} to="/login" className="link">Log In</NavLink>
         <NavLink to="/signup" className="link">Sign Up</NavLink>
       </>
     );
@@ -34,6 +41,9 @@ function Navigation({ isLoaded }){
           {isLoaded && sessionLinks}
         </li>
       </ul>
+      {revealForm &&
+        <LoginFormPage />
+      }
     </div>
   );
 }
