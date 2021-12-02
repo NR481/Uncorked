@@ -56,13 +56,3 @@ ul {
   grid-column: 1 / span 1;
   grid-row: 1 / span 1;
 }
-
-.login-form {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-  right: 60px;
-  top: 20px;
-  z-index: 1;
-}
