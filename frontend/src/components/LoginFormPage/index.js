@@ -26,7 +26,9 @@ function LoginFormPage() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className='login-form'>
+    <div className="form-pointer">
+      <div className='pointer'></div>
+      <form onSubmit={handleSubmit} className='login-form'>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
@@ -48,8 +50,9 @@ function LoginFormPage() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit">Log In</button>
-    </form>
+        <button className='login-button' type="submit">Log In</button>
+      </form>
+    </div>
   );
 }
 

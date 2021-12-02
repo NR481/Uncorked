@@ -12,7 +12,8 @@ function Navigation({ isLoaded }){
 
   const showForm = (e) => {
     e.preventDefault();
-    setRevealForm(true);
+    if (!revealForm) setRevealForm(true);
+    else setRevealForm(false);
   };
 
   let sessionLinks;
