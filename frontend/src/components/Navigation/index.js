@@ -5,16 +5,24 @@ import ProfileButton from './ProfileButton';
 import './Navigation.css';
 import logo from "../../assets/default-img.png"
 import LoginFormPage from '../LoginFormPage';
+import SignupFormPage from '../SignupFormPage';
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
-  const [revealForm, setRevealForm] = useState(false);
+  const [revealLogin, setRevealLogin] = useState(false);
+  const [revealSignup, setRevealSignup] = useState(false);
 
-  const showForm = (e) => {
+  const showLoginForm = (e) => {
     e.preventDefault();
-    if (!revealForm) setRevealForm(true);
-    else setRevealForm(false);
+    if (!revealLogin) setRevealLogin(true);
+    else setRevealLogin(false);
   };
+
+  const showSignupForm = (e) => {
+    e.preventDefault();
+    if (!revealSignup) setRevealSignup(true);
+    else setRevealSignup(false);
+  }
 
   let sessionLinks;
   if (sessionUser) {
@@ -24,8 +32,8 @@ function Navigation({ isLoaded }){
   } else {
     sessionLinks = (
       <>
-        <NavLink onClick={showForm} to="/login" className="link">Log In</NavLink>
-        <NavLink to="/signup" className="link">Sign Up</NavLink>
+        <NavLink onClick={showLoginForm} to="/login" className="link">Log In</NavLink>
+        <NavLink onClick={showSignupForm} to="/signup" className="link">Sign Up</NavLink>
       </>
     );
   }
@@ -42,8 +50,11 @@ function Navigation({ isLoaded }){
           {isLoaded && sessionLinks}
         </li>
       </ul>
-      {revealForm &&
+      {revealLogin &&
         <LoginFormPage />
+      }
+      {revealSignup &&
+        <SignupFormPage />
       }
     </div>
   );

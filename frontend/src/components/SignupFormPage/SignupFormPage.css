@@ -1,14 +1,32 @@
-/* form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  margin: 0 600px 0 300px;
-} */
-
-label, input {
-  margin: 10px;
+.signup-pointer {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid rgb(255,255,255);
+  margin-left: 215px;
 }
 
-/* button {
-  margin-right: 120px;
-} */
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  z-index: 1;
+  background-color: rgba(255,255,255, 0.5);
+  border: 1px solid rgba(109, 109, 108, 0.2);
+  border-radius: 3%;
+  padding-bottom: 60px;
+  font-family: 'Jost', sans-serif;
+}
+
+.signup-button {
+  margin-top: 20px;
+  padding: 5px;
+  width: 100px;
+  background-color: rgba(133, 19, 54, 0.3);
+  color: rgb(233, 230, 224);
+  border: 1px solid rgba(109, 109, 108, 0.2);
+  border-radius: 5%;
+  font-family: inherit;
+}

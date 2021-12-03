@@ -38,3 +38,7 @@
   border-radius: 5%;
   font-family: inherit;
 }
+
+label, input {
+  margin: 10px;
+}
