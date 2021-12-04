@@ -28,7 +28,7 @@ function LoginFormPage() {
   return (
     <div className="form-pointer">
       <div className='pointer'></div>
-      <form onSubmit={handleSubmit} className='login-form'>
+      <form onSubmit={handleSubmit} onClick={e => e.stopPropagation()}className='login-form'>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>

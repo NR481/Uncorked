@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
@@ -11,6 +11,7 @@ function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
   const [revealLogin, setRevealLogin] = useState(false);
   const [revealSignup, setRevealSignup] = useState(false);
+  const inputRef = React.createRef();
 
   const showLoginForm = (e) => {
     e.preventDefault();
@@ -22,7 +23,28 @@ function Navigation({ isLoaded }){
     e.preventDefault();
     if (!revealSignup) setRevealSignup(true);
     else setRevealSignup(false);
-  }
+  };
+
+  const input = document.getElementBy
+
+  const handleOutsideClick = useCallback(() => {
+    if (document.activeElement === inputRef.current) return;
+    else {
+      setRevealLogin(false);
+      setRevealSignup(false);
+    }
+  }, [inputRef]);
+
+  useEffect(() => {
+    if (revealSignup || revealLogin){
+      document.addEventListener('click', handleOutsideClick);
+    } else {
+      document.removeEventListener('click', handleOutsideClick);
+    }
+    return (() => {
+      document.removeEventListener('click', handleOutsideClick);
+    })
+  }, [revealLogin, revealSignup, handleOutsideClick]);
 
   let sessionLinks;
   if (sessionUser) {
@@ -41,12 +63,12 @@ function Navigation({ isLoaded }){
   return (
     <div className="nav">
       <div className='banner-logo'>
-        <img className="logo" src={logo}/>
-        <h1 className='banner'>Uncorked</h1>
+        <NavLink exact to="/"><img className="logo" src={logo}/></NavLink>
+        <NavLink exact to="/" className='banner'>Uncorked</NavLink>
       </div>
       <ul>
         <li >
-          <NavLink exact to="/" className="link">Home</NavLink>
+          {/* <NavLink exact to="/" className="link">Home</NavLink> */}
           {isLoaded && sessionLinks}
         </li>
       </ul>
