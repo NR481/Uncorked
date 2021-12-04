@@ -25,6 +25,8 @@ function Navigation({ isLoaded }){
     else setRevealSignup(false);
   };
 
+  const input = document.getElementBy
+
   const handleOutsideClick = useCallback(() => {
     if (document.activeElement === inputRef.current) return;
     else {
@@ -61,12 +63,12 @@ function Navigation({ isLoaded }){
   return (
     <div className="nav">
       <div className='banner-logo'>
-        <img className="logo" src={logo}/>
-        <h1 className='banner'>Uncorked</h1>
+        <NavLink exact to="/"><img className="logo" src={logo}/></NavLink>
+        <NavLink exact to="/" className='banner'>Uncorked</NavLink>
       </div>
       <ul>
         <li >
-          <NavLink exact to="/" className="link">Home</NavLink>
+          {/* <NavLink exact to="/" className="link">Home</NavLink> */}
           {isLoaded && sessionLinks}
         </li>
       </ul>

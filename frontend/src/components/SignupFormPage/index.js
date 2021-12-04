@@ -33,7 +33,7 @@ function SignupFormPage() {
   return (
     <div className="form-pointer">
       <div className="signup-pointer"></div>
-      <form onSubmit={handleSubmit} className="signup-form">
+      <form onSubmit={handleSubmit} onClick={e => e.stopPropagation()} className="signup-form">
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
