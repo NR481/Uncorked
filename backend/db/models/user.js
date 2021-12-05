@@ -96,7 +96,6 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   User.associate = function(models) {
-    User.hasMany(models.List, { foreignKey: 'userId'}),
     User.hasMany(models.Checkin, { foreignKey: 'userId' })
   };
   return User;

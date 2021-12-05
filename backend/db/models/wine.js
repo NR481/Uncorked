@@ -28,17 +28,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   Wine.associate = function(models) {
-    const columnMapping = {
-      through: 'ListWine',
-      foreignKey: 'wineId',
-      otherKey: 'listId'
-    };
-
-    Wine.belongsToMany(models.List, columnMapping)
     Wine.hasMany(models.Checkin, { foreignKey: 'wineId' }),
-    Wine.belongsTo(models.Winery, { foreignKey: 'wineryId' }),
-    Wine.hasMany(models.ListWine, { foreignKey: 'wineId', onDelete: 'CASCADE', hooks: true })
-
+    Wine.belongsTo(models.Winery, { foreignKey: 'wineryId' })
   };
   return Wine;
 };
