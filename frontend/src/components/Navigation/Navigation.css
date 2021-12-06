@@ -4,13 +4,13 @@
 
 .nav {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr) 50px;
   grid-template-rows: 1fr;
   background-color: rgb(233, 230, 224);
   border-bottom: 1px solid rgba(109, 109, 108, 0.3);
 }
 
-ul {
+.nav-links {
   display: flex;
   list-style-type: none;
   justify-content: flex-end;
@@ -19,7 +19,12 @@ ul {
   grid-column: 2 / span 1;
   grid-row: 1 / span 1;
   margin-right: 30px;
+  list-style-type: none;
 }
+
+/* li {
+  padding-bottom: 40px;
+} */
 
 .link {
   margin: 15px;

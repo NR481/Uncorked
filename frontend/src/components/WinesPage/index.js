@@ -3,10 +3,9 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import WineDetail from "../WineDetail";
 import './WinesPage.css';
-import { useHistory } from "react-router";
 
 
-const WinesPage = () => {
+const WinesPage = ({ isLoaded }) => {
   const [addWineForm, setAddWineForm] = useState(false);
   const [name, setName] = useState('');
   const [image, setImage] = useState('');
@@ -16,7 +15,6 @@ const WinesPage = () => {
   const [winery, setWinery] = useState('');
   const [location, setlocation] = useState('');
   const dispatch = useDispatch();
-  const history = useHistory();
 
   useEffect(() => {
     dispatch(getWines());

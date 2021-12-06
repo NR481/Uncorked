@@ -1,9 +1,37 @@
 .profile {
+  position: absolute;
   width: 50px;
   height: 35px;
-  background-color: #ffc0cbc7;
+  border: none;
+  background-color: rgb(233, 230, 224);
+  color: rgb(133, 19, 54);
+  font-size: 40px;
+  right: 15px;
+  top: 8px;
 }
 
-ul {
+.profile-dropdown {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  flex-direction: column;
   list-style-type: none;
+  right: 1px;
+  top: 64px;
+  z-index: 1;
+  border: 1px solid rgba(109, 109, 108, 0.3);
+  background-color: rgb(233, 230, 224);
+  border-radius: 5px;
+}
+
+.profile-dropdown > li {
+  /* border-bottom: 1px solid rgba(109, 109, 108, 0.3); */
+  padding: 5px;
+  font-family: 'Jost', sans-serif;
+  color: rgba(109, 109, 108, 1)
+}
+
+.logout {
+  background-color: rgb(233, 230, 224);
+  border: none;
 }
