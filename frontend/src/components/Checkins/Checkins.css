@@ -1,5 +1,19 @@
 .checkins-container {
   background-color: white;
   width: 750px;
+  margin: 15px auto;
+  padding: 30px;
+  border-radius: 20px;
+}
+
+.checkins-header {
   margin: 0 auto;
+}
+
+.user-header {
+  font-family: 'Jost', sans-serif;
+  color: rgb(133, 19, 54);
+  font-weight: 700;
+  font-size: 25px;
+  border-bottom: 1px solid rgba(109, 109, 108, 0.5);
 }

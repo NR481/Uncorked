@@ -1,3 +1,20 @@
 .checkin {
   display: flex;
+  padding: 15px;
+  border-bottom: 1px solid rgba(109, 109, 108, 0.5);
+  height: 300px;
+}
+
+.checkin-info {
+  padding: 30px;
+  font-family: 'Jost', sans-serif;
+  font-size: 18px;
+}
+
+.checkin-img {
+  height: 295px;
+}
+
+.checkin-link {
+  color: rgb(133, 19, 54)
 }
