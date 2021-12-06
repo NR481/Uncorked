@@ -50,7 +50,6 @@ function Navigation({ isLoaded }){
       <>
         <NavLink to='/wines' className="link">Wine List</NavLink>
         <NavLink to={`/users/${sessionUser.id}`} className="link">My Page</NavLink>
-        <ProfileButton user={sessionUser} />
       </>
     );
   } else {
@@ -68,11 +67,12 @@ function Navigation({ isLoaded }){
         <NavLink exact to="/"><img className="logo" src={logo}/></NavLink>
         <NavLink exact to="/" className='banner'>Uncorked</NavLink>
       </div>
-      <ul>
+      <ul className='nav-links'>
         <li >
           {isLoaded && sessionLinks}
         </li>
       </ul>
+      <ProfileButton user={sessionUser} />
       {revealLogin &&
         <LoginFormPage />
       }
