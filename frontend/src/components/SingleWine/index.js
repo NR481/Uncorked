@@ -1,15 +1,22 @@
-import { getWines } from "../../store/wines";
+import { getWines, removeWine, updateWine } from "../../store/wines";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import WineDetail from "../WineDetail";
 import { newCheckin } from "../../store/checkins";
-import { removeWine } from "../../store/wines";
 
 const SingleWine = () => {
-  const [revealForm, setRevealForm] = useState(false);
+  const [revealCheckinForm, setRevealCheckinForm] = useState(false);
+  const [revealEditForm, setRevealEditForm] = useState(false);
   const [location, setLocation] = useState('');
   const [comment, setComment] = useState('');
+  const [editName, setEditName] = useState('');
+  const [editImage, setEditImage] = useState('');
+  const [editVintage, setEditVintage] = useState('');
+  const [editDescription, setEditDescription] = useState('');
+  const [editVarietal, setEditVarietal] = useState('');
+  const [editWinery, setEditWinery] = useState('');
+  const [editLocation, setEditlocation] = useState('');
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -19,7 +26,11 @@ const SingleWine = () => {
   }, [dispatch]);
 
   const handleCheckin = () => {
-    setRevealForm(true);
+    setRevealCheckinForm(!revealCheckinForm);
+  };
+
+  const handleEdit = () => {
+    setRevealEditForm(!revealEditForm);
   };
 
 
@@ -37,7 +48,7 @@ const SingleWine = () => {
     ));
 
   const reset = () => {
-    setRevealForm(false);
+    setRevealCheckinForm(false);
     setComment('');
     setLocation();
   }
@@ -55,11 +66,26 @@ const SingleWine = () => {
     history.push(`/users/${userId}`);
   };
 
-  const handleDelete = (e) => {
+  const handleDelete = async (e) => {
     e.preventDefault();
-    dispatch(removeWine(wine.id));
-    history.push('/wines');
-  }
+    await dispatch(removeWine(wine.id))
+      .then(history.push('/wines'));
+  };
+
+  const handleEditSubmit = async (e) => {
+    e.preventDefault();
+    const editedWine = {
+      editName,
+      editImage,
+      editVintage,
+      editVarietal,
+      editWinery,
+      editDescription,
+      editLocation
+    };
+    await dispatch(updateWine(wine.id, editedWine))
+      .then(history.push('/wines'));
+  };
 
   return (
     <div>
@@ -74,10 +100,11 @@ const SingleWine = () => {
       <p>{wine.description}</p>
       <div>
         <button onClick={handleCheckin}>Check-in </button>
-        <button onClick={handleDelete}>Delete</button>
+        <button onClick={handleEdit}>Edit</button>
+        {/* <button onClick={handleDelete}>Delete</button> */}
       </div>
 
-      {revealForm && (
+      {revealCheckinForm && (
         <form onSubmit={handleSubmit}>
           <select>
             <option>--Choose A Location--</option>
@@ -98,6 +125,75 @@ const SingleWine = () => {
           />
           <button>Check In</button>
         </form>
+      )}
+      {revealEditForm && (
+        <form onSubmit={handleEditSubmit}>
+        <label>
+          Name
+        </label>
+        <input
+          type="text"
+          value={editName}
+          onChange={(e) => setEditName(e.target.value)}
+          placeholder={wine.name}
+        />
+        <label>
+          Image URL
+        </label>
+        <input
+          type="text"
+          value={editImage}
+          onChange={(e) => setEditImage(e.target.value)}
+          placeholder={wine.image}
+        />
+        <label>
+          Vintage
+        </label>
+        <input
+          type="text"
+          value={editVintage}
+          onChange={(e) => setEditVintage(e.target.value)}
+          placeholder={wine.vintage}
+        />
+        <label>
+          Varietal
+        </label>
+        <input
+          type="text"
+          value={editVarietal}
+          onChange={(e) => setEditVarietal(e.target.value)}
+          placeholder={wine.varietal}
+        />
+        <label>
+          Winery
+        </label>
+        <input
+          type="text"
+          value={editWinery}
+          onChange={(e) => setEditWinery(e.target.value)}
+          placeholder={winery.name}
+        />
+        <label>
+          Wine location
+        </label>
+        <input
+          type="text"
+          value={editLocation}
+          onChange={(e) => setEditlocation(e.target.value)}
+          placeholder={winery.location}
+        />
+        <label>
+          Description
+        </label>
+        <textarea
+          value={editDescription}
+          onChange={(e) => setEditDescription(e.target.value)}
+          placeholder={wine.description}
+        >
+        </textarea>
+        <button type="submit">Edit This Wine</button>
+        <button onClick={handleDelete}>Delete</button>
+      </form>
       )}
     </div>
   )

@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 const LOAD_WINES = 'wines/loadWines';
 const DELETE_WINE = 'wines/deleteWine';
 const ADD_WINE = 'wines/addWine';
+const EDIT_WINE = 'wines/editWine';
 
 const loadWines = (payload) => {
   return {
@@ -12,7 +13,6 @@ const loadWines = (payload) => {
 };
 
 const deleteWine = (id) => {
-  console.log('*********', id);
   return {
     type: DELETE_WINE,
     id
@@ -22,6 +22,13 @@ const deleteWine = (id) => {
 const addWine = (payload) => {
   return {
     type: ADD_WINE,
+    payload
+  };
+};
+
+const editWine = (payload) => {
+  return {
+    type: EDIT_WINE,
     payload
   };
 };
@@ -39,10 +46,8 @@ export const getWines = () => async (dispatch) => {
 export const removeWine = (id) => async (dispatch) => {
   await csrfFetch(`/api/wines/${id}`, {
     method: 'DELETE'
-  });
-  console.log('***************')
-  dispatch(deleteWine(id));
-  return;
+  }).then(dispatch(deleteWine(id)));
+  return id;
 };
 
 export const createNewWine = (wine) => async (dispatch) => {
@@ -53,7 +58,17 @@ export const createNewWine = (wine) => async (dispatch) => {
   const data = await response.json();
   dispatch(addWine(data));
   return data;
-}
+};
+
+export const updateWine = (id, wine) => async (dispatch) => {
+  const response = await csrfFetch(`/api/wines/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(wine)
+  });
+  const data = await response.json();
+  dispatch(editWine(data));
+  return data;
+};
 
 const initialState = { allWines: null, wineries: null };
 
@@ -82,9 +97,13 @@ const wineReducer = (state = initialState, action) => {
       }
       return newState;
     case DELETE_WINE:
-      console.log(action)
       newState = { ...state, allWines: { ...state.allWines}, wineries: { ...state.wineries }};
       delete newState.allWines[action.id]
+      return newState;
+    case EDIT_WINE:
+      newState = { ...state, allWines: { ...state.allWines}, wineries: { ...state.wineries}};
+      newState[action.payload.wine.id] = action.payload.wine
+      newState[action.payload.winery.id] = action.payload.wine
       return newState;
     default:
       return state;
