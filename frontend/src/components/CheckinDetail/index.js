@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import './CheckinDetail.css';
 
 const CheckinDetail = ({ user, checkin, wineList, wineries }) => {
   const lastInitial = user?.lastName.split('')[0];

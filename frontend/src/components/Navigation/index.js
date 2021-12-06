@@ -25,8 +25,6 @@ function Navigation({ isLoaded }){
     else setRevealSignup(false);
   };
 
-  const input = document.getElementBy
-
   const handleOutsideClick = useCallback(() => {
     if (document.activeElement === inputRef.current) return;
     else {
@@ -49,11 +47,16 @@ function Navigation({ isLoaded }){
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
-      <ProfileButton user={sessionUser} />
+      <>
+        <NavLink to='/wines' className="link">Wine List</NavLink>
+        <NavLink to={`/users/${sessionUser.id}`} className="link">My Page</NavLink>
+        <ProfileButton user={sessionUser} />
+      </>
     );
   } else {
     sessionLinks = (
       <>
+        <NavLink to='/wines' className="link">Wine List</NavLink>
         <NavLink onClick={showLoginForm} to="/login" className="link">Log In</NavLink>
         <NavLink onClick={showSignupForm} to="/signup" className="link">Sign Up</NavLink>
       </>
@@ -68,7 +71,6 @@ function Navigation({ isLoaded }){
       </div>
       <ul>
         <li >
-          {/* <NavLink exact to="/" className="link">Home</NavLink> */}
           {isLoaded && sessionLinks}
         </li>
       </ul>
