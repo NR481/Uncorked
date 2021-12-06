@@ -88,7 +88,8 @@ router.post('/', asyncHandler(async (req, res) => {
     varietal,
     winery,
     location,
-    description
+    description,
+    userId
   } = req.body;
 
   const validateWinery = await Winery.findOne({
@@ -104,7 +105,8 @@ router.post('/', asyncHandler(async (req, res) => {
       vintage,
       description,
       varietal,
-      wineryId: validateWinery.id
+      wineryId: validateWinery.id,
+      userId
     });
     return res.json({ wine, winery: validateWinery })
 
@@ -120,7 +122,8 @@ router.post('/', asyncHandler(async (req, res) => {
         vintage,
         description,
         varietal,
-        wineryId: newWinery.id
+        wineryId: newWinery.id,
+        userId
       });
 
       return res.json({ wine, winery: newWinery });
