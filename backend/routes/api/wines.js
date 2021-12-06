@@ -18,14 +18,14 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
   return res.json({ wine })
 }));
 
-router.delete('/:id(\\d+)', asyncHandler(async (req, _res) => {
+router.delete('/:id(\\d+)', asyncHandler(async (req, res) => {
   const id = req.params.id;
   const wine = await Wine.findByPk(id);
 
   if (wine) {
     await wine.destroy();
   }
-  return;
+  return res.json({});
 }));
 
 router.put('/:id(\\d+)', asyncHandler(async (req, res) => {

@@ -47,7 +47,7 @@ export const removeWine = (id) => async (dispatch) => {
   await csrfFetch(`/api/wines/${id}`, {
     method: 'DELETE'
   }).then(dispatch(deleteWine(id)));
-  return id;
+  return;
 };
 
 export const createNewWine = (wine) => async (dispatch) => {

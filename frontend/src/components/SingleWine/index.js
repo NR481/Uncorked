@@ -77,6 +77,7 @@ const SingleWine = () => {
     e.preventDefault();
     await dispatch(removeWine(wine.id))
       .then(history.push('/wines'));
+    return;
   };
 
   const handleEditSubmit = async (e) => {
