@@ -18,3 +18,11 @@
 .checkin-link {
   color: rgb(133, 19, 54)
 }
+
+.comment-bubble {
+  border: 1px solid rgba(109, 109, 108, 0.5);
+  height: 100px;
+  padding: 20px;
+  margin: 15px;
+  border-radius: 10px;
+}

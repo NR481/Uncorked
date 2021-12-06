@@ -56,7 +56,6 @@ function Navigation({ isLoaded }){
   } else {
     sessionLinks = (
       <>
-        <NavLink to='/wines' className="link">Wine List</NavLink>
         <NavLink onClick={showLoginForm} to="/login" className="link">Log In</NavLink>
         <NavLink onClick={showSignupForm} to="/signup" className="link">Sign Up</NavLink>
       </>

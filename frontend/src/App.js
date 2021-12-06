@@ -24,17 +24,11 @@ function App() {
           <Route exact path='/'>
             <HomePage />
           </Route>
-          {/* <Route path="/login">
-            <LoginFormPage />
-          </Route> */}
-          {/* <Route path="/signup">
-            <SignupFormPage />
-          </Route> */}
           <Route path="/users/:id">
             <UserPage />
           </Route>
           <Route exact path='/wines'>
-            <WinesPage />
+            <WinesPage isLoaded={isLoaded}/>
           </Route>
           <Route path='/wines/:id'>
             <SingleWine />
