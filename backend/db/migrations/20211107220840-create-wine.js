@@ -33,6 +33,11 @@ module.exports = {
         references: { model: 'Wineries' },
         allowNull: false
       },
+      userId: {
+        type: Sequelize.INTEGER,
+        references: { model: 'Users' },
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

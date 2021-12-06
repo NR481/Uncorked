@@ -9,12 +9,12 @@ import { useHistory } from "react-router";
 const WinesPage = () => {
   const [addWineForm, setAddWineForm] = useState(false);
   const [name, setName] = useState('');
-  const [image, setImage] = useState();
-  const [vintage, setVintage] = useState();
-  const [description, setDescription] = useState();
-  const [varietal, setVarietal] = useState();
-  const [winery, setWinery] = useState();
-  const [location, setlocation] = useState();
+  const [image, setImage] = useState('');
+  const [vintage, setVintage] = useState('');
+  const [description, setDescription] = useState('');
+  const [varietal, setVarietal] = useState('');
+  const [winery, setWinery] = useState('');
+  const [location, setlocation] = useState('');
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -24,6 +24,7 @@ const WinesPage = () => {
 
   const wineObj = useSelector((state) => state.wine.allWines);
   const wineryObj = useSelector((state) => state.wine.wineries);
+  const userId = useSelector((state) => state.session.user.id);
 
   if (!wineObj) return null;
 
@@ -44,7 +45,8 @@ const WinesPage = () => {
       varietal,
       winery,
       location,
-      description
+      description,
+      userId
     };
     await dispatch(createNewWine(newWine));
     setAddWineForm(false);
@@ -98,7 +100,7 @@ const WinesPage = () => {
             onChange={(e) => setWinery(e.target.value)}
           />
           <label>
-            Wine location
+            Region
           </label>
           <input
             type="text"

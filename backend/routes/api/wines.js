@@ -18,14 +18,14 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
   return res.json({ wine })
 }));
 
-router.delete('/:id(\\d+)', asyncHandler(async (req, _res) => {
+router.delete('/:id(\\d+)', asyncHandler(async (req, res) => {
   const id = req.params.id;
   const wine = await Wine.findByPk(id);
 
   if (wine) {
     await wine.destroy();
   }
-  return;
+  return res.json({});
 }));
 
 router.put('/:id(\\d+)', asyncHandler(async (req, res) => {
@@ -88,7 +88,8 @@ router.post('/', asyncHandler(async (req, res) => {
     varietal,
     winery,
     location,
-    description
+    description,
+    userId
   } = req.body;
 
   const validateWinery = await Winery.findOne({
@@ -104,7 +105,8 @@ router.post('/', asyncHandler(async (req, res) => {
       vintage,
       description,
       varietal,
-      wineryId: validateWinery.id
+      wineryId: validateWinery.id,
+      userId
     });
     return res.json({ wine, winery: validateWinery })
 
@@ -120,7 +122,8 @@ router.post('/', asyncHandler(async (req, res) => {
         vintage,
         description,
         varietal,
-        wineryId: newWinery.id
+        wineryId: newWinery.id,
+        userId
       });
 
       return res.json({ wine, winery: newWinery });

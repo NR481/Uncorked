@@ -25,11 +25,16 @@ module.exports = (sequelize, DataTypes) => {
     wineryId: {
       type: DataTypes.INTEGER,
       allowNull: false
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   }, {});
   Wine.associate = function(models) {
-    Wine.hasMany(models.Checkin, { foreignKey: 'wineId' }),
-    Wine.belongsTo(models.Winery, { foreignKey: 'wineryId' })
+    Wine.hasMany(models.Checkin, { foreignKey: 'wineId', onDelete: 'CASCADE', hooks: true }),
+    Wine.belongsTo(models.Winery, { foreignKey: 'wineryId' }),
+    Wine.belongsTo(models.User, { foreignKey: 'userId' })
   };
   return Wine;
 };
