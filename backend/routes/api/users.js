@@ -50,7 +50,7 @@ router.get('/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
     where: { userId }
   });
 
-  return res.json({ user, checkins, lists });
+  return res.json({ user, checkins });
 }));
 
 module.exports = router;
