@@ -14,13 +14,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NR481/authenticate-me.git"
+    "url": "git+https://github.com/NR481/Uncorked.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/NR481/authenticate-me/issues"
+    "url": "https://github.com/NR481/Uncorked/issues"
   },
-  "homepage": "https://github.com/NR481/authenticate-me#readme"
+  "homepage": "https://github.com/NR481/Uncorked#readme"
 }
