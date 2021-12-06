@@ -12,7 +12,8 @@
 }
 
 .checkin-img {
-  height: 295px;
+  max-height: 295px;
+  margin: auto 0;
 }
 
 .checkin-link {

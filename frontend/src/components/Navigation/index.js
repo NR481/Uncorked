@@ -50,6 +50,7 @@ function Navigation({ isLoaded }){
       <>
         <NavLink to='/wines' className="link">Wine List</NavLink>
         <NavLink to={`/users/${sessionUser.id}`} className="link">My Page</NavLink>
+        <ProfileButton user={sessionUser} />
       </>
     );
   } else {
@@ -72,7 +73,6 @@ function Navigation({ isLoaded }){
           {isLoaded && sessionLinks}
         </li>
       </ul>
-      <ProfileButton user={sessionUser} />
       {revealLogin &&
         <LoginFormPage />
       }
