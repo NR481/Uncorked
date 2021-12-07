@@ -4,7 +4,7 @@ body {
 
 .user-banner {
   width: 100%;
-  height: 40vh;
+  height: 50vh;
 }
 
 .user-container {
@@ -24,4 +24,5 @@ body {
 .checkins {
   display: flex;
   flex-direction: column;
+  
 }
