@@ -1,17 +1,20 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { NavLink, useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
 import logo from "../../assets/default-img.png"
 import LoginFormPage from '../LoginFormPage';
 import SignupFormPage from '../SignupFormPage';
+import * as sessionActions from '../../store/session';
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
   const [revealLogin, setRevealLogin] = useState(false);
   const [revealSignup, setRevealSignup] = useState(false);
   const inputRef = React.createRef();
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const showLoginForm = (e) => {
     e.preventDefault();
@@ -44,6 +47,16 @@ function Navigation({ isLoaded }){
     })
   }, [revealLogin, revealSignup, handleOutsideClick]);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(sessionActions.login({ credential: 'Demo-lition', password: 'password' }));
+    history.push('/users/1')
+      // .catch(async (res) => {
+      //   const data = await res.json();
+      //   // if (data && data.errors) setErrors(data.errors);
+      // });
+  };
+
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
@@ -56,6 +69,7 @@ function Navigation({ isLoaded }){
   } else {
     sessionLinks = (
       <>
+        <NavLink onClick={handleSubmit} to="/users/1" className="link">Demo</NavLink>
         <NavLink onClick={showLoginForm} to="/login" className="link">Log In</NavLink>
         <NavLink onClick={showSignupForm} to="/signup" className="link">Sign Up</NavLink>
       </>

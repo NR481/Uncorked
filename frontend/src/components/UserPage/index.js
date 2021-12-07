@@ -12,14 +12,14 @@ const UserPage = () => {
   const wineObj = useSelector((state) => state.wine.allWines);
   const wineryObj = useSelector((state) => state.wine.wineries);
 
+
   useEffect(() => {
-    dispatch(getCheckins(user.id));
-  }, [dispatch, user.id]);
+    dispatch(getCheckins(user?.id));
+  }, [dispatch, user?.id]);
 
   useEffect(() => {
     dispatch(getWines());
   }, [dispatch]);
-
 
   if(!checkinsObj) return null;
 
