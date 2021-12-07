@@ -50,11 +50,7 @@ function Navigation({ isLoaded }){
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(sessionActions.login({ credential: 'Demo-lition', password: 'password' }));
-    history.push('/users/1')
-      // .catch(async (res) => {
-      //   const data = await res.json();
-      //   // if (data && data.errors) setErrors(data.errors);
-      // });
+    history.push('/users/1');
   };
 
   let sessionLinks;
