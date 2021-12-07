@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import sessionReducer from './session';
 import wineReducer from './wines';
 import checkinsReducer from './checkins';
+import commentsReducer from './comments';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   wine: wineReducer,
-  checkins: checkinsReducer
+  checkins: checkinsReducer,
+  comments: commentsReducer
 });
 
 let enhancer;
