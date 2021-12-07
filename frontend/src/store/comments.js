@@ -43,9 +43,8 @@ const commentsReducer = (state = {}, action) => {
       });
       return newState;
     case ADD_COMMENT:
-      console.log(action);
       newState = { ...state,
-        [action.comment.id]: action.comment
+        [action.comment.newComment.id]: action.comment.newComment
       }
       return newState;
     default:

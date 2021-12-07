@@ -20,6 +20,7 @@ const Comments = ({ checkin, user }) => {
       userId: user.id
     };
     await dispatch(createComment(newComment));
+    setComment('');
   }
 
   const allComments = Object.values(commentsObj);
