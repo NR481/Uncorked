@@ -3,7 +3,6 @@ import './Checkins.css';
 
 
 const Checkins = ({ user, checkins, wineList, wineries }) => {
-  console.log(user);
   return (
     <div className='checkins-container'>
       <h2 className='user-header'>{`${user.firstName}'s Recent Activity`}</h2>

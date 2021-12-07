@@ -21,7 +21,6 @@ const SingleCheckinPage = () => {
   const winery = wineries.find((winery) => winery.id === checkin.wineryId);
   const lastInitial = user?.lastName.split('')[0];
 
-
   const reset = () => {
     setWineChoice('');
     setComment('')
@@ -85,7 +84,7 @@ const SingleCheckinPage = () => {
           <button>Submit Changes</button>
         </form>
       }
-      <Comments />
+      <Comments checkin={checkin} user={user} />
     </div>
   )
 }

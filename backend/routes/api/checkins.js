@@ -1,9 +1,17 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
 const { requireAuth } = require('../../utils/auth');
-const { Checkin } = require('../../db/models');
+const { Checkin, Comment } = require('../../db/models');
 
 const router = express.Router();
+
+router.get('/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
+  const checkinId = req.params.id;
+  const comments = await Comment.findAll({
+    where: { checkinId }
+  });
+  return res.json({ comments });
+}));
 
 router.post('/', requireAuth, asyncHandler(async (req, res) => {
   const { comment, userId, wineryId, wineId } = req.body;

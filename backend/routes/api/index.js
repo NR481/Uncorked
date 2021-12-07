@@ -6,11 +6,13 @@ const sessionRouter = require('./session');
 const usersRouter = require('./users');
 const winesRouter = require('./wines');
 const checkinsRouter = require('./checkins');
+const commentsRouter = require('./comments');
 
 router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
 router.use('/wines', winesRouter);
 router.use('/checkins', checkinsRouter);
+router.use('/comments', commentsRouter);
 
 router.post('/test', (req, res) => {
   res.json({ requestbody: req.body });
