@@ -3,6 +3,7 @@ import { useParams, useLocation, useHistory } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { updateCheckin, removeCheckin } from "../../store/checkins";
+import Comments from "../Comments";
 
 
 const SingleCheckinPage = () => {
@@ -84,6 +85,7 @@ const SingleCheckinPage = () => {
           <button>Submit Changes</button>
         </form>
       }
+      <Comments />
     </div>
   )
 }

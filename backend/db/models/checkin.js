@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
   Checkin.associate = function(models) {
     Checkin.belongsTo(models.User, { foreignKey: 'userId' }),
     Checkin.belongsTo(models.Winery, { foreignKey: 'wineryId' }),
-    Checkin.belongsTo(models.Wine, { foreignKey: 'wineId' })
+    Checkin.belongsTo(models.Wine, { foreignKey: 'wineId' }),
+    Checkin.hasMany(models.Comment, { foreignKey: 'checkinId', onDelete: 'CASCADE', hooks: true })
   };
   return Checkin;
 };
