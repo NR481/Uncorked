@@ -15,7 +15,7 @@ const CheckinDetail = ({ user, checkin, wineList, wineries }) => {
         <NavLink to={`/wines/${checkin?.wineId}`} className='checkin-link'>
           {wine.name}
         </NavLink>
-        {` from ${winery.name} `}
+        {` by ${winery.name} `}
         <p className='comment-bubble'>{checkin.comment}</p>
         <NavLink
           to={{ pathname: `/checkins/${checkin.id}`, state: { user, checkin, wineList, wineries } }}

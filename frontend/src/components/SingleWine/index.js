@@ -2,9 +2,10 @@ import { getWines, removeWine, updateWine } from "../../store/wines";
 import { newCheckin } from "../../store/checkins";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, NavLink } from "react-router-dom";
 import WineDetail from "../WineDetail";
 import { loadWineCheckins } from "../../store/checkins";
+import './SingleWine.css'
 
 const SingleWine = () => {
   const [revealCheckinForm, setRevealCheckinForm] = useState(false);
@@ -108,7 +109,6 @@ const SingleWine = () => {
 
   return (
     <div>
-      <h1>Single Wine</h1>
       <WineDetail
         key={wine.id}
         id={wine.id}
@@ -208,11 +208,18 @@ const SingleWine = () => {
           <button onClick={handleDelete}>Delete</button>
         </form>
       )}
-      {usersObj.length > 0 &&
+      <h2>See Who's Enjoying This Wine</h2>
+      {Object.keys(usersObj).length > 0 &&
         checkins.map((checkin) => (
-          <>
-            {console.log(checkin, '*************')}
-          </>
+          <div>
+            <h3>
+              {
+                `${usersObj[checkin?.userId].firstName}
+                is drinking a ${wine.name} by ${winery.name}`
+              }
+            </h3>
+            <p>{checkin.comment}</p>
+          </div>
             // <p>
             //   {`${usersObj[checkin?.userId].firstName} says "${checkin?.comment}"`}
             // </p>
