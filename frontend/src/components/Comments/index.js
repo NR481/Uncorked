@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadWineCheckins } from "../../store/checkins";
-import { getComments, createComment } from "../../store/comments";
+import { getComments, createComment, updateComment } from "../../store/comments";
 
 const Comments = ({ checkin, wine, user }) => {
   const commentsObj = useSelector(state => state.comments);
   const usersObj = useSelector(state => state.checkins.users);
 
   const [comment, setComment] = useState('');
+  const [commentId, setCommentId] = useState()
+  const [editComment, setEditComment] = useState('');
+  const [revealForm, setRevealForm] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,7 +31,9 @@ const Comments = ({ checkin, wine, user }) => {
     };
     await dispatch(createComment(newComment));
     setComment('');
-  }
+  };
+
+
 
   const allComments = Object.values(commentsObj);
 
@@ -36,20 +41,48 @@ const Comments = ({ checkin, wine, user }) => {
     return +comment.checkinId === +checkin.id;
   });
 
-  console.log(comments);
+  const handleEdit = (e) => {
+    e.preventDefault();
+    setRevealForm(!revealForm);
+  };
 
-  const users = Object.values(usersObj);
-  const commentUser = users.find((user) => +user.id === +comments.userId);
-  console.log(commentsObj);
-
+  const handleEditComment = async () => {
+    const editedComment = {
+      comment: editComment,
+      checkinId: checkin.id,
+      userId: user.id
+    };
+    await dispatch(updateComment(commentId, editedComment));
+    setRevealForm(false);
+  };
 
   return (
     <div>
       <h2>Comments</h2>
       {Object.values(usersObj).length > 0 &&
-        comments.map((comment) => (
+        comments.map((com) => (
           <div>
-            {`${usersObj[comment.userId].firstName} says, "${comment.comment}""`}
+            {`${usersObj[com.userId].firstName} says, "${com.comment}"`}
+            {user.id === com.userId &&
+              <div>
+                <button onClick={handleEdit}>Edit</button>
+                <div>
+                  {revealForm &&
+                    <form onSubmit={handleEditComment}>
+                      <input
+                        value={editComment}
+                        onChange={(e) => {
+                          setEditComment(e.target.value)
+                          setCommentId(com.id)
+                          return;
+                        }}
+                      />
+                      <button>Edit Comment</button>
+                    </form>
+                  }
+                </div>
+              </div>
+            }
           </div>
         ))
       }

@@ -24,6 +24,7 @@ const SingleCheckinPage = () => {
     dispatch(loadWineCheckins(wine.id));
   }, [dispatch, wine.id]);
 
+  if (!user) return null;
   const winery = wineries.find((winery) => winery.id === checkin.wineryId);
   const users = Object.values(userObj);
   const checkinUser = users.find((user) => +user.id === +userObj[checkin.userId].id);
@@ -47,14 +48,15 @@ const SingleCheckinPage = () => {
 
     await dispatch(updateCheckin(id, checkinEdit));
     reset();
-    history.push(`/users/${user.id}`)
+    history.push(`/users/${user?.id}`)
   }
 
   const handleDelete =  (e) => {
     e.preventDefault();
     dispatch(removeCheckin(id));
-    history.push(`/users/${user.id}`);
+    history.push(`/users/${user?.id}`);
   }
+
 
   return (
     <div>
