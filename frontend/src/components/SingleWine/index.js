@@ -22,21 +22,26 @@ const SingleWine = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    dispatch(loadWineCheckins(id))
+  }, [dispatch, id])
+
+
   useEffect(() => {
     dispatch(getWines());
-    dispatch(loadWineCheckins(id))
   }, [dispatch]);
-
 
   const handleCheckin = () => {
     setRevealCheckinForm(!revealCheckinForm);
   };
 
-  const { id } = useParams();
   const wineObj = useSelector((state) => state.wine.allWines);
   const wineryObj = useSelector((state) => state.wine.wineries);
   const userId = useSelector((state) => state.session.user.id);
-  const checkinsObj = useSelector((state) => state.checkins.checkins);
+  const checkinsObj = useSelector((state) => state.checkins?.checkins);
   const usersObj = useSelector((state) => state.checkins.users);
 
   if (!wineObj) return null;
@@ -47,7 +52,6 @@ const SingleWine = () => {
     winery.id === wine.wineryId
   ));
   const checkins = Object.values(checkinsObj);
-  const users = Object.values(usersObj);
 
   console.log(checkins)
   console.log(usersObj)

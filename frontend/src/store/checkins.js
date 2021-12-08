@@ -96,7 +96,7 @@ export const removeCheckin = (id) => async (dispatch) =>  {
 
 
 
-const checkinsReducer = (state = { checkins: null, users: null }, action) => {
+const checkinsReducer = (state = { checkins: {}, users: null }, action) => {
   let newState;
   switch (action.type) {
     case ADD_CHECKIN:
