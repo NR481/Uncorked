@@ -19,7 +19,7 @@ const SingleCheckinPage = () => {
   const [comment, setComment] = useState(checkin.comment);
 
   const winery = wineries.find((winery) => winery.id === checkin.wineryId);
-  const lastInitial = user?.lastName.split('')[0];
+
 
   const reset = () => {
     setWineChoice('');
@@ -51,13 +51,13 @@ const SingleCheckinPage = () => {
 
   return (
     <div>
-      <h2>{`${user.firstName} ${lastInitial}.`}</h2>
+      <img src={wine.image} alt='wine label'/>
+      <h2>{`${user.firstName} is drinking a `}</h2>
       <NavLink to={`/wines/${wine.id}`}>
-        {wine.name}
+        {`${wine.name} by `}
       </NavLink>
       <p>{winery.name}</p>
       <p>{winery.location}</p>
-      <img src={wine.image} alt='wine label'/>
       {checkin.comment}
       <button onClick={showForm}>Edit</button>
       <button onClick={handleDelete}>Delete</button>
@@ -84,7 +84,7 @@ const SingleCheckinPage = () => {
           <button>Submit Changes</button>
         </form>
       }
-      <Comments checkin={checkin} user={user} />
+      <Comments checkin={checkin} wine={wine}/>
     </div>
   )
 }

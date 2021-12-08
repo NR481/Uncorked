@@ -41,7 +41,7 @@ const SingleWine = () => {
 
   const wineObj = useSelector((state) => state.wine.allWines);
   const wineryObj = useSelector((state) => state.wine.wineries);
-  const userId = useSelector((state) => state.session.user.id);
+  const user = useSelector((state) => state.session.user);
   const checkinsObj = useSelector((state) => state.checkins?.checkins);
   const usersObj = useSelector((state) => state.checkins?.users);
 
@@ -54,6 +54,7 @@ const SingleWine = () => {
     winery.id === wine.wineryId
   ));
   const checkins = Object.values(checkinsObj);
+  const wineList = Object.values(wineObj);
 
   const handleEdit = () => {
     setRevealEditForm(!revealEditForm);
@@ -76,13 +77,13 @@ const SingleWine = () => {
     e.preventDefault();
     const checkin = {
       comment,
-      userId,
+      userId: user.id,
       wineryId: winery.id,
       wineId: wine.id
     }
     await dispatch(newCheckin(checkin));
     reset();
-    history.push(`/users/${userId}`);
+    history.push(`/users/${user.id}`);
   };
 
   const handleDelete = async (e) => {
@@ -119,7 +120,7 @@ const SingleWine = () => {
       <p>{wine.description}</p>
       <div>
         <button onClick={handleCheckin}>Check-in </button>
-        {wine.userId === userId &&
+        {wine.userId === user.id &&
           <button onClick={handleEdit}>Edit</button>
         }
       </div>
@@ -210,7 +211,7 @@ const SingleWine = () => {
       )}
       <h2>See Who's Enjoying This Wine</h2>
       {Object.keys(usersObj).length > 0 &&
-        checkins.map((checkin) => (
+        checkins?.map((checkin) => (
           <div>
             <h3>
               {
@@ -219,6 +220,10 @@ const SingleWine = () => {
               }
             </h3>
             <p>{checkin.comment}</p>
+            <NavLink
+          to={{ pathname: `/checkins/${checkin.id}`, state: { user, checkin, wineList, wineries } }}
+          className='checkin-link '
+        >View Details</NavLink>
           </div>
             // <p>
             //   {`${usersObj[checkin?.userId].firstName} says "${checkin?.comment}"`}
