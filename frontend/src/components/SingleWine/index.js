@@ -53,9 +53,6 @@ const SingleWine = () => {
   ));
   const checkins = Object.values(checkinsObj);
 
-  console.log(checkins)
-  console.log(usersObj)
-
   const handleEdit = () => {
     setRevealEditForm(!revealEditForm);
     setEditName(wine.name);

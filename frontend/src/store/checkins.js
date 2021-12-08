@@ -96,7 +96,7 @@ export const removeCheckin = (id) => async (dispatch) =>  {
 
 
 
-const checkinsReducer = (state = { checkins: {}, users: null }, action) => {
+const checkinsReducer = (state = { checkins: {}, users: {} }, action) => {
   let newState;
   switch (action.type) {
     case ADD_CHECKIN:
@@ -126,8 +126,7 @@ const checkinsReducer = (state = { checkins: {}, users: null }, action) => {
       delete newState.checkins[action.id];
       return newState;
     case GET_CHECKINS:
-      console.log(action);
-      newState = { ...state, checkins: { ...state.checkins }, users: { ...state.users } }
+      newState = { ...state, checkins: {}, users: { ...state.users } }
       action.checkins.checkins.forEach((checkin) => {
         newState.checkins[checkin.id] = checkin
       })
