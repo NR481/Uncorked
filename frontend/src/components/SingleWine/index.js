@@ -45,6 +45,7 @@ const SingleWine = () => {
   const usersObj = useSelector((state) => state.checkins?.users);
 
   if (!wineObj) return null;
+  if (!usersObj) return null;
 
   const wine = wineObj[id];
   const wineries = Object.values(wineryObj);
@@ -207,11 +208,14 @@ const SingleWine = () => {
           <button onClick={handleDelete}>Delete</button>
         </form>
       )}
-      {checkins &&
+      {usersObj.length > 0 &&
         checkins.map((checkin) => (
-          <p>{`${usersObj.length > 0 &&
-            usersObj[checkin?.userId].firstName} says "${checkin?.comment}"`}
-          </p>
+          <>
+            {console.log(checkin, '*************')}
+          </>
+            // <p>
+            //   {`${usersObj[checkin?.userId].firstName} says "${checkin?.comment}"`}
+            // </p>
         ))
       }
     </div>
