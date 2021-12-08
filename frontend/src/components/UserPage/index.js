@@ -8,7 +8,7 @@ import './UserPage.css';
 const UserPage = () => {
   const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
-  const checkinsObj = useSelector((state) => state.checkins);
+  const checkinsObj = useSelector((state) => state.checkins.checkins);
   const wineObj = useSelector((state) => state.wine.allWines);
   const wineryObj = useSelector((state) => state.wine.wineries);
 
@@ -40,7 +40,7 @@ const UserPage = () => {
         alt='Vineyard Rows'
         className='user-banner'
       />
-      <h2 className='welcome'>{`Welcome, ${user.firstName} ${user.lastName}`}</h2>
+      <h2 className='welcome'>{`Welcome, ${user?.firstName} ${user?.lastName}`}</h2>
       <Checkins
         user={user}
         checkins={checkins}

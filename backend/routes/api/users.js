@@ -53,4 +53,13 @@ router.get('/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
   return res.json({ user, checkins });
 }));
 
+router.get('/:id(\\d+)/profile', asyncHandler(async (req, res) => {
+  const userId = req.params.id;
+  const profile = await User.toSafeObject(userId);
+  const checkins = await Checkin.findAll({
+    where: { userId }
+  });
+  return res.json({ profile, checkins });
+}));
+
 module.exports = router;

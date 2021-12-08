@@ -1,9 +1,10 @@
 import { getWines, removeWine, updateWine } from "../../store/wines";
+import { newCheckin } from "../../store/checkins";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import WineDetail from "../WineDetail";
-import { newCheckin } from "../../store/checkins";
+import { loadWineCheckins } from "../../store/checkins";
 
 const SingleWine = () => {
   const [revealCheckinForm, setRevealCheckinForm] = useState(false);
@@ -23,6 +24,7 @@ const SingleWine = () => {
 
   useEffect(() => {
     dispatch(getWines());
+    dispatch(loadWineCheckins(id))
   }, [dispatch]);
 
 
@@ -34,6 +36,8 @@ const SingleWine = () => {
   const wineObj = useSelector((state) => state.wine.allWines);
   const wineryObj = useSelector((state) => state.wine.wineries);
   const userId = useSelector((state) => state.session.user.id);
+  const checkinsObj = useSelector((state) => state.checkins.checkins);
+  const usersObj = useSelector((state) => state.checkins.users);
 
   if (!wineObj) return null;
 
@@ -42,6 +46,11 @@ const SingleWine = () => {
   const winery = wineries.find((winery) => (
     winery.id === wine.wineryId
   ));
+  const checkins = Object.values(checkinsObj);
+  const users = Object.values(usersObj);
+
+  console.log(checkins)
+  console.log(usersObj)
 
   const handleEdit = () => {
     setRevealEditForm(!revealEditForm);
@@ -197,6 +206,11 @@ const SingleWine = () => {
           <button onClick={handleDelete}>Delete</button>
         </form>
       )}
+      {checkins &&
+        checkins.map((checkin) => (
+          <p>{`${usersObj[checkin.userId].firstName} says "${checkin.comment}"`}</p>
+        ))
+      }
     </div>
   )
 };

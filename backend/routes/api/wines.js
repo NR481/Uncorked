@@ -1,6 +1,6 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
-const { Wine, Winery } = require('../../db/models');
+const { Wine, Winery, Checkin, User } = require('../../db/models');
 
 const router = express.Router();
 
@@ -15,7 +15,11 @@ router.get('/', asyncHandler(async (_req, res) => {
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
   const id = req.params.id;
   const wine = await Wine.findByPk(id);
-  return res.json({ wine })
+  const checkins = await Checkin.findAll({
+    where: { wineId: id}
+  });
+  const users = await User.findAll();
+  return res.json({ wine, checkins, users });
 }));
 
 router.delete('/:id(\\d+)', asyncHandler(async (req, res) => {

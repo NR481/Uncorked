@@ -5,6 +5,7 @@ const LOAD_CHECKINS = 'checkins/loadCheckins';
 const REMOVE_CHECKINS = 'checkins/removeCheckins';
 const EDIT_CHECKIN = 'checkins/editCheckins';
 const DELETE_CHECKIN = 'checkins/deleteCheckin';
+const GET_CHECKINS = 'checkins/getCheckins';
 
 const addCheckin = (payload) => {
   return {
@@ -40,6 +41,13 @@ const deleteCheckin = (id) => {
   };
 };
 
+const getWineCheckins = (checkins) => {
+  return {
+    type: GET_CHECKINS,
+    checkins
+  };
+};
+
 export const newCheckin = (input) => async (dispatch) => {
   const response = await csrfFetch('/api/checkins', {
     method: 'POST',
@@ -55,7 +63,14 @@ export const getCheckins = (id) => async (dispatch) => {
   const data = await response.json();
   dispatch(loadCheckins(data));
   return data;
-}
+};
+
+export const loadWineCheckins = (id) => async (dispatch) => {
+  const response = await csrfFetch(`/api/wines/${id}`);
+  const data = await response.json();
+  dispatch(getWineCheckins(data));
+  return data;
+};
 
 export const updateCheckin = (id, input) => async (dispatch) => {
   const response = await csrfFetch(`/api/checkins/${id}`, {
@@ -81,30 +96,44 @@ export const removeCheckin = (id) => async (dispatch) =>  {
 
 
 
-const checkinsReducer = (state = {}, action) => {
+const checkinsReducer = (state = { checkins: null, users: null }, action) => {
   let newState;
   switch (action.type) {
     case ADD_CHECKIN:
       newState = { ...state,
-        [action.payload.checkin.id]: action.payload.checkin
+        checkins:
+        { ...state.checkins,
+          [action.payload.checkin.id]: action.payload.checkin
+        },
+        users: { ...state.users }
       }
       return newState;
     case LOAD_CHECKINS:
-      newState = { ...state}
+      newState = { ...state, checkins: { ...state.checkins}, users: { ...state.users } }
       action.checkins.checkins.forEach((checkin) => {
-        newState[checkin.id] = checkin;
+        newState.checkins[checkin.id] = checkin;
       })
       return newState;
     case REMOVE_CHECKINS:
       newState = null;
       return newState
     case EDIT_CHECKIN:
-      newState = { ...state }
+      newState = { ...state, checkins: { ...state.checkins}, users: { ...state.users } }
       newState[action.checkin.checkin.id] = action.checkin.checkin;
       return newState;
     case DELETE_CHECKIN:
-      newState = { ...state }
-      delete newState[action.id];
+      newState = { ...state, checkins: { ...state.checkins }, users: { ...state.users } }
+      delete newState.checkins[action.id];
+      return newState;
+    case GET_CHECKINS:
+      console.log(action);
+      newState = { ...state, checkins: { ...state.checkins }, users: { ...state.users } }
+      action.checkins.checkins.forEach((checkin) => {
+        newState.checkins[checkin.id] = checkin
+      })
+      action.checkins.users.forEach((user) => {
+        newState.users[user.id] = user
+      })
       return newState;
     default:
       return state;
