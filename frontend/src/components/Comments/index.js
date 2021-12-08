@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadWineCheckins } from "../../store/checkins";
 import { getComments, createComment } from "../../store/comments";
 
-const Comments = ({ checkin, wine }) => {
+const Comments = ({ checkin, wine, user }) => {
   const commentsObj = useSelector(state => state.comments);
   const usersObj = useSelector(state => state.checkins.users);
 
@@ -18,8 +18,6 @@ const Comments = ({ checkin, wine }) => {
     dispatch(loadWineCheckins(wine.id));
   }, [dispatch, wine.id]);
 
-  const users = Object.values(usersObj);
-  const user = users.find((user) => +user.id === +checkin.userId);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,14 +36,20 @@ const Comments = ({ checkin, wine }) => {
     return +comment.checkinId === +checkin.id;
   });
 
+  console.log(comments);
+
+  const users = Object.values(usersObj);
+  const commentUser = users.find((user) => +user.id === +comments.userId);
+  console.log(commentsObj);
+
 
   return (
     <div>
       <h2>Comments</h2>
-      {comments &&
+      {Object.values(usersObj).length > 0 &&
         comments.map((comment) => (
           <div>
-            {`${user.firstName} says, "${comment.comment}""`}
+            {`${usersObj[comment.userId].firstName} says, "${comment.comment}""`}
           </div>
         ))
       }

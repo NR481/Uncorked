@@ -1,8 +1,8 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
-import { updateCheckin, removeCheckin } from "../../store/checkins";
+import { useEffect, useState } from "react";
+import { updateCheckin, removeCheckin, loadWineCheckins } from "../../store/checkins";
 import Comments from "../Comments";
 
 
@@ -12,14 +12,21 @@ const SingleCheckinPage = () => {
   const history = useHistory();
   const location = useLocation();
   const { user, checkin, wineList, wineries } = location.state;
+  const userObj = useSelector((state) => state.checkins.users);
+
   const wine = wineList.find((wine) => wine.id === checkin.wineId);
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [wineChoice, setWineChoice] = useState(wine);
   const [comment, setComment] = useState(checkin.comment);
 
-  const winery = wineries.find((winery) => winery.id === checkin.wineryId);
+  useEffect(() => {
+    dispatch(loadWineCheckins(wine.id));
+  }, [dispatch, wine.id]);
 
+  const winery = wineries.find((winery) => winery.id === checkin.wineryId);
+  const users = Object.values(userObj);
+  const checkinUser = users.find((user) => +user.id === +userObj[checkin.userId].id);
 
   const reset = () => {
     setWineChoice('');
@@ -52,7 +59,7 @@ const SingleCheckinPage = () => {
   return (
     <div>
       <img src={wine.image} alt='wine label'/>
-      <h2>{`${user.firstName} is drinking a `}</h2>
+      <h2>{`${checkinUser?.firstName} is drinking a `}</h2>
       <NavLink to={`/wines/${wine.id}`}>
         {`${wine.name} by `}
       </NavLink>
@@ -84,7 +91,7 @@ const SingleCheckinPage = () => {
           <button>Submit Changes</button>
         </form>
       }
-      <Comments checkin={checkin} wine={wine}/>
+      <Comments checkin={checkin} wine={wine} user={user}/>
     </div>
   )
 }
