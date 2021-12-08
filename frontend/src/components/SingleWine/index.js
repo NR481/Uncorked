@@ -42,7 +42,7 @@ const SingleWine = () => {
   const wineryObj = useSelector((state) => state.wine.wineries);
   const userId = useSelector((state) => state.session.user.id);
   const checkinsObj = useSelector((state) => state.checkins?.checkins);
-  const usersObj = useSelector((state) => state.checkins.users);
+  const usersObj = useSelector((state) => state.checkins?.users);
 
   if (!wineObj) return null;
 
@@ -209,7 +209,9 @@ const SingleWine = () => {
       )}
       {checkins &&
         checkins.map((checkin) => (
-          <p>{`${usersObj[checkin.userId].firstName} says "${checkin.comment}"`}</p>
+          <p>{`${usersObj.length > 0 &&
+            usersObj[checkin?.userId].firstName} says "${checkin?.comment}"`}
+          </p>
         ))
       }
     </div>
