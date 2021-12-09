@@ -4,7 +4,7 @@ import { loadWineCheckins } from "../../store/checkins";
 import { getComments, createComment, updateComment, removeComment } from "../../store/comments";
 
 const Comments = ({ id, wine, user }) => {
-  const commentsObj = useSelector(state => state.comments);
+  const commentsObj = useSelector(state => state.comments.comments);
   const usersObj = useSelector(state => state.checkins.users);
   const checkin = useSelector(state => state.checkins.checkins[id]);
 
