@@ -11,10 +11,18 @@ const SingleCheckinPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
-  const { user, checkin, wineList, wineries } = location.state;
+  // const { user, checkin, wineList, wineries } = location.state;
   const userObj = useSelector((state) => state.checkins.users);
+  const user = useSelector((state) => state.session.user);
 
+  const wineObj = useSelector((state) => state.wine.allWines);
+  const wineList = Object.values(wineObj);
   const wine = wineList.find((wine) => wine.id === checkin.wineId);
+
+  const checkin = useSelector((state) => state.checkins.checkins[id]);
+
+  const wineryObj = useSelector((state) => state.wine.wineries);
+  const wineries = Object.values(wineryObj);
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [wineChoice, setWineChoice] = useState(wine);

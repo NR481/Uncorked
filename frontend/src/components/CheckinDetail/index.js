@@ -6,7 +6,6 @@ const CheckinDetail = ({ user, checkin, wineList, wineries }) => {
 
   const wine = wineList.find((wine) => wine.id === checkin.wineId);
   const winery = wineries.find((winery) => winery.id === checkin.wineryId);
-
   return (
     <div key={checkin.id} className='checkin'>
       <img src={wine.image} alt='wine label' className='checkin-img' />
@@ -18,7 +17,7 @@ const CheckinDetail = ({ user, checkin, wineList, wineries }) => {
         {` by ${winery.name} `}
         <p className='comment-bubble'>{checkin.comment}</p>
         <NavLink
-          to={{ pathname: `/checkins/${checkin.id}`, state: { user, checkin, wineList, wineries } }}
+          to={`/checkins/${checkin.id}`}
           className='checkin-link '
         >
           Edit This Checkin
