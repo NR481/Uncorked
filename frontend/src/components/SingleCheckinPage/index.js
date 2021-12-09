@@ -4,30 +4,47 @@ import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { updateCheckin, removeCheckin, loadWineCheckins } from "../../store/checkins";
 import Comments from "../Comments";
+import { getWines } from "../../store/wines";
+import { getComments } from "../../store/comments";
 
 
 const SingleCheckinPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
-  const location = useLocation();
-  const { user, checkin, wineList, wineries } = location.state;
   const userObj = useSelector((state) => state.checkins.users);
+  const user = useSelector((state) => state.session.user);
+  const wineObj = useSelector((state) => state.wine.allWines);
+  const wineryObj = useSelector((state) => state.wine.wineries);
+  const checkin = useSelector((state) => state.checkins.checkins[id]);
 
-  const wine = wineList.find((wine) => wine.id === checkin.wineId);
+  useEffect(() => {
+    dispatch(getWines());
+  }, [dispatch]);
+
+  const wineList = Object.values(wineObj);
+  const wine = wineList.find((wine) => wine.id === checkin?.wineId);
+  const wineries = Object.values(wineryObj);
+
+  useEffect(() => {
+    dispatch(getComments(id));
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    dispatch(loadWineCheckins(wine?.id));
+  }, [dispatch, wine?.id]);
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [wineChoice, setWineChoice] = useState(wine);
-  const [comment, setComment] = useState(checkin.comment);
+  const [comment, setComment] = useState(checkin?.comment);
 
-  useEffect(() => {
-    dispatch(loadWineCheckins(wine.id));
-  }, [dispatch, wine.id]);
 
+  if (!wineryObj) return null;
   if (!user) return null;
-  const winery = wineries.find((winery) => winery.id === checkin.wineryId);
+  const winery = wineries.find((winery) => winery.id === checkin?.wineryId);
   const users = Object.values(userObj);
-  const checkinUser = users.find((user) => +user.id === +userObj[checkin.userId].id);
+  console.log(users)
+  const checkinUser = users.find((user) => +user?.id === +userObj[checkin?.userId].id);
 
   const reset = () => {
     setWineChoice('');
@@ -60,14 +77,14 @@ const SingleCheckinPage = () => {
 
   return (
     <div>
-      <img src={wine.image} alt='wine label'/>
+      <img src={wine?.image} alt='wine label'/>
       <h2>{`${checkinUser?.firstName} is drinking a `}</h2>
-      <NavLink to={`/wines/${wine.id}`}>
-        {`${wine.name} by `}
+      <NavLink to={`/wines/${wine?.id}`}>
+        {`${wine?.name} by `}
       </NavLink>
-      <p>{winery.name}</p>
-      <p>{winery.location}</p>
-      {checkin.comment}
+      <p>{winery?.name}</p>
+      <p>{winery?.location}</p>
+      {checkin?.comment}
       <button onClick={showForm}>Edit</button>
       <button onClick={handleDelete}>Delete</button>
       {isLoaded &&
@@ -93,7 +110,7 @@ const SingleCheckinPage = () => {
           <button>Submit Changes</button>
         </form>
       }
-      <Comments checkin={checkin} wine={wine} user={user}/>
+      <Comments id={id} wine={wine} user={user}/>
     </div>
   )
 }

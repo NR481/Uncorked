@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadWineCheckins } from "../../store/checkins";
-import { getComments, createComment, updateComment } from "../../store/comments";
+import { getComments, createComment, updateComment, removeComment } from "../../store/comments";
 
-const Comments = ({ checkin, wine, user }) => {
-  const commentsObj = useSelector(state => state.comments);
+const Comments = ({ id, wine, user }) => {
+  const commentsObj = useSelector(state => state.comments.comments);
   const usersObj = useSelector(state => state.checkins.users);
+  const checkin = useSelector(state => state.checkins.checkins[id]);
+  const commentCheckins = useSelector(state => state.comments.checkins[id]);
+
+
 
   const [comment, setComment] = useState('');
   const [commentId, setCommentId] = useState()
@@ -14,12 +18,16 @@ const Comments = ({ checkin, wine, user }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getComments(checkin.id));
-  }, [dispatch, checkin.id]);
+    if (checkin){
+      dispatch(getComments(checkin?.id));
+    }
+  }, [dispatch, checkin]);
 
   useEffect(() => {
-    dispatch(loadWineCheckins(wine.id));
-  }, [dispatch, wine.id]);
+    if (commentCheckins && !checkin) {
+      dispatch(loadWineCheckins(commentCheckins.wineId));
+    }
+  }, [dispatch, commentCheckins]);
 
 
   const handleSubmit = async (e) => {
@@ -33,13 +41,14 @@ const Comments = ({ checkin, wine, user }) => {
     setComment('');
   };
 
+  let comments;
+  if (commentsObj) {
+    const allComments = Object.values(commentsObj);
 
-
-  const allComments = Object.values(commentsObj);
-
-  const comments = allComments?.filter((comment) => {
-    return +comment.checkinId === +checkin.id;
-  });
+    comments = allComments?.filter((comment) => {
+      return +comment.checkinId === +checkin?.id;
+    });
+}
 
   const handleEdit = (e) => {
     e.preventDefault();
@@ -56,13 +65,23 @@ const Comments = ({ checkin, wine, user }) => {
     setRevealForm(false);
   };
 
+  // const handleDelete = async (e) => {
+  //   e.preventDefault();
+  //   await dispatch(removeComment())
+  // }
+  let users;
+  if (usersObj) {
+    users = Object.values(usersObj);
+  }
+  // const users = Object.values(usersObj);
+  console.log(wine, '**********');
   return (
     <div>
       <h2>Comments</h2>
-      {Object.values(usersObj).length > 0 &&
-        comments.map((com) => (
+      {users.length > 0 &&
+        comments?.map((com) => (
           <div>
-            {`${usersObj[com.userId].firstName} says, "${com.comment}"`}
+            {`${users[com?.userId]?.firstName} says, "${com?.comment}"`}
             {user.id === com.userId &&
               <div>
                 <button onClick={handleEdit}>Edit</button>
@@ -78,6 +97,13 @@ const Comments = ({ checkin, wine, user }) => {
                         }}
                       />
                       <button>Edit Comment</button>
+                      <button
+                        onClick={async (e) => {
+                          await dispatch(removeComment(com.id))
+                          return;
+                        }}
+                      >
+                        Delete</button>
                     </form>
                   }
                 </div>

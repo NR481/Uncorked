@@ -6,6 +6,7 @@ const REMOVE_CHECKINS = 'checkins/removeCheckins';
 const EDIT_CHECKIN = 'checkins/editCheckins';
 const DELETE_CHECKIN = 'checkins/deleteCheckin';
 const GET_CHECKINS = 'checkins/getCheckins';
+// const GET_CHECKIN = 'checkins/getCheckin'
 
 const addCheckin = (payload) => {
   return {
@@ -47,6 +48,13 @@ const getWineCheckins = (checkins) => {
     checkins
   };
 };
+
+// const getCheckin = (checkin) => {
+//   return {
+//     type: GET_CHECKIN,
+//     checkin
+//   };
+// };
 
 export const newCheckin = (input) => async (dispatch) => {
   const response = await csrfFetch('/api/checkins', {
@@ -92,9 +100,14 @@ export const removeCheckin = (id) => async (dispatch) =>  {
   });
   dispatch(deleteCheckin(id))
   return;
-}
+};
 
-
+// export const getOneCheckin = (id) => async (dispatch) => {
+//   const response = await csrfFetch(`/api/checkins/${id}`);
+//   const data = await response.json();
+//   dispatch(getCheckin(id));
+//   return data;
+// };
 
 const checkinsReducer = (state = { checkins: {}, users: {} }, action) => {
   let newState;
@@ -109,7 +122,7 @@ const checkinsReducer = (state = { checkins: {}, users: {} }, action) => {
       }
       return newState;
     case LOAD_CHECKINS:
-      newState = { ...state, checkins: {}, users: {} }
+      newState = { ...state, checkins: {} }
       action.checkins.checkins.forEach((checkin) => {
         newState.checkins[checkin.id] = checkin;
       })
@@ -126,7 +139,7 @@ const checkinsReducer = (state = { checkins: {}, users: {} }, action) => {
       delete newState.checkins[action.id];
       return newState;
     case GET_CHECKINS:
-      newState = { ...state, checkins: {}, users: {} }
+      newState = { ...state, checkins: {} }
       action.checkins.checkins.forEach((checkin) => {
         newState.checkins[checkin.id] = checkin
       })
