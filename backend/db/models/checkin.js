@@ -14,7 +14,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     wineId: {
       type: DataTypes.INTEGER,
-      allowNull: false}
+      allowNull: false
+    },
+    location: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   }, {});
   Checkin.associate = function(models) {
     Checkin.belongsTo(models.User, { foreignKey: 'userId' }),
