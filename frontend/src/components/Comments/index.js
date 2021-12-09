@@ -74,14 +74,13 @@ const Comments = ({ id, wine, user }) => {
     users = Object.values(usersObj);
   }
   // const users = Object.values(usersObj);
-  console.log(wine, '**********');
   return (
     <div>
       <h2>Comments</h2>
       {users.length > 0 &&
         comments?.map((com) => (
           <div>
-            {`${users[com?.userId]?.firstName} says, "${com?.comment}"`}
+            {`${users[com?.userId-1]?.firstName} says, "${com?.comment}"`}
             {user.id === com.userId &&
               <div>
                 <button onClick={handleEdit}>Edit</button>
