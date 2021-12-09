@@ -80,7 +80,8 @@ const SingleCheckinPage = () => {
   return (
     <div>
       <img src={wine?.image} alt='wine label'/>
-      <h2>{`${checkinUser?.firstName} is drinking a `}</h2>
+      <NavLink to={`/users/${checkinUser?.id}`}>{checkinUser?.firstName}</NavLink>
+      {` is drinking a `}
       <NavLink to={`/wines/${wine?.id}`}>
         {`${wine?.name} by `}
       </NavLink>
