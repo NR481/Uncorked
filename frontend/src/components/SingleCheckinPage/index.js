@@ -5,19 +5,18 @@ import { useEffect, useState } from "react";
 import { updateCheckin, removeCheckin, loadWineCheckins } from "../../store/checkins";
 import Comments from "../Comments";
 import { getWines } from "../../store/wines";
+import { getComments } from "../../store/comments";
 
 
 const SingleCheckinPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
-  const location = useLocation();
-  // const { user, checkin, wineList, wineries } = location.state;
   const userObj = useSelector((state) => state.checkins.users);
   const user = useSelector((state) => state.session.user);
   const wineObj = useSelector((state) => state.wine.allWines);
-  const checkin = useSelector((state) => state.checkins.checkins[id]);
   const wineryObj = useSelector((state) => state.wine.wineries);
+  const checkin = useSelector((state) => state.checkins.checkins[id]);
 
   useEffect(() => {
     dispatch(getWines());
@@ -27,6 +26,10 @@ const SingleCheckinPage = () => {
   const wine = wineList.find((wine) => wine.id === checkin?.wineId);
   const wineries = Object.values(wineryObj);
 
+  // useEffect(() => {
+  //   dispatch(getComments(id));
+  // }, [dispatch, id]);
+
   useEffect(() => {
     dispatch(loadWineCheckins(wine?.id));
   }, [dispatch, wine?.id]);
@@ -35,13 +38,13 @@ const SingleCheckinPage = () => {
   const [wineChoice, setWineChoice] = useState(wine);
   const [comment, setComment] = useState(checkin?.comment);
 
-  console.log(wine);
 
   if (!wineryObj) return null;
   if (!user) return null;
   const winery = wineries.find((winery) => winery.id === checkin?.wineryId);
   const users = Object.values(userObj);
-  const checkinUser = users.find((user) => +user.id === +userObj[checkin.userId].id);
+  console.log(users)
+  const checkinUser = users.find((user) => +user?.id === +userObj[checkin?.userId].id);
 
   const reset = () => {
     setWineChoice('');
@@ -107,7 +110,7 @@ const SingleCheckinPage = () => {
           <button>Submit Changes</button>
         </form>
       }
-      <Comments checkin={checkin} wine={wine} user={user}/>
+      <Comments id={id} wine={wine} user={user}/>
     </div>
   )
 }

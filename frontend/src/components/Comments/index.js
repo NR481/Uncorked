@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadWineCheckins } from "../../store/checkins";
-import { getComments, createComment, updateComment } from "../../store/comments";
+import { getComments, createComment, updateComment, removeComment } from "../../store/comments";
 
-const Comments = ({ checkin, wine, user }) => {
+const Comments = ({ id, wine, user }) => {
   const commentsObj = useSelector(state => state.comments);
   const usersObj = useSelector(state => state.checkins.users);
+  const checkin = useSelector(state => state.checkins.checkins[id]);
 
   const [comment, setComment] = useState('');
   const [commentId, setCommentId] = useState()
@@ -38,7 +39,7 @@ const Comments = ({ checkin, wine, user }) => {
   const allComments = Object.values(commentsObj);
 
   const comments = allComments?.filter((comment) => {
-    return +comment.checkinId === +checkin.id;
+    return +comment.checkinId === +checkin?.id;
   });
 
   const handleEdit = (e) => {
@@ -55,6 +56,11 @@ const Comments = ({ checkin, wine, user }) => {
     await dispatch(updateComment(commentId, editedComment));
     setRevealForm(false);
   };
+
+  // const handleDelete = async (e) => {
+  //   e.preventDefault();
+  //   await dispatch(removeComment())
+  // }
 
   return (
     <div>
@@ -78,6 +84,13 @@ const Comments = ({ checkin, wine, user }) => {
                         }}
                       />
                       <button>Edit Comment</button>
+                      <button
+                        onClick={async (e) => {
+                          await dispatch(removeComment(com.id))
+                          return;
+                        }}
+                      >
+                        Delete</button>
                     </form>
                   }
                 </div>

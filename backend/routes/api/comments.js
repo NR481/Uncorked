@@ -27,6 +27,16 @@ router.put('/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
 
   if (editedComment) await editedComment.save();
   return res.json({ editedComment });
+}));
+
+router.delete('/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  const comment = await Comment.findByPk(id);
+
+  if (comment) {
+    await comment.destroy();
+  }
+  return res.json({ checkin });
 }))
 
 module.exports = router;

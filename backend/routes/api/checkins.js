@@ -7,10 +7,11 @@ const router = express.Router();
 
 router.get('/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
   const checkinId = req.params.id;
+  const checkin = await Checkin.findByPk(checkinId);
   const comments = await Comment.findAll({
     where: { checkinId }
   });
-  return res.json({ comments });
+  return res.json({ checkin, comments });
 }));
 
 router.post('/', requireAuth, asyncHandler(async (req, res) => {
