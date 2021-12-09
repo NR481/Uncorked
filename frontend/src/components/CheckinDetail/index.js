@@ -2,7 +2,6 @@ import { NavLink } from "react-router-dom";
 import './CheckinDetail.css';
 
 const CheckinDetail = ({ user, checkin, wineList, wineries }) => {
-  const lastInitial = user?.lastName.split('')[0];
 
   const wine = wineList.find((wine) => wine.id === checkin.wineId);
   const winery = wineries.find((winery) => winery.id === checkin.wineryId);
@@ -10,7 +9,8 @@ const CheckinDetail = ({ user, checkin, wineList, wineries }) => {
     <div key={checkin.id} className='checkin'>
       <img src={wine.image} alt='wine label' className='checkin-img' />
       <div className='checkin-info'>
-        {`${user?.firstName} ${lastInitial}. is drinking a `}
+        <NavLink to={`/users/${user.id}`} className='checkin-link'>{user.firstName}</NavLink>
+        {' is drinking a '}
         <NavLink to={`/wines/${checkin?.wineId}`} className='checkin-link'>
           {wine.name}
         </NavLink>

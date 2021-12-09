@@ -35,7 +35,7 @@ const SingleCheckinPage = () => {
   }, [dispatch, wine?.id]);
 
   const [isLoaded, setIsLoaded] = useState(false);
-  const [wineChoice, setWineChoice] = useState(wine.name);
+  const [wineChoice, setWineChoice] = useState(wine?.name);
   const [comment, setComment] = useState(checkin?.comment);
   const [location, setLocation] = useState(checkin?.location);
 
@@ -105,7 +105,12 @@ const SingleCheckinPage = () => {
                 </option>
               ))}
           </select>
-          <select
+          <input
+            type="text"
+            onChange={(e) => setLocation(e.target.value)}
+            value={location}
+          />
+          {/* <select
             onChange={(e) => setLocation(e.target.value)}
             value={location}
           >
@@ -120,7 +125,7 @@ const SingleCheckinPage = () => {
             >
               Uncorked at Home
             </option>
-          </select>
+          </select> */}
           <textarea
             onChange={(e) => setComment(e.target.value)}
             value={comment}
