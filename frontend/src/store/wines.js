@@ -70,7 +70,7 @@ export const updateWine = (id, wine) => async (dispatch) => {
   return data;
 };
 
-const initialState = { allWines: null, wineries: null };
+const initialState = { allWines: {}, wineries: {} };
 
 const wineReducer = (state = initialState, action) => {
   let newState;

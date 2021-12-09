@@ -14,12 +14,12 @@ const Comments = ({ checkin, wine, user }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getComments(checkin.id));
-  }, [dispatch, checkin.id]);
+    dispatch(getComments(checkin?.id));
+  }, [dispatch, checkin?.id]);
 
   useEffect(() => {
-    dispatch(loadWineCheckins(wine.id));
-  }, [dispatch, wine.id]);
+    dispatch(loadWineCheckins(wine?.id));
+  }, [dispatch, wine?.id]);
 
 
   const handleSubmit = async (e) => {
