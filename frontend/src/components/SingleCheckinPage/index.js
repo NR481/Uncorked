@@ -26,9 +26,9 @@ const SingleCheckinPage = () => {
   const wine = wineList.find((wine) => wine.id === checkin?.wineId);
   const wineries = Object.values(wineryObj);
 
-  // useEffect(() => {
-  //   dispatch(getComments(id));
-  // }, [dispatch, id]);
+  useEffect(() => {
+    dispatch(getComments(id));
+  }, [dispatch, id]);
 
   useEffect(() => {
     dispatch(loadWineCheckins(wine?.id));

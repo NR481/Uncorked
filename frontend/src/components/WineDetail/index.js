@@ -3,7 +3,7 @@ import './WineDetail.css';
 import bottle from "../../assets/default-img.png";
 
 
-const WineDetail = ({ id, image, name, winery }) => {
+const WineDetail = ({ id, image, name, winery, description }) => {
   const isImage = () =>  {
     if (!image) {
       return bottle;
@@ -15,9 +15,10 @@ const WineDetail = ({ id, image, name, winery }) => {
     <div className='wine-entry'>
       <img src={isImage()} alt='wine label'/>
       <div className='wine-info'>
-        <NavLink to={`/wines/${id}`}>{name}</NavLink>
-        <NavLink to={`/wineries/${winery.id}`}>{winery.name}</NavLink>
-        <p>{winery.location}</p>
+        <h2 className='name'>{name}</h2>
+        <h3>{winery?.name}</h3>
+        <p>{winery?.location}</p>
+        <p>{description}</p>
       </div>
     </div>
   );

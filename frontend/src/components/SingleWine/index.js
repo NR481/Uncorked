@@ -111,16 +111,17 @@ const SingleWine = () => {
   return (
     <div>
       <WineDetail
-        key={wine.id}
-        id={wine.id}
-        image={wine.image}
-        name={wine.name}
+        key={wine?.id}
+        id={wine?.id}
+        image={wine?.image}
+        name={wine?.name}
         winery={winery}
+        description={wine?.description}
       />
-      <p>{wine.description}</p>
+      {/* <p>{wine.description}</p> */}
       <div>
         <button onClick={handleCheckin}>Check-in </button>
-        {wine.userId === user.id &&
+        {wine?.userId === user?.id &&
           <button onClick={handleEdit}>Edit</button>
         }
       </div>

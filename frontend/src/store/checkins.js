@@ -122,7 +122,7 @@ const checkinsReducer = (state = { checkins: {}, users: {} }, action) => {
       }
       return newState;
     case LOAD_CHECKINS:
-      newState = { ...state, checkins: {}, users: {} }
+      newState = { ...state, checkins: {} }
       action.checkins.checkins.forEach((checkin) => {
         newState.checkins[checkin.id] = checkin;
       })
@@ -139,7 +139,7 @@ const checkinsReducer = (state = { checkins: {}, users: {} }, action) => {
       delete newState.checkins[action.id];
       return newState;
     case GET_CHECKINS:
-      newState = { ...state, checkins: {}, users: {} }
+      newState = { ...state, checkins: {} }
       action.checkins.checkins.forEach((checkin) => {
         newState.checkins[checkin.id] = checkin
       })

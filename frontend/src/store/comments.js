@@ -67,15 +67,15 @@ export const removeComment = (id) => async (dispatch) => {
   return;
 };
 
-const commentsReducer = (state = {}, action) => {
+const commentsReducer = (state = { comments: {}, checkins: {} }, action) => {
   let newState;
   switch (action.type) {
     case LOAD_COMMENTS:
-      newState = { ...state, comments: {}, checkin: {} }
+      newState = { ...state }
       action.comments.comments.forEach((comment) => {
         newState.comments[comment.id] = comment;
       });
-      newState.checkin[action.comments.checkin.id] = action.comments.checkin
+      newState.checkins[action.comments.checkin.id] = action.comments.checkin
       return newState;
     case ADD_COMMENT:
       newState = { ...state,

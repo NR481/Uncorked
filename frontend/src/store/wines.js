@@ -76,7 +76,7 @@ const wineReducer = (state = initialState, action) => {
   let newState;
   switch (action.type){
     case LOAD_WINES:
-      newState = {...state, allWines: { ...state.allWines }, wineries: { ...state.wineries }};
+      newState = {...state};
       action.payload.wines.forEach((wine) => {
         newState.allWines[wine.id] = wine;
       });

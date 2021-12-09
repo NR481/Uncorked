@@ -126,10 +126,10 @@ const WinesPage = ({ isLoaded }) => {
       <div className='wine-page'>
         {wineList.map((wine) => (
           <WineDetail
-            key={wine.id}
-            id={wine.id}
-            image={wine.image}
-            name={wine.name}
+            key={wine?.id}
+            id={wine?.id}
+            image={wine?.image}
+            name={wine?.name}
             winery={wineries.find((winery => (
               winery.id === wine.wineryId
             )))}
