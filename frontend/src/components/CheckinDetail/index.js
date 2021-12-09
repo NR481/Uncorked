@@ -20,7 +20,7 @@ const CheckinDetail = ({ user, checkin, wineList, wineries }) => {
           to={`/checkins/${checkin.id}`}
           className='checkin-link '
         >
-          Edit This Checkin
+          View Details
         </NavLink>
       </div>
     </div>
