@@ -26,6 +26,10 @@ module.exports = {
         allowNull: false,
         references: { model: 'Wines' }
       },
+      location: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

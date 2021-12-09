@@ -15,12 +15,13 @@ router.get('/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
 }));
 
 router.post('/', requireAuth, asyncHandler(async (req, res) => {
-  const { comment, userId, wineryId, wineId } = req.body;
+  const { comment, userId, wineryId, wineId, location } = req.body;
   const checkin = await Checkin.create({
     comment,
     userId,
     wineryId,
-    wineId
+    wineId,
+    location
   });
   return res.json({ checkin });
 }));

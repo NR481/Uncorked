@@ -35,8 +35,9 @@ const SingleCheckinPage = () => {
   }, [dispatch, wine?.id]);
 
   const [isLoaded, setIsLoaded] = useState(false);
-  const [wineChoice, setWineChoice] = useState(wine);
+  const [wineChoice, setWineChoice] = useState(wine.name);
   const [comment, setComment] = useState(checkin?.comment);
+  const [location, setLocation] = useState(checkin?.location);
 
 
   if (!wineryObj) return null;
@@ -52,7 +53,7 @@ const SingleCheckinPage = () => {
   }
 
   const showForm = () => {
-    setIsLoaded(true);
+    setIsLoaded(!isLoaded);
   }
 
   const handleSubmit = async (e) => {
@@ -60,7 +61,8 @@ const SingleCheckinPage = () => {
     const checkinEdit = {
       comment,
       wineId: +wineChoice.split(',')[0],
-      wineryId: +wineChoice.split(',')[1]
+      wineryId: +wineChoice.split(',')[1],
+      location
     };
 
     await dispatch(updateCheckin(id, checkinEdit));
@@ -82,7 +84,7 @@ const SingleCheckinPage = () => {
       <NavLink to={`/wines/${wine?.id}`}>
         {`${wine?.name} by `}
       </NavLink>
-      <p>{winery?.name}</p>
+      <p>{`${winery?.name} at ${checkin?.location}`}</p>
       <p>{winery?.location}</p>
       {checkin?.comment}
       <button onClick={showForm}>Edit</button>
@@ -102,6 +104,22 @@ const SingleCheckinPage = () => {
                 {wine.name}
                 </option>
               ))}
+          </select>
+          <select
+            onChange={(e) => setLocation(e.target.value)}
+            value={location}
+          >
+            <option>--Select a Location--</option>
+            <option
+              value={winery.name}
+            >
+              {winery.name}
+            </option>
+            <option
+              value={'Uncorked at Home'}
+            >
+              Uncorked at Home
+            </option>
           </select>
           <textarea
             onChange={(e) => setComment(e.target.value)}

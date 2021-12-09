@@ -14,7 +14,7 @@ const CheckinDetail = ({ user, checkin, wineList, wineries }) => {
         <NavLink to={`/wines/${checkin?.wineId}`} className='checkin-link'>
           {wine.name}
         </NavLink>
-        {` by ${winery.name} `}
+        {` by ${winery.name} at ${checkin?.location}`}
         <p className='comment-bubble'>{checkin.comment}</p>
         <NavLink
           to={`/checkins/${checkin.id}`}

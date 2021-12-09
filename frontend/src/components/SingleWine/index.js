@@ -10,6 +10,7 @@ import './SingleWine.css'
 const SingleWine = () => {
   const [revealCheckinForm, setRevealCheckinForm] = useState(false);
   const [revealEditForm, setRevealEditForm] = useState(false);
+  const [revealOther, setRevealOther] = useState(false);
   const [location, setLocation] = useState('');
   const [comment, setComment] = useState('');
   const [editName, setEditName] = useState('');
@@ -79,7 +80,8 @@ const SingleWine = () => {
       comment,
       userId: user.id,
       wineryId: winery.id,
-      wineId: wine.id
+      wineId: wine.id,
+      location
     }
     await dispatch(newCheckin(checkin));
     reset();
@@ -108,6 +110,10 @@ const SingleWine = () => {
       .then(history.push('/wines'));
   };
 
+  const revealLocation = () => {
+    return setRevealEditForm(true);
+  }
+
   return (
     <div>
       <WineDetail
@@ -128,15 +134,22 @@ const SingleWine = () => {
 
       {revealCheckinForm && (
         <form onSubmit={handleSubmit}>
-          <select>
+          <select
+            onChange={(e) => setLocation(e.target.value)}
+            value={location}
+          >
             <option>--Choose A Location--</option>
             <option
-              onChange={(e) => setLocation(e.target.value)}
-              value={location}
+              value={winery.name}
             >
               {winery.name}
             </option>
-            <option>Uncorked at Home</option>
+            <option
+              onChange={(e) => setLocation(e.target.value)}
+              value={'Uncorked at Home'}
+            >
+              Uncorked at Home
+            </option>
           </select>
           <textarea
             placeholder='Leave a comment...'
