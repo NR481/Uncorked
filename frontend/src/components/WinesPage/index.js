@@ -14,11 +14,25 @@ const WinesPage = ({ isLoaded }) => {
   const [varietal, setVarietal] = useState('');
   const [winery, setWinery] = useState('');
   const [location, setlocation] = useState('');
+  const [validationErrors, setValidationErrors] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getWines());
   }, [dispatch]);
+
+  useEffect(() => {
+    const errors = [];
+
+    if (name.length < 5 || name.length > 50) errors.push('The name must be between 3 and 50 characters');
+    if (+vintage < 1000) errors.push('Please enter a 4 digit vintage year');
+    if (description.length < 5 || description.length > 280) errors.push('The description must be between 5 and 280 characters');
+    if (winery.length < 5 || winery.length > 50) errors.push('The winery name must be between 5 and 50 characters');
+    if (location.length < 5 || location.length > 50) errors.push('The location must be between 5 and 50 characters');
+    if (varietal.length < 5 || varietal.length > 40) errors.push('The varietal must be between 5 and 50 characters');
+
+    setValidationErrors(errors);
+  }, [description.length, location.length, name.length, varietal.length, vintage, winery.length]);
 
   const wineObj = useSelector((state) => state.wine.allWines);
   const wineryObj = useSelector((state) => state.wine.wineries);
@@ -33,6 +47,7 @@ const WinesPage = ({ isLoaded }) => {
     e.preventDefault();
     setAddWineForm(!addWineForm);
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -64,6 +79,13 @@ const WinesPage = ({ isLoaded }) => {
       </div>
       {addWineForm &&
         <form onSubmit={handleSubmit}>
+          <ul>
+          {validationErrors.length > 0 &&
+            validationErrors.map((error) => (
+              <li key={error}>{error}</li>
+            ))
+          }
+        </ul>
           <label>
             Name
           </label>
@@ -84,7 +106,7 @@ const WinesPage = ({ isLoaded }) => {
             Vintage
           </label>
           <input
-            type="text"
+            type="number"
             value={vintage}
             onChange={(e) => setVintage(e.target.value)}
           />
@@ -120,7 +142,7 @@ const WinesPage = ({ isLoaded }) => {
             onChange={(e) => setDescription(e.target.value)}
           >
           </textarea>
-          <button>Add To Wine List</button>
+          <button disabled={validationErrors.length > 0}>Add To Wine List</button>
         </form>
       }
       <div className='wine-page'>
