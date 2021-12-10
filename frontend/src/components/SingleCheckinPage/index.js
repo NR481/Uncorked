@@ -44,7 +44,6 @@ const SingleCheckinPage = () => {
   if (!user) return null;
   const winery = wineries.find((winery) => winery.id === checkin?.wineryId);
   const users = Object.values(userObj);
-  console.log(users)
   const checkinUser = users.find((user) => +user?.id === +userObj[checkin?.userId].id);
 
   const reset = () => {
@@ -141,7 +140,7 @@ const SingleCheckinPage = () => {
           <button>Submit Changes</button>
         </form>
       }
-      <Comments id={id} wine={wine} user={user} wineries wineList />
+      <Comments id={id} wine={wine} user={user} wineries={wineries} wineList={wineList} />
     </div>
   )
 }
