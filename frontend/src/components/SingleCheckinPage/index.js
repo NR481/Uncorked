@@ -83,7 +83,7 @@ const SingleCheckinPage = () => {
       <NavLink
         to={{
           pathname: `/user/${checkinUser?.id}/profile`,
-          state: { checkinUser, wineries, wineList }
+          state: { user: checkinUser, wineries, wineList }
         }}
       >
         {checkinUser?.firstName}
@@ -141,7 +141,7 @@ const SingleCheckinPage = () => {
           <button>Submit Changes</button>
         </form>
       }
-      <Comments id={id} wine={wine} user={user}/>
+      <Comments id={id} wine={wine} user={user} wineries wineList />
     </div>
   )
 }
