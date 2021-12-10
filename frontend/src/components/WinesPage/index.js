@@ -24,7 +24,7 @@ const WinesPage = ({ isLoaded }) => {
   useEffect(() => {
     const errors = [];
 
-    if (name.length < 5 || name.length > 50) errors.push('The name must be between 3 and 50 characters');
+    if (name.length < 5 || name.length > 50) errors.push('The name must be between 5 and 50 characters');
     if (+vintage < 1000) errors.push('Please enter a 4 digit vintage year');
     if (description.length < 5 || description.length > 280) errors.push('The description must be between 5 and 280 characters');
     if (winery.length < 5 || winery.length > 50) errors.push('The winery name must be between 5 and 50 characters');
