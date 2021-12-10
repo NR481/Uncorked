@@ -83,8 +83,8 @@ const Comments = ({ id, wine, user, wineries, wineList }) => {
           <div>
             <NavLink
               to={{
-                pathname: `/user/${users[com?.userId-1]}/profile`,
-                state: { user: users[com?.userId-1].id, wineries, wineList }
+                pathname: `/user/${users[com?.userId-1]?.id}/profile`,
+                state: { user: users[com?.userId-1], wineries, wineList }
               }}
             >
               {users[com?.userId - 1]?.firstName}
