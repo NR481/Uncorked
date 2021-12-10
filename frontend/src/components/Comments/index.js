@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadWineCheckins } from "../../store/checkins";
 import { getComments, createComment, updateComment, removeComment } from "../../store/comments";
+import { NavLink } from "react-router-dom";
 
-const Comments = ({ id, wine, user }) => {
+const Comments = ({ id, wine, user, wineries, wineList }) => {
   const commentsObj = useSelector(state => state.comments.comments);
   const usersObj = useSelector(state => state.checkins.users);
   const checkin = useSelector(state => state.checkins.checkins[id]);
@@ -18,7 +19,7 @@ const Comments = ({ id, wine, user }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (checkin){
+    if (checkin) {
       dispatch(getComments(checkin?.id));
     }
   }, [dispatch, checkin]);
@@ -48,7 +49,7 @@ const Comments = ({ id, wine, user }) => {
     comments = allComments?.filter((comment) => {
       return +comment.checkinId === +checkin?.id;
     });
-}
+  }
 
   const handleEdit = (e) => {
     e.preventDefault();
@@ -73,14 +74,22 @@ const Comments = ({ id, wine, user }) => {
   if (usersObj) {
     users = Object.values(usersObj);
   }
-  
+
   return (
     <div>
       <h2>Comments</h2>
       {users.length > 0 &&
         comments?.map((com) => (
           <div>
-            {`${users[com?.userId-1]?.firstName} says, "${com?.comment}"`}
+            <NavLink
+              to={{
+                pathname: `/user/${users[com?.userId-1]}/profile`,
+                state: { user: users[com?.userId-1], wineries, wineList }
+              }}
+            >
+              {users[com?.userId - 1]?.firstName}
+            </NavLink>
+            {` says, "${com?.comment}"`}
             {user.id === com.userId &&
               <div>
                 <button onClick={handleEdit}>Edit</button>
