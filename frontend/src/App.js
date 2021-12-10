@@ -8,6 +8,7 @@ import WinesPage from "./components/WinesPage";
 import SingleWine from "./components/SingleWine";
 import SingleCheckinPage from "./components/SingleCheckinPage";
 import HomePage from "./components/HomePage";
+import UserProfile from "./components/UserProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,8 +25,11 @@ function App() {
           <Route exact path='/'>
             <HomePage />
           </Route>
-          <Route path="/users/:id">
+          <Route exact path="/users/:id">
             <UserPage />
+          </Route>
+          <Route path="/user/:id/profile">
+            <UserProfile />
           </Route>
           <Route exact path='/wines'>
             <WinesPage isLoaded={isLoaded}/>
@@ -35,6 +39,9 @@ function App() {
           </Route>
           <Route path='/checkins/:id'>
             <SingleCheckinPage />
+          </Route>
+          <Route>
+            Page Not Found
           </Route>
         </Switch>
       )}

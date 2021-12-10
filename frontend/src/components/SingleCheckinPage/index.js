@@ -80,7 +80,14 @@ const SingleCheckinPage = () => {
   return (
     <div>
       <img src={wine?.image} alt='wine label'/>
-      <NavLink to={`/users/${checkinUser?.id}`}>{checkinUser?.firstName}</NavLink>
+      <NavLink
+        to={{
+          pathname: `/user/${checkinUser?.id}/profile`,
+          state: { checkinUser, wineries, wineList }
+        }}
+      >
+        {checkinUser?.firstName}
+      </NavLink>
       {` is drinking a `}
       <NavLink to={`/wines/${wine?.id}`}>
         {`${wine?.name} by `}

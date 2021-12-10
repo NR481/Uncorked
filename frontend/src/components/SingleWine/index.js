@@ -232,7 +232,15 @@ const SingleWine = () => {
       {Object.keys(usersObj).length > 0 &&
         checkins?.map((checkin) => (
           <div>
-            <NavLink to={`/users/${usersObj[checkin?.userId].id}`}>{usersObj[checkin?.userId].firstName}</NavLink>
+            {/* <NavLink to={`/users/${usersObj[checkin?.userId].id}`}>{usersObj[checkin?.userId].firstName}</NavLink> */}
+            <NavLink
+              to={{
+                pathname: `/user/${usersObj[checkin?.userId].id}/profile`,
+                state: { user: usersObj[checkin?.userId], checkins, wineries, wineList }
+              }}
+            >
+              {usersObj[checkin?.userId].firstName}
+            </NavLink>
             {` is drinking a ${wine.name} by ${winery.name}`}
             <p>{checkin.comment}</p>
             <NavLink

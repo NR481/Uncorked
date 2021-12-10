@@ -5,7 +5,7 @@ import './Checkins.css';
 const Checkins = ({ user, checkins, wineList, wineries }) => {
   return (
     <div className='checkins-container'>
-      <h2 className='user-header'>{`${user.firstName}'s Recent Activity`}</h2>
+      <h2 className='user-header'>{`${user?.firstName}'s Recent Activity`}</h2>
       {checkins.map((checkin) => (
         <CheckinDetail
           checkin={checkin}
