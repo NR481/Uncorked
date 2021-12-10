@@ -6,7 +6,6 @@ import { useEffect } from "react";
 import Checkins from "../Checkins";
 
 const UserProfile = () => {
-  const { id } = useParams();
   const location = useLocation();
   const { user, wineries, wineList } = location.state;
   const checkinsObj = useSelector(state => state.checkins.checkins);
@@ -22,7 +21,6 @@ const UserProfile = () => {
   }, [dispatch]);
 
   const checkins = Object.values(checkinsObj);
-  console.log(user);
 
   return (
     <div className='user-container'>

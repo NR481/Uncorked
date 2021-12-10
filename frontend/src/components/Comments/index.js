@@ -73,7 +73,7 @@ const Comments = ({ id, wine, user }) => {
   if (usersObj) {
     users = Object.values(usersObj);
   }
-  // const users = Object.values(usersObj);
+  
   return (
     <div>
       <h2>Comments</h2>
