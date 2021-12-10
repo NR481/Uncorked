@@ -35,7 +35,7 @@ const SingleCheckinPage = () => {
   }, [dispatch, wine?.id]);
 
   const [isLoaded, setIsLoaded] = useState(false);
-  const [wineChoice, setWineChoice] = useState(wine.name);
+  const [wineChoice, setWineChoice] = useState(wine?.name);
   const [comment, setComment] = useState(checkin?.comment);
   const [location, setLocation] = useState(checkin?.location);
 
@@ -80,7 +80,15 @@ const SingleCheckinPage = () => {
   return (
     <div>
       <img src={wine?.image} alt='wine label'/>
-      <h2>{`${checkinUser?.firstName} is drinking a `}</h2>
+      <NavLink
+        to={{
+          pathname: `/user/${checkinUser?.id}/profile`,
+          state: { checkinUser, wineries, wineList }
+        }}
+      >
+        {checkinUser?.firstName}
+      </NavLink>
+      {` is drinking a `}
       <NavLink to={`/wines/${wine?.id}`}>
         {`${wine?.name} by `}
       </NavLink>
@@ -105,7 +113,12 @@ const SingleCheckinPage = () => {
                 </option>
               ))}
           </select>
-          <select
+          <input
+            type="text"
+            onChange={(e) => setLocation(e.target.value)}
+            value={location}
+          />
+          {/* <select
             onChange={(e) => setLocation(e.target.value)}
             value={location}
           >
@@ -120,7 +133,7 @@ const SingleCheckinPage = () => {
             >
               Uncorked at Home
             </option>
-          </select>
+          </select> */}
           <textarea
             onChange={(e) => setComment(e.target.value)}
             value={comment}

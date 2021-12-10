@@ -28,13 +28,14 @@ router.post('/', requireAuth, asyncHandler(async (req, res) => {
 
 router.put('/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
   const id = req.params.id;
-  const { comment, wineryId, wineId } = req.body;
+  const { comment, wineryId, wineId, location } = req.body;
 
   const checkin = await Checkin.findByPk(id);
   await checkin.update({
     comment,
     wineryId,
-    wineId
+    wineId,
+    location
   });
   if (checkin) {
     await checkin.save();

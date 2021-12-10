@@ -134,7 +134,12 @@ const SingleWine = () => {
 
       {revealCheckinForm && (
         <form onSubmit={handleSubmit}>
-          <select
+          <input
+            onChange={(e) => setLocation(e.target.value)}
+            value={location}
+            placeholder="Enter a location..."
+          />
+          {/* <select
             onChange={(e) => setLocation(e.target.value)}
             value={location}
           >
@@ -150,7 +155,7 @@ const SingleWine = () => {
             >
               Uncorked at Home
             </option>
-          </select>
+          </select> */}
           <textarea
             placeholder='Leave a comment...'
             rows='10'
@@ -227,21 +232,25 @@ const SingleWine = () => {
       {Object.keys(usersObj).length > 0 &&
         checkins?.map((checkin) => (
           <div>
-            <h3>
-              {
-                `${usersObj[checkin?.userId].firstName}
-                is drinking a ${wine.name} by ${winery.name}`
-              }
-            </h3>
+            {/* <NavLink to={`/users/${usersObj[checkin?.userId].id}`}>{usersObj[checkin?.userId].firstName}</NavLink> */}
+            <NavLink
+              to={{
+                pathname: `/user/${usersObj[checkin?.userId].id}/profile`,
+                state: { user: usersObj[checkin?.userId], checkins, wineries, wineList }
+              }}
+            >
+              {usersObj[checkin?.userId].firstName}
+            </NavLink>
+            {` is drinking a ${wine.name} by ${winery.name}`}
             <p>{checkin.comment}</p>
             <NavLink
-          to={{ pathname: `/checkins/${checkin.id}`, state: { user, checkin, wineList, wineries } }}
-          className='checkin-link '
-        >View Details</NavLink>
+              to={{ pathname: `/checkins/${checkin.id}`, state: { user, checkin, wineList, wineries } }}
+              className='checkin-link '
+            >View Details</NavLink>
           </div>
-            // <p>
-            //   {`${usersObj[checkin?.userId].firstName} says "${checkin?.comment}"`}
-            // </p>
+          // <p>
+          //   {`${usersObj[checkin?.userId].firstName} says "${checkin?.comment}"`}
+          // </p>
         ))
       }
     </div>
