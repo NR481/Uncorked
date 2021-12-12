@@ -35,9 +35,9 @@ const deleteComment = (id) => {
 
 export const getComments = (id) => async (dispatch) => {
   const response = await csrfFetch(`/api/checkins/${id}`);
-  const comments = await response.json();
-  dispatch(loadComments(comments));
-  return comments;
+  const data = await response.json();
+  dispatch(loadComments(data));
+  return data;
 };
 
 export const createComment = (comment) => async (dispatch) => {
@@ -86,6 +86,10 @@ const commentsReducer = (state = { comments: {}, checkins: {} }, action) => {
     case EDIT_COMMENT:
       newState = { ...state }
       newState[action.comment.id] = action.comment
+      return newState;
+    case DELETE_COMMENT:
+      newState = { ...state }
+      delete newState.comments[action.id]
       return newState;
     default:
       return state;

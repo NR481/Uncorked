@@ -36,7 +36,7 @@ router.delete('/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
   if (comment) {
     await comment.destroy();
   }
-  return res.json({ checkin });
+  return res.json({ comment });
 }))
 
 module.exports = router;
