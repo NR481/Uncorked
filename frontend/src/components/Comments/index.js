@@ -97,7 +97,7 @@ const Comments = ({ id, wine, user, wineries, wineList }) => {
                 <button onClick={handleEdit}>Edit</button>
                 <div>
                   {revealForm &&
-                    <form onSubmit={handleEditComment}>
+                    <form>
                       <input
                         value={editComment}
                         onChange={(e) => {
@@ -106,7 +106,11 @@ const Comments = ({ id, wine, user, wineries, wineList }) => {
                           return;
                         }}
                       />
-                      <button>Edit Comment</button>
+                      <button
+                        onClick={handleEditComment}
+                      >
+                        Edit Comment
+                      </button>
                       <button
                         onClick={async (e) => {
                           e.preventDefault();
