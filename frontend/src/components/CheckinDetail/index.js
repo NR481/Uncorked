@@ -7,7 +7,7 @@ const CheckinDetail = ({ user, checkin, wineList, wineries }) => {
   const winery = wineries.find((winery) => winery.id === checkin.wineryId);
   return (
     <div key={checkin.id} className='checkin'>
-      <img src={wine.image} alt='wine label' className='checkin-img' />
+      <img src={wine?.image} alt='wine label' className='checkin-img' />
       <div className='checkin-info'>
         <NavLink to={`/users/${user?.id}`} className='checkin-link'>{user?.firstName}</NavLink>
         {' is drinking a '}

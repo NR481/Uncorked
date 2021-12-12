@@ -41,11 +41,11 @@ const SingleWine = () => {
   useEffect(() => {
     const errors = [];
 
-    if (location.length < 5 || location.length > 50) errors.push('Please enter a location between 5 and 50 characters');
-    if (comment.length < 5 || comment.length > 250) errors.push('Please enter a comment between 5 and 250 characters');
+    if (location?.length < 5 || location?.length > 50) errors.push('Please enter a location between 5 and 50 characters');
+    if (comment?.length < 5 || comment?.length > 250) errors.push('Please enter a comment between 5 and 250 characters');
 
     setValidationErrors(errors);
-  }, [comment.length, location.length]);
+  }, [comment?.length, location?.length]);
 
   const handleCheckin = () => {
     setRevealCheckinForm(!revealCheckinForm);
@@ -62,8 +62,8 @@ const SingleWine = () => {
 
   const wine = wineObj[id];
   const wineries = Object.values(wineryObj);
-  const winery = wineries.find((winery) => (
-    winery.id === wine.wineryId
+  const winery = wineries?.find((winery) => (
+    winery.id === wine?.wineryId
   ));
   const checkins = Object.values(checkinsObj);
   const wineList = Object.values(wineObj);

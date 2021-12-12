@@ -63,8 +63,9 @@ const Comments = ({ id, wine, user, wineries, wineList }) => {
       checkinId: checkin.id,
       userId: user.id
     };
-    await dispatch(updateComment(commentId, editedComment));
-    setRevealForm(false);
+    await dispatch(updateComment(commentId, editedComment))
+      .then(dispatch(getComments(checkin?.id)))
+      .then(setRevealForm(false));
   };
 
   // const handleDelete = async (e) => {
@@ -76,7 +77,6 @@ const Comments = ({ id, wine, user, wineries, wineList }) => {
     users = Object.values(usersObj);
   }
 
-  console.log(commentCheckins)
   return (
     <div>
       <h2>Comments</h2>
@@ -97,23 +97,29 @@ const Comments = ({ id, wine, user, wineries, wineList }) => {
                 <button onClick={handleEdit}>Edit</button>
                 <div>
                   {revealForm &&
-                    <form onSubmit={handleEditComment}>
+                    <form>
                       <input
                         value={editComment}
                         onChange={(e) => {
                           setEditComment(e.target.value)
-                          setCommentId(com.id)
+                          setCommentId(com?.id)
                           return;
                         }}
                       />
-                      <button>Edit Comment</button>
+                      <button
+                        onClick={handleEditComment}
+                      >
+                        Edit Comment
+                      </button>
                       <button
                         onClick={async (e) => {
-                          await dispatch(removeComment(com.id))
-                          return;
+                          e.preventDefault();
+                          await dispatch(removeComment(com?.id))
+                            .then(dispatch(getComments(checkin?.id)))
                         }}
                       >
-                        Delete</button>
+                        Delete
+                      </button>
                     </form>
                   }
                 </div>
