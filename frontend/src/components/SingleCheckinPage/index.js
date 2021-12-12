@@ -54,6 +54,8 @@ const SingleCheckinPage = () => {
 
   if (!wineryObj) return null;
   if (!user) return null;
+  if (!userObj) return null;
+  
   const winery = wineries.find((winery) => winery.id === checkin?.wineryId);
   const users = Object.values(userObj);
   const checkinUser = users.find((user) => +user?.id === +userObj[checkin?.userId]?.id);
