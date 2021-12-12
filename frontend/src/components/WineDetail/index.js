@@ -11,10 +11,6 @@ const WineDetail = ({ id, image, name, winery, description }) => {
     return image
   }
 
-  const handleDelete = () => {
-    
-  }
-
   return (
     <div className='wine-entry'>
       <img src={isImage()} alt='wine label'/>
@@ -23,9 +19,6 @@ const WineDetail = ({ id, image, name, winery, description }) => {
         <h3>{winery?.name}</h3>
         <p>{winery?.location}</p>
         <p>{description}</p>
-        <button>
-          Remove from List
-        </button>
       </div>
     </div>
   );

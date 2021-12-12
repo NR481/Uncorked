@@ -60,8 +60,13 @@ router.put('/:id(\\d+)', asyncHandler(async (req, res) => {
       varietal: editVarietal,
       wineryId: winery.id
     });
-    if (wine){
+    await winery.update({
+      name: editWinery,
+      location: editLocation
+    });
+    if (wine && winery){
       await wine.save();
+      await winery.save();
     }
     return res.json({ wine, winery });
   } else {

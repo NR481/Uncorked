@@ -102,8 +102,8 @@ const wineReducer = (state = initialState, action) => {
       return newState;
     case EDIT_WINE:
       newState = { ...state, allWines: { ...state.allWines}, wineries: { ...state.wineries}};
-      newState[action.payload.wine.id] = action.payload.wine
-      newState[action.payload.winery.id] = action.payload.wine
+      newState.allWines[action.payload.wine.id] = action.payload.wine
+      newState.wineries[action.payload.winery.id] = action.payload.winery
       return newState;
     default:
       return state;

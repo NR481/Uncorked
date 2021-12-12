@@ -152,9 +152,6 @@ const WinesPage = () => {
           </button>
         </form>
       }
-      <>
-        {console.log(wineList)}
-      </>
       <div className='wine-page'>
         {wineList?.length > 0 &&
           wineList?.map((wine) => (

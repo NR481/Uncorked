@@ -118,7 +118,7 @@ const SingleWine = () => {
       editLocation
     };
     await dispatch(updateWine(wine.id, editedWine))
-      .then(history.push('/wines'));
+    setRevealEditForm(false);
   };
 
   const revealLocation = () => {

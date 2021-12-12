@@ -39,7 +39,7 @@ const Comments = ({ id, wine, user, wineries, wineList }) => {
       userId: user.id
     };
     await dispatch(createComment(newComment));
-    setComment('');
+    setRevealForm(false);
   };
 
   let comments;
