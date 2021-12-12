@@ -30,21 +30,33 @@ const SingleCheckinPage = () => {
     dispatch(getComments(id));
   }, [dispatch, id]);
 
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [wineChoice, setWineChoice] = useState('');
+  const [comment, setComment] = useState(checkin?.comment);
+  const [location, setLocation] = useState(checkin?.location);
+  const [validationErrors, setValidationErrors] = useState([]);
+
   useEffect(() => {
     dispatch(loadWineCheckins(wine?.id));
   }, [dispatch, wine?.id]);
 
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [wineChoice, setWineChoice] = useState(wine?.name);
-  const [comment, setComment] = useState(checkin?.comment);
-  const [location, setLocation] = useState(checkin?.location);
+
+  useEffect(() => {
+    const errors = [];
+
+    if (!wineChoice) errors.push('Please select a wine');
+    if (comment?.length < 5 || comment?.length > 250) errors.push('Please enter a comment between 5 and 250 characters');
+    if (location?.length < 5 || location?.length > 50) errors.push('Please enter a location between 5 and 50 characters');
+
+    setValidationErrors(errors);
+  }, [wineChoice?.length, comment?.length, location?.length]);
 
 
   if (!wineryObj) return null;
   if (!user) return null;
   const winery = wineries.find((winery) => winery.id === checkin?.wineryId);
   const users = Object.values(userObj);
-  const checkinUser = users.find((user) => +user?.id === +userObj[checkin?.userId].id);
+  const checkinUser = users.find((user) => +user?.id === +userObj[checkin?.userId]?.id);
 
   const reset = () => {
     setWineChoice('');
@@ -65,7 +77,6 @@ const SingleCheckinPage = () => {
     };
 
     await dispatch(updateCheckin(id, checkinEdit));
-    reset();
     history.push(`/users/${user?.id}`)
   }
 
@@ -74,7 +85,6 @@ const SingleCheckinPage = () => {
     dispatch(removeCheckin(id));
     history.push(`/users/${user?.id}`);
   }
-
 
   return (
     <div>
@@ -98,6 +108,11 @@ const SingleCheckinPage = () => {
       <button onClick={handleDelete}>Delete</button>
       {isLoaded &&
         <form onSubmit={handleSubmit}>
+          {validationErrors.length > 0 &&
+            validationErrors.map((error) => (
+              <li key={error}>{error}</li>
+            ))
+          }
           <select
             onChange={(e) => setWineChoice(e.target.value)}
             value={wineChoice}
@@ -117,27 +132,11 @@ const SingleCheckinPage = () => {
             onChange={(e) => setLocation(e.target.value)}
             value={location}
           />
-          {/* <select
-            onChange={(e) => setLocation(e.target.value)}
-            value={location}
-          >
-            <option>--Select a Location--</option>
-            <option
-              value={winery.name}
-            >
-              {winery.name}
-            </option>
-            <option
-              value={'Uncorked at Home'}
-            >
-              Uncorked at Home
-            </option>
-          </select> */}
           <textarea
             onChange={(e) => setComment(e.target.value)}
             value={comment}
           />
-          <button>Submit Changes</button>
+          <button disabled={validationErrors.length > 0}>Submit Changes</button>
         </form>
       }
       <Comments id={id} wine={wine} user={user} wineries={wineries} wineList={wineList} />

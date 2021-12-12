@@ -5,7 +5,7 @@ import WineDetail from "../WineDetail";
 import './WinesPage.css';
 
 
-const WinesPage = ({ isLoaded }) => {
+const WinesPage = () => {
   const [addWineForm, setAddWineForm] = useState(false);
   const [name, setName] = useState('');
   const [image, setImage] = useState('');
@@ -16,6 +16,10 @@ const WinesPage = ({ isLoaded }) => {
   const [location, setlocation] = useState('');
   const [validationErrors, setValidationErrors] = useState([]);
   const dispatch = useDispatch();
+
+  const wineObj = useSelector((state) => state.wine.allWines);
+  const wineryObj = useSelector((state) => state.wine.wineries);
+  const userId = useSelector((state) => state.session.user.id);
 
   useEffect(() => {
     dispatch(getWines());
@@ -34,9 +38,6 @@ const WinesPage = ({ isLoaded }) => {
     setValidationErrors(errors);
   }, [description.length, location.length, name.length, varietal.length, vintage, winery.length]);
 
-  const wineObj = useSelector((state) => state.wine.allWines);
-  const wineryObj = useSelector((state) => state.wine.wineries);
-  const userId = useSelector((state) => state.session.user.id);
 
   if (!wineObj) return null;
 
@@ -145,14 +146,18 @@ const WinesPage = ({ isLoaded }) => {
           <button disabled={validationErrors.length > 0}>Add To Wine List</button>
         </form>
       }
+      <>
+        {console.log(wineList)}
+      </>
       <div className='wine-page'>
-        {wineList.map((wine) => (
+        {wineList?.length > 0 &&
+          wineList?.map((wine) => (
           <WineDetail
             key={wine?.id}
             id={wine?.id}
             image={wine?.image}
             name={wine?.name}
-            winery={wineries.find((winery => (
+            winery={wineries?.find((winery => (
               winery.id === wine.wineryId
             )))}
           />

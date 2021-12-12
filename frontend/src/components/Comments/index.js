@@ -28,7 +28,7 @@ const Comments = ({ id, wine, user, wineries, wineList }) => {
     if (commentCheckins && !checkin) {
       dispatch(loadWineCheckins(commentCheckins.wineId));
     }
-  }, [dispatch, commentCheckins]);
+  }, [dispatch, commentCheckins, checkin]);
 
 
   const handleSubmit = async (e) => {
@@ -56,7 +56,8 @@ const Comments = ({ id, wine, user, wineries, wineList }) => {
     setRevealForm(!revealForm);
   };
 
-  const handleEditComment = async () => {
+  const handleEditComment = async (e) => {
+    e.preventDefault();
     const editedComment = {
       comment: editComment,
       checkinId: checkin.id,
@@ -75,6 +76,7 @@ const Comments = ({ id, wine, user, wineries, wineList }) => {
     users = Object.values(usersObj);
   }
 
+  console.log(commentCheckins)
   return (
     <div>
       <h2>Comments</h2>

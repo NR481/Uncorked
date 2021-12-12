@@ -20,6 +20,7 @@ const SingleWine = () => {
   const [editVarietal, setEditVarietal] = useState('');
   const [editWinery, setEditWinery] = useState('');
   const [editLocation, setEditlocation] = useState('');
+  const [validationErrors, setValidationErrors] = useState([]);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -35,6 +36,16 @@ const SingleWine = () => {
   useEffect(() => {
     dispatch(getWines());
   }, [dispatch]);
+
+
+  useEffect(() => {
+    const errors = [];
+
+    if (location.length < 5 || location.length > 50) errors.push('Please enter a location between 5 and 50 characters');
+    if (comment.length < 5 || comment.length > 250) errors.push('Please enter a comment between 5 and 250 characters');
+
+    setValidationErrors(errors);
+  }, [comment.length, location.length]);
 
   const handleCheckin = () => {
     setRevealCheckinForm(!revealCheckinForm);
@@ -124,7 +135,6 @@ const SingleWine = () => {
         winery={winery}
         description={wine?.description}
       />
-      {/* <p>{wine.description}</p> */}
       <div>
         <button onClick={handleCheckin}>Check-in </button>
         {wine?.userId === user?.id &&
@@ -134,6 +144,13 @@ const SingleWine = () => {
 
       {revealCheckinForm && (
         <form onSubmit={handleSubmit}>
+          <ul>
+            {validationErrors.length > 0 &&
+              validationErrors.map((error) => (
+                <li key={error}>{error}</li>
+              ))
+            }
+          </ul>
           <input
             onChange={(e) => setLocation(e.target.value)}
             value={location}
@@ -163,7 +180,7 @@ const SingleWine = () => {
             onChange={(e) => setComment(e.target.value)}
             value={comment}
           />
-          <button>Check In</button>
+          <button disabled={validationErrors.length > 0}>Check In</button>
         </form>
       )}
       {revealEditForm && (
