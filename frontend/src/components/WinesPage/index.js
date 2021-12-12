@@ -33,7 +33,7 @@ const WinesPage = () => {
     if (description.length < 5 || description.length > 280) errors.push('The description must be between 5 and 280 characters');
     if (winery.length < 5 || winery.length > 50) errors.push('The winery name must be between 5 and 50 characters');
     if (location.length < 5 || location.length > 50) errors.push('The location must be between 5 and 50 characters');
-    if (varietal.length < 5 || varietal.length > 40) errors.push('The varietal must be between 5 and 50 characters');
+    if (varietal.length < 4 || varietal.length > 40) errors.push('The varietal must be between 4 and 50 characters');
 
     setValidationErrors(errors);
   }, [description.length, location.length, name.length, varietal.length, vintage, winery.length]);
@@ -62,8 +62,9 @@ const WinesPage = () => {
       description,
       userId
     };
-    await dispatch(createNewWine(newWine));
-    setAddWineForm(false);
+    await dispatch(createNewWine(newWine))
+      .then(dispatch(getWines()))
+      .then(setAddWineForm(false));
   };
 
   return (
@@ -79,7 +80,7 @@ const WinesPage = () => {
         <button onClick={revealWineForm}>Add A New One</button>
       </div>
       {addWineForm &&
-        <form onSubmit={handleSubmit}>
+        <form>
           <ul>
           {validationErrors.length > 0 &&
             validationErrors.map((error) => (
@@ -143,7 +144,12 @@ const WinesPage = () => {
             onChange={(e) => setDescription(e.target.value)}
           >
           </textarea>
-          <button disabled={validationErrors.length > 0}>Add To Wine List</button>
+          <button
+            disabled={validationErrors.length > 0}
+            onClick={handleSubmit}
+          >
+            Add To Wine List
+          </button>
         </form>
       }
       <>

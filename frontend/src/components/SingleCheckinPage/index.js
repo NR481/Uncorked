@@ -16,7 +16,7 @@ const SingleCheckinPage = () => {
   const user = useSelector((state) => state.session.user);
   const wineObj = useSelector((state) => state.wine.allWines);
   const wineryObj = useSelector((state) => state.wine.wineries);
-  const checkin = useSelector((state) => state.checkins.checkins[id]);
+  const checkin = useSelector((state) => state.comments.checkins[id]);
 
   useEffect(() => {
     dispatch(getWines());
@@ -74,7 +74,8 @@ const SingleCheckinPage = () => {
     };
 
     await dispatch(updateCheckin(id, checkinEdit))
-      .then(dispatch(loadWineCheckins(wine?.id)));
+      .then(dispatch(getComments(checkin?.id)))
+      .then(setIsLoaded(false));
   };
 
   const handleDelete =  (e) => {
@@ -133,7 +134,12 @@ const SingleCheckinPage = () => {
             onChange={(e) => setComment(e.target.value)}
             value={comment}
           />
-          <button disabled={validationErrors.length > 0}>Submit Changes</button>
+          <button
+            onClick={handleSubmit}
+            disabled={validationErrors.length > 0}
+          >
+            Submit Changes
+          </button>
         </form>
       }
       <Comments id={id} wine={wine} user={user} wineries={wineries} wineList={wineList} />
