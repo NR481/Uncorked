@@ -85,8 +85,7 @@ const commentsReducer = (state = { comments: {}, checkins: {} }, action) => {
       return newState;
     case EDIT_COMMENT:
       newState = { ...state }
-      newState.comments.comments[action.comment.editedComment.id] = action.comment.editComment
-      console.log(action)
+      newState[action.comment.id] = action.comment
       return newState;
     case DELETE_COMMENT:
       newState = { ...state }
