@@ -41,7 +41,7 @@ const SingleWine = () => {
   useEffect(() => {
     const errors = [];
 
-    if (location?.length < 5 || location?.length > 50) errors.push('Please enter a location between 5 and 50 characters');
+    if (location?.length < 4 || location?.length > 50) errors.push('Please enter a location between 4 and 50 characters');
     if (comment?.length < 5 || comment?.length > 250) errors.push('Please enter a comment between 5 and 250 characters');
 
     setValidationErrors(errors);
@@ -136,7 +136,7 @@ const SingleWine = () => {
         description={wine?.description}
       />
       <div>
-        <button onClick={handleCheckin}>Check-in </button>
+        <button className="checkin-button" onClick={handleCheckin}>Check-in </button>
         {wine?.userId === user?.id &&
           <button onClick={handleEdit}>Edit</button>
         }
@@ -144,7 +144,7 @@ const SingleWine = () => {
 
       {revealCheckinForm && (
         <form onSubmit={handleSubmit}>
-          <ul>
+          <ul className="checkin-form">
             {validationErrors.length > 0 &&
               validationErrors.map((error) => (
                 <li key={error}>{error}</li>
@@ -245,31 +245,33 @@ const SingleWine = () => {
           <button onClick={handleDelete}>Delete</button>
         </form>
       )}
-      <h2>See Who's Enjoying This Wine</h2>
-      {Object.keys(usersObj).length > 0 &&
-        checkins?.map((checkin) => (
-          <div>
-            {/* <NavLink to={`/users/${usersObj[checkin?.userId].id}`}>{usersObj[checkin?.userId].firstName}</NavLink> */}
-            <NavLink
-              to={{
-                pathname: `/user/${usersObj[checkin?.userId].id}/profile`,
-                state: { user: usersObj[checkin?.userId], checkins, wineries, wineList }
-              }}
-            >
-              {usersObj[checkin?.userId].firstName}
-            </NavLink>
-            {` is drinking a ${wine.name} by ${winery.name}`}
-            <p>{checkin.comment}</p>
-            <NavLink
-              to={{ pathname: `/checkins/${checkin.id}`, state: { user, checkin, wineList, wineries } }}
-              className='checkin-link '
-            >View Details</NavLink>
-          </div>
-          // <p>
-          //   {`${usersObj[checkin?.userId].firstName} says "${checkin?.comment}"`}
-          // </p>
-        ))
-      }
+      <div className="checkin-wrapper">
+        <h2 className="checkin-header">See Who's Enjoying This Wine</h2>
+        {Object.keys(usersObj).length > 0 &&
+          checkins?.map((checkin) => (
+            <div className="single-checkin">
+              {/* <NavLink to={`/users/${usersObj[checkin?.userId].id}`}>{usersObj[checkin?.userId].firstName}</NavLink> */}
+              <NavLink
+                to={{
+                  pathname: `/user/${usersObj[checkin?.userId].id}/profile`,
+                  state: { user: usersObj[checkin?.userId], checkins, wineries, wineList }
+                }}
+              >
+                {usersObj[checkin?.userId].firstName}
+              </NavLink>
+              {` is drinking a ${wine.name} by ${winery.name}`}
+              <p>{checkin.comment}</p>
+              <NavLink
+                to={{ pathname: `/checkins/${checkin.id}`, state: { user, checkin, wineList, wineries } }}
+                className='checkin-link '
+              >View Details</NavLink>
+            </div>
+            // <p>
+            //   {`${usersObj[checkin?.userId].firstName} says "${checkin?.comment}"`}
+            // </p>
+          ))
+        }
+      </div>
     </div>
   )
 };

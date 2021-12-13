@@ -1,0 +1,27 @@
+.checkin-container {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 700px;
+  margin: 10px auto;
+  padding: 10px;
+  font-family: 'Jost', sans-serif;
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+.checkin-details{
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  font-family: 'Jost', sans-serif;
+}
+
+.single-checkin {
+  margin: 10px;
+}
+
+.checkin-button {
+  margin: 10px;
+}

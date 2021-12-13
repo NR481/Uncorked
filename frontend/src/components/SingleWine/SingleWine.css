@@ -1,0 +1,29 @@
+.checkin-wrapper {
+  background-color: white;
+  width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.checkin-header {
+  margin-bottom: 10px;
+  font-family: 'Jost', sans-serif;
+  color: rgb(133, 19, 54);
+  border-bottom: 1px solid rgba(109, 109, 108, 0.5);
+  font-size: 20px;
+}
+
+.single-checkin {
+  font-family: 'Jost', sans-serif;
+  border-bottom: rgba(109, 109, 108, 0.5);
+}
+
+.checkin-form {
+  font-family: 'Jost', sans-serif;
+  color: rgb(133, 19, 54);
+}
+
+.checkin-button {
+  margin: 50px;
+}

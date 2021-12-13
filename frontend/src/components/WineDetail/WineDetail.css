@@ -9,6 +9,7 @@
   margin: 15px auto;
   border-radius: 20px;
   font-family: 'Jost', sans-serif;
+  border-bottom: 1px solid rgba(109, 109, 108, 0.3);
 }
 
 .wine-info {

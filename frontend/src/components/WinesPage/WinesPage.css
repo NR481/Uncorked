@@ -14,7 +14,7 @@
 }
 
 .wine-page {
-  width: 750px;
+  width: 800px;
   margin: 15px auto;
   padding: 30px;
   background-color: white;
@@ -45,4 +45,13 @@ button {
   color: white;
   border: none;
   border-radius: 5px;
+}
+
+.add-wine {
+  font-family: 'Jost', sans-serif;
+  margin: 15px;
+}
+
+.errors {
+  color: rgb(133, 19, 54);
 }

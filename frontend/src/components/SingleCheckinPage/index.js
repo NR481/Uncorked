@@ -6,6 +6,7 @@ import { updateCheckin, removeCheckin, loadWineCheckins } from "../../store/chec
 import Comments from "../Comments";
 import { getWines } from "../../store/wines";
 import { getComments } from "../../store/comments";
+import './SingleCheckinPage.css';
 
 
 const SingleCheckinPage = () => {
@@ -46,7 +47,7 @@ const SingleCheckinPage = () => {
 
     if (!wineChoice) errors.push('Please select a wine');
     if (comment?.length < 5 || comment?.length > 250) errors.push('Please enter a comment between 5 and 250 characters');
-    if (location?.length < 5 || location?.length > 50) errors.push('Please enter a location between 5 and 50 characters');
+    if (location?.length < 4 || location?.length > 50) errors.push('Please enter a location between 4 and 50 characters');
 
     setValidationErrors(errors);
   }, [wineChoice?.length, comment?.length, location?.length]);
@@ -78,7 +79,7 @@ const SingleCheckinPage = () => {
       .then(setIsLoaded(false));
   };
 
-  const handleDelete =  (e) => {
+  const handleDelete = (e) => {
     e.preventDefault();
     dispatch(removeCheckin(id));
     history.push(`/users/${user?.id}`);
@@ -86,62 +87,70 @@ const SingleCheckinPage = () => {
 
   return (
     <div>
-      <img src={wine?.image} alt='wine label'/>
-      <NavLink
-        to={{
-          pathname: `/user/${checkinUser?.id}/profile`,
-          state: { user: checkinUser, wineries, wineList }
-        }}
-      >
-        {checkinUser?.firstName}
-      </NavLink>
-      {` is drinking a `}
-      <NavLink to={`/wines/${wine?.id}`}>
-        {`${wine?.name} by `}
-      </NavLink>
-      <p>{`${winery?.name} at ${checkin?.location}`}</p>
-      <p>{winery?.location}</p>
-      {checkin?.comment}
-      <button onClick={showForm}>Edit</button>
-      <button onClick={handleDelete}>Delete</button>
-      {isLoaded &&
-        <form onSubmit={handleSubmit}>
-          {validationErrors.length > 0 &&
-            validationErrors.map((error) => (
-              <li key={error}>{error}</li>
-            ))
-          }
-          <select
-            onChange={(e) => setWineChoice(e.target.value)}
-            value={wineChoice}
+      <div className="checkin-container">
+        <img src={wine?.image} alt='wine label' />
+        <div className="single-checkin">
+          <NavLink
+            to={{
+              pathname: `/user/${checkinUser?.id}/profile`,
+              state: { user: checkinUser, wineries, wineList }
+            }}
           >
-            <option>--Select A Wine--</option>
+            {checkinUser?.firstName}
+          </NavLink>
+          {` is drinking a `}
+          <div className="checkin-details">
+            <NavLink to={`/wines/${wine?.id}`}>
+              {`${wine?.name} by `}
+            </NavLink>
+            <p>{`${winery?.name} at ${checkin?.location}`}</p>
+            <p>{winery?.location}</p>
+            <p>{checkin?.comment}</p>
+          </div>
+          <button onClick={showForm} className="checkin-button">Edit</button>
+          <button onClick={handleDelete} className="checkin-button">Delete</button>
+        </div>
+        {isLoaded &&
+          <form onSubmit={handleSubmit}>
+            {validationErrors.length > 0 &&
+              validationErrors.map((error) => (
+                <li key={error}>{error}</li>
+              ))
+            }
+            <select
+              onChange={(e) => setWineChoice(e.target.value)}
+              value={wineChoice}
+            >
+              <option>--Select A Wine--</option>
               {wineList.map((wine) => (
                 <option
                   key={wine.id}
                   value={`${wine.id}, ${wine.wineryId}`}
                 >
-                {wine.name}
+                  {wine.name}
                 </option>
               ))}
-          </select>
-          <input
-            type="text"
-            onChange={(e) => setLocation(e.target.value)}
-            value={location}
-          />
-          <textarea
-            onChange={(e) => setComment(e.target.value)}
-            value={comment}
-          />
-          <button
-            onClick={handleSubmit}
-            disabled={validationErrors.length > 0}
-          >
-            Submit Changes
-          </button>
-        </form>
-      }
+            </select>
+            <input
+              type="text"
+              onChange={(e) => setLocation(e.target.value)}
+              value={location}
+              placeholder="Enter a location..."
+            />
+            <textarea
+              onChange={(e) => setComment(e.target.value)}
+              value={comment}
+              placeholder="Enter a comment..."
+            />
+            <button
+              onClick={handleSubmit}
+              disabled={validationErrors.length > 0}
+            >
+              Submit Changes
+            </button>
+          </form>
+        }
+      </div>
       <Comments id={id} wine={wine} user={user} wineries={wineries} wineList={wineList} />
     </div>
   )

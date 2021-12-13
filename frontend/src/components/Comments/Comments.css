@@ -1,0 +1,26 @@
+.comments-wrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  width: 900px;
+  padding: 10px;
+  margin: 20px auto;
+  font-family: 'Jost', sans-serif;
+  border-radius: 10px;
+}
+
+.comment-header {
+  padding: 10px;
+  border-bottom: 1px solid rgba(109, 109, 108, 0.3);
+  color: rgb(133, 19, 54);
+  font-size: 20px;
+}
+
+.comments-container {
+  padding: 10px;
+  border-bottom: 1px solid rgba(109, 109, 108, 0.3);
+}
+
+.submit-form {
+  padding: 10px;
+}

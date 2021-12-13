@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadWineCheckins } from "../../store/checkins";
 import { getComments, createComment, updateComment, removeComment } from "../../store/comments";
 import { NavLink } from "react-router-dom";
+import './Comments.css';
 
 const Comments = ({ id, wine, user, wineries, wineList }) => {
   const commentsObj = useSelector(state => state.comments.comments);
@@ -16,6 +17,7 @@ const Comments = ({ id, wine, user, wineries, wineList }) => {
   const [commentId, setCommentId] = useState()
   const [editComment, setEditComment] = useState('');
   const [revealForm, setRevealForm] = useState(false);
+  const [validationErrors, setValidationErrors] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,6 +31,13 @@ const Comments = ({ id, wine, user, wineries, wineList }) => {
       dispatch(loadWineCheckins(commentCheckins.wineId));
     }
   }, [dispatch, commentCheckins, checkin]);
+
+  useEffect(() => {
+    const errors = [];
+    if (comment.length < 5 || comment.length > 280) errors.push('Please enter a comment between 5 and 280 characters')
+
+    setValidationErrors(errors);
+  }, [comment.length]);
 
 
   const handleSubmit = async (e) => {
@@ -78,15 +87,15 @@ const Comments = ({ id, wine, user, wineries, wineList }) => {
   }
 
   return (
-    <div>
-      <h2>Comments</h2>
-      {users.length > 0 &&
+    <div className="comments-wrapper">
+      <h2 className="comment-header">Comments</h2>
+      {users?.length > 0 &&
         comments?.map((com) => (
-          <div>
+          <div className="comments-container">
             <NavLink
               to={{
-                pathname: `/user/${users[com?.userId-1]?.id}/profile`,
-                state: { user: users[com?.userId-1], wineries, wineList }
+                pathname: `/user/${users[com?.userId - 1]?.id}/profile`,
+                state: { user: users[com?.userId - 1], wineries, wineList }
               }}
             >
               {users[com?.userId - 1]?.firstName}
@@ -94,7 +103,7 @@ const Comments = ({ id, wine, user, wineries, wineList }) => {
             {` says, "${com?.comment}"`}
             {user.id === com.userId &&
               <div>
-                <button onClick={handleEdit}>Edit</button>
+                <button onClick={handleEdit} className="edit-button">Edit</button>
                 <div>
                   {revealForm &&
                     <form>
@@ -128,7 +137,14 @@ const Comments = ({ id, wine, user, wineries, wineList }) => {
           </div>
         ))
       }
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="submit-form">
+        <ul>
+          {validationErrors.length > 0 &&
+            validationErrors.map((error) => (
+              <li key={error}>{error}</li>
+            ))
+          }
+        </ul>
         <input
           placeholder='Leave a comment...'
           value={comment}

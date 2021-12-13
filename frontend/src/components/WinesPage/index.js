@@ -80,8 +80,8 @@ const WinesPage = () => {
         <button onClick={revealWineForm}>Add A New One</button>
       </div>
       {addWineForm &&
-        <form>
-          <ul>
+        <form className="add-wine">
+          <ul className="errors">
           {validationErrors.length > 0 &&
             validationErrors.map((error) => (
               <li key={error}>{error}</li>
