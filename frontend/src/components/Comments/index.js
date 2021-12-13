@@ -47,7 +47,7 @@ const Comments = ({ id, wine, user, wineries, wineList }) => {
     const allComments = Object.values(commentsObj);
 
     comments = allComments?.filter((comment) => {
-      return +comment.checkinId === +checkin?.id;
+      return +comment?.checkinId === +checkin?.id;
     });
   }
 
