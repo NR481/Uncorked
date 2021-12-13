@@ -21,6 +21,7 @@ const SingleWine = () => {
   const [editWinery, setEditWinery] = useState('');
   const [editLocation, setEditlocation] = useState('');
   const [validationErrors, setValidationErrors] = useState([]);
+  const [checkinValidation, setCheckinValidation] = useState([]);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -46,6 +47,19 @@ const SingleWine = () => {
 
     setValidationErrors(errors);
   }, [comment?.length, location?.length]);
+
+  useEffect(() => {
+    const errors = [];
+
+    if (editName.length < 5 || editName.length > 50) errors.push('The name must be between 5 and 50 characters');
+    if (+editVintage < 1000) errors.push('Please enter a 4 digit vintage year');
+    if (editDescription.length < 5 || editDescription.length > 280) errors.push('The description must be between 5 and 280 characters');
+    if (editWinery.length < 5 || editWinery.length > 50) errors.push('The winery name must be between 5 and 50 characters');
+    if (editLocation.length < 5 || editLocation.length > 50) errors.push('The location must be between 5 and 50 characters');
+    if (editVarietal.length < 4 || editVarietal.length > 40) errors.push('The varietal must be between 4 and 50 characters');
+
+    setCheckinValidation(errors);
+  }, [editDescription.length, editLocation.length, editName.length, editVarietal.length, editVintage, editWinery.length]);
 
   const handleCheckin = () => {
     setRevealCheckinForm(!revealCheckinForm);
@@ -185,6 +199,13 @@ const SingleWine = () => {
       )}
       {revealEditForm && (
         <form onSubmit={handleEditSubmit}>
+          <ul>
+            {checkinValidation.length > 0 &&
+              checkinValidation.map((error) => (
+                <li key={error}>{error}</li>
+              ))
+            }
+          </ul>
           <label>
             Name
           </label>
@@ -205,7 +226,7 @@ const SingleWine = () => {
             Vintage
           </label>
           <input
-            type="text"
+            type="number"
             value={editVintage}
             onChange={(e) => setEditVintage(e.target.value)}
           />
