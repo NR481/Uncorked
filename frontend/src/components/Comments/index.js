@@ -39,7 +39,7 @@ const Comments = ({ id, wine, user, wineries, wineList }) => {
       userId: user.id
     };
     await dispatch(createComment(newComment));
-    setRevealForm(false);
+    setComment('');
   };
 
   let comments;
@@ -65,7 +65,7 @@ const Comments = ({ id, wine, user, wineries, wineList }) => {
     };
     await dispatch(updateComment(commentId, editedComment))
       .then(dispatch(getComments(checkin?.id)))
-      .then(setRevealForm(false));
+    setRevealForm(false);
   };
 
   // const handleDelete = async (e) => {
