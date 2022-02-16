@@ -21,8 +21,13 @@ const WinesPage = () => {
   const wineryObj = useSelector((state) => state.wine.wineries);
   const userId = useSelector((state) => state.session.user.id);
 
+  const wineList = Object.values(wineObj);
+  const wineries = Object.values(wineryObj);
+
   useEffect(() => {
-    dispatch(getWines());
+    if (wineList?.length === 0) {
+      dispatch(getWines());
+    }
   }, [dispatch]);
 
   useEffect(() => {
@@ -39,10 +44,6 @@ const WinesPage = () => {
   }, [description.length, location.length, name.length, varietal.length, vintage, winery.length]);
 
 
-  if (!wineObj) return null;
-
-  const wineList = Object.values(wineObj);
-  const wineries = Object.values(wineryObj);
 
   const revealWineForm = (e) => {
     e.preventDefault();
@@ -152,6 +153,7 @@ const WinesPage = () => {
           </button>
         </form>
       }
+      {console.log(wineList)}
       <div className='wine-page'>
         {wineList?.length > 0 &&
           wineList?.map((wine) => (
