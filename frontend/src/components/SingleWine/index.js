@@ -10,7 +10,6 @@ import './SingleWine.css'
 const SingleWine = () => {
   const [revealCheckinForm, setRevealCheckinForm] = useState(false);
   const [revealEditForm, setRevealEditForm] = useState(false);
-  const [revealOther, setRevealOther] = useState(false);
   const [location, setLocation] = useState('');
   const [comment, setComment] = useState('');
   const [editName, setEditName] = useState('');
@@ -134,10 +133,6 @@ const SingleWine = () => {
     await dispatch(updateWine(wine.id, editedWine))
     setRevealEditForm(false);
   };
-
-  const revealLocation = () => {
-    return setRevealEditForm(true);
-  }
 
   return (
     <div>

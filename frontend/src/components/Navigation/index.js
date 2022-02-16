@@ -75,7 +75,7 @@ function Navigation({ isLoaded }){
   return (
     <div className="nav">
       <div className='banner-logo'>
-        <NavLink exact to="/"><img className="logo" src='https://images.squarespace-cdn.com/content/v1/58b6fe75ff7c50b1e73ebfe0/1488477089912-ZRQA1XXZRYZQ8QLOSTHI/PCAfavicon.png' alt='wine-bottle-logo'/></NavLink>
+        <NavLink exact to="/"><img className="logo" src={logo} alt='wine-bottle-logo'/></NavLink>
         <NavLink exact to="/" className='banner'>Uncorked</NavLink>
       </div>
       <ul className='nav-links'>

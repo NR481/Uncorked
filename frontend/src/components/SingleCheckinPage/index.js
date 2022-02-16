@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useLocation, useHistory } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { updateCheckin, removeCheckin, loadWineCheckins } from "../../store/checkins";
@@ -50,7 +50,7 @@ const SingleCheckinPage = () => {
     if (location?.length < 4 || location?.length > 50) errors.push('Please enter a location between 4 and 50 characters');
 
     setValidationErrors(errors);
-  }, [wineChoice?.length, comment?.length, location?.length]);
+  }, [wineChoice, comment?.length, location?.length]);
 
 
   if (!wineryObj) return null;

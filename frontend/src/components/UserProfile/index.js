@@ -1,4 +1,4 @@
-import { useParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getWines } from "../../store/wines";
 import { getCheckins } from "../../store/checkins";
