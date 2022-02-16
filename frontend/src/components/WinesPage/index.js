@@ -15,19 +15,16 @@ const WinesPage = () => {
   const [winery, setWinery] = useState('');
   const [location, setlocation] = useState('');
   const [validationErrors, setValidationErrors] = useState([]);
+  const [winesLoaded, setWinesLoaded] = useState(false);
   const dispatch = useDispatch();
 
   const wineObj = useSelector((state) => state.wine.allWines);
   const wineryObj = useSelector((state) => state.wine.wineries);
   const userId = useSelector((state) => state.session.user.id);
 
-  const wineList = Object.values(wineObj);
-  const wineries = Object.values(wineryObj);
-
   useEffect(() => {
-    if (wineList?.length === 0) {
-      dispatch(getWines());
-    }
+    dispatch(getWines())
+      .then(() => setWinesLoaded(true));
   }, [dispatch]);
 
   useEffect(() => {
@@ -67,6 +64,15 @@ const WinesPage = () => {
       .then(dispatch(getWines()))
       .then(setAddWineForm(false));
   };
+
+  if (!wineObj) return null;
+
+  const wineList = Object.values(wineObj);
+  const wineries = Object.values(wineryObj);
+
+  if (!winesLoaded) {
+    return <p>Loading...</p>
+  }
 
   return (
     <div className='wines-container'>
@@ -153,7 +159,6 @@ const WinesPage = () => {
           </button>
         </form>
       }
-      {console.log(wineList)}
       <div className='wine-page'>
         {wineList?.length > 0 &&
           wineList?.map((wine) => (
