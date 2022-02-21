@@ -78,7 +78,7 @@ const WinesPage = () => {
     <div className='wines-container'>
       <img
         className='wine-img'
-        src='https://images.unsplash.com/photo-1535208239377-4a7f8e310dc5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8c29tbWVsaWVyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=1500&q=60'
+        src='https://images.unsplash.com/photo-1535208239377-4a7f8e310dc5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8c29tbWVsaWVyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
         alt='vineyard'
       />
       <h1 className='wine-banner'>Wine List</h1>
