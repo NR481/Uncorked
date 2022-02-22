@@ -1,7 +1,14 @@
+.single-wine-img {
+  position: absolute;
+  height: 100%;
+  width: 500px;
+  object-fit: cover;
+  top: 65px;
+}
+
 .checkin-wrapper {
   background-color: white;
-  width: 900px;
-  margin: 20px auto;
+  margin: 20px 100px 20px 550px;
   padding: 20px;
   border-radius: 10px;
 }
@@ -26,4 +33,18 @@
 
 .checkin-button {
   margin: 50px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  font-family: 'Jost', sans-serif;
+  margin: auto 100px auto 550px;
+}
+
+.checkin-modal-button, .edit-wine-button {
+  margin: 1rem 2rem;
+  height: 30px;
+  font-family: inherit;
+  font-size: 15px;
 }

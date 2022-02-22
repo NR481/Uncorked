@@ -3,10 +3,9 @@
   justify-content: space-around;
   align-items: center;
   height: 350px;
-  width: 750px;
   background-color: white;
   padding: 30px;
-  margin: 15px auto;
+  margin: 15px 100px 15px 550px;
   border-radius: 20px;
   font-family: 'Jost', sans-serif;
   border-bottom: 1px solid rgba(109, 109, 108, 0.3);
