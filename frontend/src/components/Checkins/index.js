@@ -8,6 +8,7 @@ const Checkins = ({ user, checkins, wineList, wineries }) => {
       <h2 className='user-header'>{`${user?.firstName}'s Recent Activity`}</h2>
       {checkins.map((checkin) => (
         <CheckinDetail
+          key={checkin.id}
           checkin={checkin}
           user={user}
           wineList={wineList}
