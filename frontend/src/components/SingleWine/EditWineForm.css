@@ -1,0 +1,33 @@
+.edit-wine-container {
+  height: fit-content;
+  width: 20rem;
+  padding: 3rem;
+  font-family: 'Jost', sans-serif;
+  color: rgb(133, 19, 54);
+}
+
+.edit-wine-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-wine-form > button {
+  margin: 1rem auto 0;
+}
+
+.edit-wine-form > label {
+  margin-bottom: -3px;
+}
+
+.edit-wine-form > input {
+  height: 30px;
+  text-indent: 15px;
+  border: 1px solid rgb(109, 109, 108);
+  border-radius: 3px;
+}
+
+.edit-wine-form > textarea {
+  width: 295px;
+  border-radius: 3px;
+  margin: 10px;
+}

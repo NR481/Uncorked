@@ -70,7 +70,7 @@ const SingleWine = () => {
               >
                 {usersObj[checkin?.userId].firstName}
               </NavLink>
-              {` is drinking a ${wine.name} by ${winery.name}`}
+              {` is at ${checkin.location} drinking a ${wine.name} by ${winery.name}`}
               <p>{checkin.comment}</p>
               <NavLink
                 to={{ pathname: `/checkins/${checkin.id}`, state: { user, checkin, wineList, wineries } }}
