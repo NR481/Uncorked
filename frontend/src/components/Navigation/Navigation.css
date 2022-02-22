@@ -43,6 +43,7 @@
   opacity: 100%;
   float: left;
   margin: 7px;
+  z-index: 10;
 }
 
 .banner {

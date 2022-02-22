@@ -48,14 +48,16 @@ const SingleWine = () => {
         alt='wine cellar'
         className="single-wine-img"
       />
-      <WineDetail
-        key={wine?.id}
-        id={wine?.id}
-        image={wine?.image}
-        name={wine?.name}
-        winery={winery}
-        description={wine?.description}
-      />
+      <div className="single-wine-detail">
+        <WineDetail
+          key={wine?.id}
+          id={wine?.id}
+          image={wine?.image}
+          name={wine?.name}
+          winery={winery}
+          description={wine?.description}
+        />
+      </div>
       <div className="modal-buttons">
         {wine?.userId === user?.id && (
           <EditWineModal wine={wine} winery={winery} />
