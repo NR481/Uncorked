@@ -42,7 +42,12 @@ const SingleWine = () => {
   if (!wine) return <p>Loading</p>;
 
   return (
-    <div>
+    <div className="single-wine-container">
+      <img
+        src='https://images.unsplash.com/photo-1578911373434-0cb395d2cbfb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'
+        alt='wine cellar'
+        className="single-wine-img"
+      />
       <WineDetail
         key={wine?.id}
         id={wine?.id}
@@ -51,11 +56,11 @@ const SingleWine = () => {
         winery={winery}
         description={wine?.description}
       />
-      <CheckinModal user={user} wine={wine} winery={winery} />
-      <div>
+      <div className="modal-buttons">
         {wine?.userId === user?.id && (
           <EditWineModal wine={wine} winery={winery} />
         )}
+        <CheckinModal user={user} wine={wine} winery={winery} />
       </div>
       <div className="checkin-wrapper">
         <h2 className="checkin-header">See Who's Enjoying This Wine</h2>
@@ -70,7 +75,7 @@ const SingleWine = () => {
               >
                 {usersObj[checkin?.userId].firstName}
               </NavLink>
-              {` is drinking a ${wine.name} by ${winery.name}`}
+              {` is at ${checkin.location} drinking a ${wine.name} by ${winery.name}`}
               <p>{checkin.comment}</p>
               <NavLink
                 to={{ pathname: `/checkins/${checkin.id}`, state: { user, checkin, wineList, wineries } }}

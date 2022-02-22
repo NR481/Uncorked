@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { newCheckin } from "../../store/checkins";
+import "./CheckinForm.css";
 
 const CheckinForm = ({ user, wine, winery }) => {
   const [location, setLocation] = useState('');
@@ -25,7 +26,8 @@ const CheckinForm = ({ user, wine, winery }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="checkin-form">
+      <h3>Where are you enjoying {wine?.name}?</h3>
       <input
         onChange={(e) => setLocation(e.target.value)}
         value={location}

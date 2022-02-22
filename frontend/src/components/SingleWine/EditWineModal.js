@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Modal } from "../context/Modal";
 import EditWineForm from "./EditWineForm";
+import "./SingleWine.css";
 
 const EditWineModal = ({ wine, winery }) => {
   const [modal, setModal] = useState(false);
@@ -9,6 +10,7 @@ const EditWineModal = ({ wine, winery }) => {
     <div>
       <button
         onClick={() => setModal(true)}
+        className="edit-wine-button"
       >
         Edit Wine Listing
       </button>
