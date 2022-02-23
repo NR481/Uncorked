@@ -31,7 +31,7 @@ const EditCheckinForm = ({ checkin, id, wineList, wine, setModal, user }) => {
       };
 
       await dispatch(updateCheckin(id, checkinEdit))
-        .then(dispatch(getComments(checkin?.id)))
+        .then(() => dispatch(getComments(checkin?.id)))
       setModal(false);
     }
   };
