@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Modal } from "../context/Modal";
 import EditCommentForm from "./EditCommentForm";
+import "./EditCommentForm.css"
 
 
 const EditCommentModal = ({ checkin, user, com }) => {
@@ -10,6 +11,7 @@ const EditCommentModal = ({ checkin, user, com }) => {
     <div>
       <button
         onClick={() => setModal(true)}
+        className="edit-comment-button"
       >
         Edit
       </button>
