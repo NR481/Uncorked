@@ -36,9 +36,9 @@ const EditCheckinForm = ({ checkin, id, wineList, wine, setModal, user }) => {
     }
   };
 
-  const handleDelete = (e) => {
+  const handleDelete = async (e) => {
     e.preventDefault();
-    dispatch(removeCheckin(id));
+    await dispatch(removeCheckin(id));
     history.push(`/users/${user?.id}`);
   }
 

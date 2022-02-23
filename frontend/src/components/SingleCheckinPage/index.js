@@ -45,40 +45,49 @@ const SingleCheckinPage = () => {
   const checkinUser = users.find((user) => +user?.id === +userObj[checkin?.userId]?.id);
 
   return (
-    <div>
+    <div className="checkin-page-container">
+      <img
+        src="https://images.unsplash.com/photo-1474722883778-792e7990302f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=691&q=80"
+        alt="wine glass"
+        className="checkin-page-img"
+      />
       <div className="checkin-container">
         <img src={wine?.image} alt='wine label' />
         <div className="single-checkin">
-          <NavLink
-            to={{
-              pathname: `/user/${checkinUser?.id}/profile`,
-              state: { user: checkinUser, wineries, wineList }
-            }}
-          >
-            {checkinUser?.firstName}
-          </NavLink>
-          {` is at ${checkin?.location} drinking a `}
-          <NavLink to={`/wines/${wine?.id}`}>
-            {`${wine?.name}`}
-          </NavLink>
-          {` by ${winery?.name}`}
+          <div>
+            <NavLink
+              to={{
+                pathname: `/user/${checkinUser?.id}/profile`,
+                state: { user: checkinUser, wineries, wineList }
+              }}
+            >
+              {checkinUser?.firstName}
+            </NavLink>
+            {` is at ${checkin?.location} drinking a `}
+            <NavLink to={`/wines/${wine?.id}`}>
+              {`${wine?.name}`}
+            </NavLink>
+            {` by ${winery?.name}`}
+          </div>
           <p className="comment-bubble">{checkin?.comment}</p>
+          <EditCheckinModal
+            checkin={checkin}
+            id={id}
+            wineList={wineList}
+            wine={wine}
+            user={user}
+          />
         </div>
-        <EditCheckinModal
-          checkin={checkin}
+      </div>
+      <div className="checkin-page-comments">
+        <Comments
           id={id}
-          wineList={wineList}
           wine={wine}
           user={user}
+          wineries={wineries}
+          wineList={wineList}
         />
       </div>
-      <Comments
-        id={id}
-        wine={wine}
-        user={user}
-        wineries={wineries}
-        wineList={wineList}
-      />
     </div>
   )
 }

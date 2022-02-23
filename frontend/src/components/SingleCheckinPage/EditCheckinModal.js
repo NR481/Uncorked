@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Modal } from "../context/Modal";
 import EditCheckinForm from "./EditCheckinForm";
+import "./SingleCheckinPage.css";
 
 const EditCheckinModal = ({ checkin, id, wineList, wine, user }) => {
   const [modal, setModal] = useState(false);
@@ -9,6 +10,7 @@ const EditCheckinModal = ({ checkin, id, wineList, wine, user }) => {
     <div>
       <button
         onClick={() => setModal(true)}
+        className="checkin-button"
       >
         Edit Check-In
       </button>

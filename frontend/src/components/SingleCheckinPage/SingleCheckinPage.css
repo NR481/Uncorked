@@ -4,24 +4,37 @@
   justify-content: center;
   align-items: center;
   width: 700px;
-  margin: 10px auto;
+  margin: 20px 100px auto 550px;
   padding: 40px;
   font-family: 'Jost', sans-serif;
   font-size: 20px;
   border-radius: 10px;
 }
 
+.checkin-page-img {
+  position: absolute;
+  height: 100%;
+  width: 500px;
+  object-fit: cover;
+  top: 65px;
+}
+
+.checkin-page-comments {
+  margin: 20px 100px auto 550px;
+}
+
 .checkin-details{
-  display: flex;
-  flex-direction: column;
   padding: 10px;
   font-family: 'Jost', sans-serif;
 }
 
 .single-checkin {
+  display: flex;
+  flex-direction: column;
   margin: 30px;
+  width: 500px;
 }
 
 .checkin-button {
-  margin: 10px;
+  margin: 10px auto auto 100px;
 }
