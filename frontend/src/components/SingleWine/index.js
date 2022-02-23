@@ -66,6 +66,9 @@ const SingleWine = () => {
       </div>
       <div className="checkin-wrapper">
         <h2 className="checkin-header">See Who's Enjoying This Wine</h2>
+        {checkins?.length === 0 && (
+          <h3>No check-ins yet...be the first to check in!</h3>
+        )}
         {Object.keys(usersObj).length > 0 &&
           checkins?.map((checkin) => (
             <div key={checkin?.id} className="single-checkin">

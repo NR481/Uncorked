@@ -17,6 +17,12 @@
   border-radius: 10px;
 }
 
+.checkin-wrapper > h3 {
+  font-family: 'Jost', sans-serif;
+  margin: 20px;
+  font-size: 18px;
+}
+
 .checkin-header {
   margin-bottom: 10px;
   font-family: 'Jost', sans-serif;
