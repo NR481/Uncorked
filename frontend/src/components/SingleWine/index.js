@@ -14,7 +14,7 @@ const SingleWine = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(loadWineCheckins(id))
+    if (id) dispatch(loadWineCheckins(id))
   }, [dispatch, id])
 
 

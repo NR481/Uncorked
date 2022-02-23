@@ -14,7 +14,7 @@ const UserPage = () => {
 
 
   useEffect(() => {
-    dispatch(getCheckins(user?.id));
+    if (user?.id) dispatch(getCheckins(user?.id));
   }, [dispatch, user?.id]);
 
   useEffect(() => {
