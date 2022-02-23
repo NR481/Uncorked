@@ -70,19 +70,20 @@ const SingleCheckinPage = () => {
             {` by ${winery?.name}`}
           </div>
           <p className="comment-bubble">{checkin?.comment}</p>
-          <EditCheckinModal
-            checkin={checkin}
-            id={id}
-            wineList={wineList}
-            wine={wine}
-            user={user}
-          />
+          {user?.id === checkin?.userId && (
+            <EditCheckinModal
+              checkin={checkin}
+              id={id}
+              wineList={wineList}
+              wine={wine}
+              user={user}
+            />
+          )}
         </div>
       </div>
       <div className="checkin-page-comments">
         <Comments
           id={id}
-          wine={wine}
           user={user}
           wineries={wineries}
           wineList={wineList}
