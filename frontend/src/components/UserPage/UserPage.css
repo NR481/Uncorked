@@ -25,5 +25,10 @@ body {
 .checkins {
   display: flex;
   flex-direction: column;
+}
 
+.checkins-container > h3 {
+  font-family: 'Jost', sans-serif;
+  margin: 20px;
+  font-size: 18px;
 }

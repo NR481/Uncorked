@@ -1,18 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { updateCheckin, removeCheckin, loadWineCheckins } from "../../store/checkins";
+import { useEffect } from "react";
+import { loadWineCheckins } from "../../store/checkins";
 import Comments from "../Comments";
 import { getWines } from "../../store/wines";
 import { getComments } from "../../store/comments";
 import './SingleCheckinPage.css';
+import EditCheckinModal from "./EditCheckinModal";
 
 
 const SingleCheckinPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const history = useHistory();
   const userObj = useSelector((state) => state.checkins.users);
   const user = useSelector((state) => state.session.user);
   const wineObj = useSelector((state) => state.wine.allWines);
@@ -31,26 +31,9 @@ const SingleCheckinPage = () => {
     dispatch(getComments(id));
   }, [dispatch, id]);
 
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [wineChoice, setWineChoice] = useState('');
-  const [comment, setComment] = useState(checkin?.comment);
-  const [location, setLocation] = useState(checkin?.location);
-  const [validationErrors, setValidationErrors] = useState([]);
-
   useEffect(() => {
     dispatch(loadWineCheckins(wine?.id));
   }, [dispatch, wine?.id]);
-
-
-  useEffect(() => {
-    const errors = [];
-
-    if (!wineChoice) errors.push('Please select a wine');
-    if (comment?.length < 5 || comment?.length > 250) errors.push('Please enter a comment between 5 and 250 characters');
-    if (location?.length < 4 || location?.length > 50) errors.push('Please enter a location between 4 and 50 characters');
-
-    setValidationErrors(errors);
-  }, [wineChoice, comment?.length, location?.length]);
 
 
   if (!wineryObj) return null;
@@ -61,97 +44,50 @@ const SingleCheckinPage = () => {
   const users = Object.values(userObj);
   const checkinUser = users.find((user) => +user?.id === +userObj[checkin?.userId]?.id);
 
-  const showForm = () => {
-    setIsLoaded(!isLoaded);
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const checkinEdit = {
-      comment,
-      wineId: +wineChoice.split(',')[0],
-      wineryId: +wineChoice.split(',')[1],
-      location
-    };
-
-    await dispatch(updateCheckin(id, checkinEdit))
-      .then(dispatch(getComments(checkin?.id)))
-      .then(setIsLoaded(false));
-  };
-
-  const handleDelete = (e) => {
-    e.preventDefault();
-    dispatch(removeCheckin(id));
-    history.push(`/users/${user?.id}`);
-  }
-
   return (
-    <div>
+    <div className="checkin-page-container">
+      <img
+        src="https://images.unsplash.com/photo-1474722883778-792e7990302f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=691&q=80"
+        alt="wine glass"
+        className="checkin-page-img"
+      />
       <div className="checkin-container">
         <img src={wine?.image} alt='wine label' />
         <div className="single-checkin">
-          <NavLink
-            to={{
-              pathname: `/user/${checkinUser?.id}/profile`,
-              state: { user: checkinUser, wineries, wineList }
-            }}
-          >
-            {checkinUser?.firstName}
-          </NavLink>
-          {` is drinking a `}
-          <div className="checkin-details">
-            <NavLink to={`/wines/${wine?.id}`}>
-              {`${wine?.name} by `}
+          <div>
+            <NavLink
+              to={{
+                pathname: `/user/${checkinUser?.id}/profile`,
+                state: { user: checkinUser, wineries, wineList }
+              }}
+            >
+              {checkinUser?.firstName}
             </NavLink>
-            <p>{`${winery?.name} at ${checkin?.location}`}</p>
-            <p>{winery?.location}</p>
-            <p>{checkin?.comment}</p>
+            {` is at ${checkin?.location} drinking a `}
+            <NavLink to={`/wines/${wine?.id}`}>
+              {`${wine?.name}`}
+            </NavLink>
+            {` by ${winery?.name}`}
           </div>
-          <button onClick={showForm} className="checkin-button">Edit</button>
-          <button onClick={handleDelete} className="checkin-button">Delete</button>
+          <p className="comment-bubble">{checkin?.comment}</p>
+          <EditCheckinModal
+            checkin={checkin}
+            id={id}
+            wineList={wineList}
+            wine={wine}
+            user={user}
+          />
         </div>
-        {isLoaded &&
-          <form onSubmit={handleSubmit}>
-            {validationErrors.length > 0 &&
-              validationErrors.map((error) => (
-                <li key={error}>{error}</li>
-              ))
-            }
-            <select
-              onChange={(e) => setWineChoice(e.target.value)}
-              value={wineChoice}
-            >
-              <option>--Select A Wine--</option>
-              {wineList.map((wine) => (
-                <option
-                  key={wine.id}
-                  value={`${wine.id}, ${wine.wineryId}`}
-                >
-                  {wine.name}
-                </option>
-              ))}
-            </select>
-            <input
-              type="text"
-              onChange={(e) => setLocation(e.target.value)}
-              value={location}
-              placeholder="Enter a location..."
-            />
-            <textarea
-              onChange={(e) => setComment(e.target.value)}
-              value={comment}
-              placeholder="Enter a comment..."
-            />
-            <button
-              onClick={handleSubmit}
-              disabled={validationErrors.length > 0}
-            >
-              Submit Changes
-            </button>
-          </form>
-        }
       </div>
-      <Comments id={id} wine={wine} user={user} wineries={wineries} wineList={wineList} />
+      <div className="checkin-page-comments">
+        <Comments
+          id={id}
+          wine={wine}
+          user={user}
+          wineries={wineries}
+          wineList={wineList}
+        />
+      </div>
     </div>
   )
 }

@@ -3,21 +3,21 @@ import './CheckinDetail.css';
 
 const CheckinDetail = ({ user, checkin, wineList, wineries }) => {
 
-  const wine = wineList.find((wine) => wine.id === checkin.wineId);
-  const winery = wineries.find((winery) => winery.id === checkin.wineryId);
+  const wine = wineList.find((wine) => wine?.id === checkin?.wineId);
+  const winery = wineries.find((winery) => winery?.id === checkin?.wineryId);
   return (
-    <div key={checkin.id} className='checkin'>
+    <div key={checkin?.id} className='checkin'>
       <img src={wine?.image} alt='wine label' className='checkin-img' />
       <div className='checkin-info'>
         <NavLink to={`/users/${user?.id}`} className='checkin-link'>{user?.firstName}</NavLink>
         {' is drinking a '}
         <NavLink to={`/wines/${checkin?.wineId}`} className='checkin-link'>
-          {wine.name}
+          {wine?.name}
         </NavLink>
-        {` by ${winery.name} at ${checkin?.location}`}
-        <p className='comment-bubble'>{checkin.comment}</p>
+        {` by ${winery?.name} at ${checkin?.location}`}
+        <p className='comment-bubble'>{checkin?.comment}</p>
         <NavLink
-          to={`/checkins/${checkin.id}`}
+          to={`/checkins/${checkin?.id}`}
           className='checkin-link '
         >
           View Details
