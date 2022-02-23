@@ -25,7 +25,7 @@ const EditCommentForm = ({ checkin, user, com, setModal }) => {
         userId: user.id
       };
       await dispatch(updateComment(com?.id, editedComment))
-        .then(dispatch(getComments(checkin?.id)));
+        .then(() => dispatch(getComments(checkin?.id)))
       return setModal(false);
     }
   };
@@ -33,7 +33,7 @@ const EditCommentForm = ({ checkin, user, com, setModal }) => {
   const handleDeleteComment = async (e) => {
     e.preventDefault();
     await dispatch(removeComment(com?.id))
-      .then(dispatch(getComments(checkin?.id)));
+      .then(() => dispatch(getComments(checkin?.id)));
     return setModal(false);
   }
 

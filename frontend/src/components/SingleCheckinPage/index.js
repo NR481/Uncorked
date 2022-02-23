@@ -32,7 +32,7 @@ const SingleCheckinPage = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    dispatch(loadWineCheckins(wine?.id));
+    if (wine?.id) dispatch(loadWineCheckins(wine?.id));
   }, [dispatch, wine?.id]);
 
 

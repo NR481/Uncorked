@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import './Comments.css';
 import EditCommentModal from "./EditCommentModal";
 
-const Comments = ({ id, user, wineries, wineList }) => {
+const Comments = ({ id, user, wineries, wineList, setCommentChange }) => {
   const commentsObj = useSelector(state => state.comments.comments);
   const usersObj = useSelector(state => state.checkins.users);
   const checkin = useSelector(state => state.checkins.checkins[id]);
@@ -77,7 +77,12 @@ const Comments = ({ id, user, wineries, wineList }) => {
             </NavLink>
             {` says, "${com?.comment}"`}
             {user.id === com.userId &&
-              <EditCommentModal checkin={checkin} user={user} com={com}/>
+              <EditCommentModal
+                checkin={checkin}
+                user={user}
+                com={com}
+                setCommentChange={setCommentChange}
+              />
             }
             <div className="border-bottom"></div>
           </div>
