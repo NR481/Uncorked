@@ -79,6 +79,7 @@ const Comments = ({ id, user, wineries, wineList }) => {
             {user.id === com.userId &&
               <EditCommentModal checkin={checkin} user={user} com={com}/>
             }
+            <div className="border-bottom"></div>
           </div>
         ))
       }
@@ -95,7 +96,7 @@ const Comments = ({ id, user, wineries, wineList }) => {
           value={comment}
           onChange={(e) => setComment(e.target.value)}
         />
-        <button>Submit</button>
+        <button disabled={validationErrors.length > 0}>Submit</button>
       </form>
     </div>
   )

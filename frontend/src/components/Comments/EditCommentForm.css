@@ -1,0 +1,26 @@
+.edit-comment-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 30vh;
+  width: 300px;
+  padding: 30px 30px 60px 30px;
+  font-family: 'Jost', sans-serif;
+  color: rgb(133, 19, 54);
+  font-size: 20px;
+}
+
+.edit-comment-form > input {
+  height: 30px;
+  width: 200px;
+  text-indent: 15px;
+  border: 1px solid rgb(109, 109, 108);
+  border-radius: 3px;
+}
+
+.edit-comment-form > ul {
+  font-size: 15px;
+  width: 200px;
+  margin-bottom: 10px;
+}
