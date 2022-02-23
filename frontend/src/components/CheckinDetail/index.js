@@ -1,9 +1,7 @@
-import { NavLink, useRouteMatch, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import './CheckinDetail.css';
 
 const CheckinDetail = ({ user, checkin, wineList, wineries }) => {
-  const { id } = useParams();
-  const match = useRouteMatch(`/checkins/${id}`);
 
   const wine = wineList.find((wine) => wine?.id === checkin?.wineId);
   const winery = wineries.find((winery) => winery?.id === checkin?.wineryId);
@@ -18,14 +16,12 @@ const CheckinDetail = ({ user, checkin, wineList, wineries }) => {
         </NavLink>
         {` by ${winery?.name} at ${checkin?.location}`}
         <p className='comment-bubble'>{checkin?.comment}</p>
-        {!match && (
-          <NavLink
-            to={`/checkins/${checkin?.id}`}
-            className='checkin-link '
-          >
-            View Details
-          </NavLink>
-        )}
+        <NavLink
+          to={`/checkins/${checkin?.id}`}
+          className='checkin-link '
+        >
+          View Details
+        </NavLink>
       </div>
     </div>
   )

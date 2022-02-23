@@ -5,7 +5,7 @@
   align-items: center;
   width: 700px;
   margin: 10px auto;
-  padding: 10px;
+  padding: 40px;
   font-family: 'Jost', sans-serif;
   font-size: 20px;
   border-radius: 10px;
@@ -19,7 +19,7 @@
 }
 
 .single-checkin {
-  margin: 10px;
+  margin: 30px;
 }
 
 .checkin-button {

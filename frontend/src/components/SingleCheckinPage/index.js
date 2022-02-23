@@ -4,10 +4,10 @@ import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { updateCheckin, removeCheckin, loadWineCheckins } from "../../store/checkins";
 import Comments from "../Comments";
-import CheckinDetail from "../CheckinDetail";
 import { getWines } from "../../store/wines";
 import { getComments } from "../../store/comments";
 import './SingleCheckinPage.css';
+import EditCheckinModal from "./EditCheckinModal";
 
 
 const SingleCheckinPage = () => {
@@ -89,11 +89,27 @@ const SingleCheckinPage = () => {
   return (
     <div>
       <div className="checkin-container">
-
-          <CheckinDetail user={user} checkin={checkin} wineList={wineList} wineries={wineries} />
-          {/* <button onClick={showForm} className="checkin-button">Edit</button>*/}
-          <button onClick={handleDelete} className="checkin-button">Delete</button>
-        {isLoaded &&
+        <img src={wine?.image} alt='wine label' />
+        <div className="single-checkin">
+          <NavLink
+            to={{
+              pathname: `/user/${checkinUser?.id}/profile`,
+              state: { user: checkinUser, wineries, wineList }
+            }}
+          >
+            {checkinUser?.firstName}
+          </NavLink>
+          {` is at ${checkin?.location} drinking a `}
+          <NavLink to={`/wines/${wine?.id}`}>
+            {`${wine?.name}`}
+          </NavLink>
+          {` by ${winery?.name}`}
+          <p className="comment-bubble">{checkin?.comment}</p>
+          {/* <button onClick={showForm} className="checkin-button">Edit</button> */}
+          {/* <button onClick={handleDelete} className="checkin-button">Delete</button> */}
+        </div>
+        <EditCheckinModal checkin={checkin} id={id} wineList={wineList} wine={wine}/>
+        {/* {isLoaded &&
           <form onSubmit={handleSubmit}>
             {validationErrors.length > 0 &&
               validationErrors.map((error) => (
@@ -132,7 +148,7 @@ const SingleCheckinPage = () => {
               Submit Changes
             </button>
           </form>
-        }
+        } */}
       </div>
       <Comments id={id} wine={wine} user={user} wineries={wineries} wineList={wineList} />
     </div>
