@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { updateCheckin, removeCheckin, loadWineCheckins } from "../../store/checkins";
 import Comments from "../Comments";
+import CheckinDetail from "../CheckinDetail";
 import { getWines } from "../../store/wines";
 import { getComments } from "../../store/comments";
 import './SingleCheckinPage.css';
@@ -88,28 +89,10 @@ const SingleCheckinPage = () => {
   return (
     <div>
       <div className="checkin-container">
-        <img src={wine?.image} alt='wine label' />
-        <div className="single-checkin">
-          <NavLink
-            to={{
-              pathname: `/user/${checkinUser?.id}/profile`,
-              state: { user: checkinUser, wineries, wineList }
-            }}
-          >
-            {checkinUser?.firstName}
-          </NavLink>
-          {` is drinking a `}
-          <div className="checkin-details">
-            <NavLink to={`/wines/${wine?.id}`}>
-              {`${wine?.name} by `}
-            </NavLink>
-            <p>{`${winery?.name} at ${checkin?.location}`}</p>
-            <p>{winery?.location}</p>
-            <p>{checkin?.comment}</p>
-          </div>
-          <button onClick={showForm} className="checkin-button">Edit</button>
+
+          <CheckinDetail user={user} checkin={checkin} wineList={wineList} wineries={wineries} />
+          {/* <button onClick={showForm} className="checkin-button">Edit</button>*/}
           <button onClick={handleDelete} className="checkin-button">Delete</button>
-        </div>
         {isLoaded &&
           <form onSubmit={handleSubmit}>
             {validationErrors.length > 0 &&
