@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Modal } from "../context/Modal";
 import EditCheckinForm from "./EditCheckinForm";
 
-const EditCheckinModal = ({ checkin, id, wineList, wine }) => {
+const EditCheckinModal = ({ checkin, id, wineList, wine, user }) => {
   const [modal, setModal] = useState(false);
 
   return (
@@ -19,6 +19,7 @@ const EditCheckinModal = ({ checkin, id, wineList, wine }) => {
             id={id}
             wineList={wineList}
             wine={wine}
+            user={user}
             setModal={setModal}
           />
         </Modal>

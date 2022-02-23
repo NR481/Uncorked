@@ -1,74 +1,106 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateCheckin } from "../../store/checkins";
+import { useHistory } from "react-router-dom";
+import { updateCheckin, removeCheckin } from "../../store/checkins";
 import { getComments } from "../../store/comments";
+import "./EditCheckinForm.css"
 
-const EditCheckinForm = ({ checkin, id, wineList, wine, setModal }) => {
+const EditCheckinForm = ({ checkin, id, wineList, wine, setModal, user }) => {
   const [wineChoice, setWineChoice] = useState(`${wine?.id}, ${wine?.wineryId}`);
   const [comment, setComment] = useState(checkin?.comment);
   const [location, setLocation] = useState(checkin?.location);
   const [validationErrors, setValidationErrors] = useState([]);
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const checkinEdit = {
-      comment,
-      wineId: +wineChoice.split(',')[0],
-      wineryId: +wineChoice.split(',')[1],
-      location
-    };
 
-    await dispatch(updateCheckin(id, checkinEdit))
-      .then(dispatch(getComments(checkin?.id)))
-    setModal(false);
+    const errors = [];
+    if (comment.length < 5 || comment.length > 255) errors.push('Comment must be between 5 and 255 characters');
+    if (location.length === 0) errors.push('Please enter a location');
+    setValidationErrors(errors);
+
+    if (errors.length === 0) {
+      const checkinEdit = {
+        comment,
+        wineId: +wineChoice.split(',')[0],
+        wineryId: +wineChoice.split(',')[1],
+        location
+      };
+
+      await dispatch(updateCheckin(id, checkinEdit))
+        .then(dispatch(getComments(checkin?.id)))
+      setModal(false);
+    }
   };
 
+  const handleDelete = (e) => {
+    e.preventDefault();
+    dispatch(removeCheckin(id));
+    history.push(`/users/${user?.id}`);
+  }
+
   return (
-    <form onSubmit={handleSubmit}>
-      {/* {validationErrors.length > 0 &&
-        validationErrors.map((error) => (
-          <li key={error}>{error}</li>
-        ))
-      } */}
-      <select
-        onChange={(e) => setWineChoice(e.target.value)}
-        value={wineChoice}
-      >
-        <option>--Select A Wine--</option>
-        <option
+    <div className="edit-checkin-container">
+      <ul>
+        {validationErrors.length > 0 &&
+          validationErrors.map((error) => (
+            <li key={error}>{error}</li>
+          ))
+        }
+      </ul>
+      <form onSubmit={handleSubmit} className="edit-checkin-form">
+        <label>Wine</label>
+        <select
+          onChange={(e) => setWineChoice(e.target.value)}
           value={wineChoice}
+          required
         >
-          {wine?.name}
-        </option>
-        {wineList.map((item) => (
+          <option value="select">--Select A Wine--</option>
           <option
-            key={item.id}
-            value={`${item.id}, ${item.wineryId}`}
+            value={wineChoice}
           >
-            {item.name}
+            {wine?.name}
           </option>
-        ))}
-      </select>
-      <input
-        type="text"
-        onChange={(e) => setLocation(e.target.value)}
-        value={location}
-        placeholder="Enter a location..."
-      />
-      <textarea
-        onChange={(e) => setComment(e.target.value)}
-        value={comment}
-        placeholder="Enter a comment..."
-      />
-      <button
-        onClick={handleSubmit}
-        disabled={validationErrors.length > 0}
-      >
-        Submit Changes
-      </button>
-    </form>
+          {wineList.map((item) => (
+            <option
+              key={item.id}
+              value={`${item.id}, ${item.wineryId}`}
+            >
+              {item.name}
+            </option>
+          ))}
+        </select>
+        <label>Location</label>
+        <input
+          type="text"
+          onChange={(e) => setLocation(e.target.value)}
+          value={location}
+          placeholder="Enter a location..."
+          required
+        />
+        <label>Comment</label>
+        <textarea
+          onChange={(e) => setComment(e.target.value)}
+          value={comment}
+          placeholder="Enter a comment..."
+          required
+        />
+        <button
+          onClick={handleSubmit}
+        >
+          Submit Changes
+        </button>
+        <button
+          onClick={handleDelete}
+          className="checkin-button"
+        >
+          Delete Check-In
+        </button>
+      </form>
+    </div>
   );
 };
 
