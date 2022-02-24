@@ -7,8 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: true
     },
     image: {
-      type: DataTypes.STRING(280),
-      allowNull: false
+      type: DataTypes.STRING(280)
     },
     vintage: {
       type: DataTypes.NUMERIC(4),

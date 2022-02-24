@@ -1,6 +1,7 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
 const { Wine, Winery, Checkin, User } = require('../../db/models');
+const { singleMulterUpload, singlePublicFileUpload } = require('../../awsS3');
 
 const router = express.Router();
 
@@ -16,7 +17,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
   const id = req.params.id;
   const wine = await Wine.findByPk(id);
   const checkins = await Checkin.findAll({
-    where: { wineId: id}
+    where: { wineId: id }
   });
   const users = await User.findAll();
   return res.json({ wine, checkins, users });
@@ -64,7 +65,7 @@ router.put('/:id(\\d+)', asyncHandler(async (req, res) => {
       name: editWinery,
       location: editLocation
     });
-    if (wine && winery){
+    if (wine && winery) {
       await wine.save();
       await winery.save();
     }
@@ -82,63 +83,65 @@ router.put('/:id(\\d+)', asyncHandler(async (req, res) => {
       varietal: editVarietal,
       wineryId: winery.id
     });
-    if (wine){
+    if (wine) {
       wine.save();
     }
     return res.json({ wine, winery });
   }
 }));
 
-router.post('/', asyncHandler(async (req, res) => {
-  const {
-    name,
-    image,
-    vintage,
-    varietal,
-    winery,
-    location,
-    description,
-    userId
-  } = req.body;
-
-  const validateWinery = await Winery.findOne({
-    where: {
-      name: winery
-    }
-  });
-
-  if (validateWinery) {
-    const wine = await Wine.create({
+router.post('/',
+  singleMulterUpload("image"),
+  asyncHandler(async (req, res) => {
+    const {
       name,
-      image,
       vintage,
-      description,
       varietal,
-      wineryId: validateWinery.id,
+      winery,
+      location,
+      description,
       userId
-    });
-    return res.json({ wine, winery: validateWinery })
+    } = req.body;
+    const wineImageUrl = await singlePublicFileUpload(req.file);
 
-  } else {
-    const newWinery = await Winery.create({
-      name: winery,
-      location
+    const validateWinery = await Winery.findOne({
+      where: {
+        name: winery
+      }
     });
-    if (newWinery) {
+
+    if (validateWinery) {
       const wine = await Wine.create({
         name,
-        image,
+        image: wineImageUrl,
         vintage,
         description,
         varietal,
-        wineryId: newWinery.id,
+        wineryId: validateWinery.id,
         userId
       });
+      return res.json({ wine, winery: validateWinery })
 
-      return res.json({ wine, winery: newWinery });
+    } else {
+      const newWinery = await Winery.create({
+        name: winery,
+        location
+      });
+      if (newWinery) {
+        const wine = await Wine.create({
+          name,
+          image: wineImageUrl,
+          vintage,
+          description,
+          varietal,
+          wineryId: newWinery.id,
+          userId
+        });
+
+        return res.json({ wine, winery: newWinery });
+      }
+
     }
-
-  }
-}));
+  }));
 
 module.exports = router;
