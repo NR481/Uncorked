@@ -69,7 +69,7 @@ const SingleCheckinPage = () => {
             </NavLink>
             {` by ${winery?.name}`}
           </div>
-          <p className="comment-bubble">{checkin?.comment}</p>
+          <p className="comment-bubble checkin-bubble">{checkin?.comment}</p>
           {user?.id === checkin?.userId && (
             <EditCheckinModal
               checkin={checkin}

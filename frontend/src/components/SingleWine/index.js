@@ -71,21 +71,24 @@ const SingleWine = () => {
         )}
         {Object.keys(usersObj).length > 0 &&
           checkins?.map((checkin) => (
-            <div key={checkin?.id} className="single-checkin">
-              <NavLink
-                to={{
-                  pathname: `/user/${usersObj[checkin?.userId].id}/profile`,
-                  state: { user: usersObj[checkin?.userId], checkins, wineries, wineList }
-                }}
-              >
-                {usersObj[checkin?.userId].firstName}
-              </NavLink>
-              {` is at ${checkin.location} drinking a ${wine.name} by ${winery.name}`}
-              <p>{checkin.comment}</p>
+            <div key={checkin?.id} className="single-checkin wine-page-checkin">
+              <div>
+                <NavLink
+                  to={{
+                    pathname: `/user/${usersObj[checkin?.userId].id}/profile`,
+                    state: { user: usersObj[checkin?.userId], checkins, wineries, wineList }
+                  }}
+                >
+                  {usersObj[checkin?.userId].firstName}
+                </NavLink>
+                {` is at ${checkin.location} drinking a ${wine.name} by ${winery.name}`}
+              </div>
+              <p className="comment-bubble checkin-bubble">{checkin.comment}</p>
               <NavLink
                 to={{ pathname: `/checkins/${checkin.id}`, state: { user, checkin, wineList, wineries } }}
                 className='checkin-link '
               >View Details</NavLink>
+              <div className="border-bottom wine-border"></div>
             </div>
           ))
         }
