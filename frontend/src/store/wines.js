@@ -75,9 +75,21 @@ export const createNewWine = (wine) => async (dispatch) => {
 };
 
 export const updateWine = (id, wine) => async (dispatch) => {
+  const { editName, editVintage, editImage, editVarietal, editWinery, editLocation, editDescription } = wine;
+  const formData = new FormData();
+  formData.append("editName", editName);
+  formData.append("editVintage", editVintage);
+  formData.append("editVarietal", editVarietal);
+  formData.append("editWinery", editWinery);
+  formData.append("editLocation", editLocation);
+  formData.append("editDescription", editDescription);
+
+  if (editImage) formData.append("editImage", editImage);
+  
   const response = await csrfFetch(`/api/wines/${id}`, {
     method: 'PUT',
-    body: JSON.stringify(wine)
+    headers: { 'Content-Type': 'multipart/form-data' },
+    body: formData
   });
   const data = await response.json();
   dispatch(editWine(data));
