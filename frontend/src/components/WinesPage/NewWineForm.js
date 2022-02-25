@@ -19,8 +19,8 @@ const NewWineForm = ({ userId, setModal }) => {
     e.preventDefault();
 
     const errors = [];
-    const imgRegex = /(http(s?):)|([/|.|\w|\s])*\.(?:jpg|gif|png)/;
-    if (!imgRegex.test(image)) errors.push('Please enter a valid image URL for your wine');
+    // const imgRegex = /(http(s?):)|([/|.|\w|\s])*\.(?:jpg|gif|png)/;
+    // if (!imgRegex.test(image)) errors.push('Please enter a valid image URL for your wine');
     if (vintage < 1000 || vintage > 2022) errors.push('Please enter a valid 4-digit vintage year');
     setValidationErrors(errors);
 
@@ -36,7 +36,7 @@ const NewWineForm = ({ userId, setModal }) => {
         userId
       };
       await dispatch(createNewWine(newWine))
-        .then(dispatch(getWines()))
+        .then(() => dispatch(getWines()))
       return setModal(false);
     }
   };
@@ -61,12 +61,11 @@ const NewWineForm = ({ userId, setModal }) => {
           required
         />
         <label>
-          Image URL
+          Image
         </label>
         <input
-          type="text"
-          value={image}
-          onChange={(e) => setImage(e.target.value)}
+          type="file"
+          onChange={(e) => setImage(e.target.files[0])}
         />
         <label>
           Vintage
