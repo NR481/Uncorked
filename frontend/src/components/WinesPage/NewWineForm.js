@@ -66,6 +66,8 @@ const NewWineForm = ({ userId, setModal }) => {
         <input
           type="file"
           onChange={(e) => setImage(e.target.files[0])}
+          accept="image/*"
+          id="file-upload"
         />
         <label>
           Vintage

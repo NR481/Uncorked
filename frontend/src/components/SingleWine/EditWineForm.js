@@ -73,6 +73,8 @@ const EditWineForm = ({ wine, winery, setModal }) => {
         <input
           type="file"
           onChange={(e) => setEditImage(e.target.files[0])}
+          accept="image/*"
+          id="file-upload"
         />
         <label>
           Vintage

@@ -13,11 +13,12 @@
   align-items: center;
   width: 300px;
   z-index: 2;
-  background-color: rgba(255,255,255, 0.75);
+  background-color: rgb(255,255,255);
   border: 1px solid rgba(109, 109, 108, 0.2);
   border-radius: 15px;
-  padding-bottom: 60px;
+  padding: 60px 0;
   font-family: 'Jost', sans-serif;
+  color: rgb(133, 19, 54);
 }
 
 .pointer {
@@ -32,13 +33,20 @@
   margin-top: 20px;
   padding: 5px;
   width: 100px;
-  background-color: rgba(133, 19, 54, 0.3);
+  background-color: rgb(133, 19, 54);
   color: rgb(233, 230, 224);
   border: 1px solid rgba(109, 109, 108, 0.2);
-  border-radius: 5%;
+  border-radius: 5px;
   font-family: inherit;
 }
 
 label, input {
   margin: 10px;
+}
+
+.login-form > input {
+  height: 30px;
+  text-indent: 15px;
+  border: 1px solid rgba(109, 109, 108, 0.5);
+  border-radius: 3px;
 }

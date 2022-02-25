@@ -19,6 +19,23 @@
   margin-bottom: -3px;
 }
 
+#file-upload {
+  border: none;
+  font-family: inherit;
+  font-size: 15px;
+}
+
+#file-upload::file-selector-button {
+  border: none;
+  background-color: rgb(133, 19, 54);
+  font-family: inherit;
+  color: white;
+  border-radius: 5px;
+  height: 30px;
+  width: 150px;
+  margin: auto 30px auto -20px;
+}
+
 .edit-wine-form > input {
   height: 30px;
   text-indent: 15px;
