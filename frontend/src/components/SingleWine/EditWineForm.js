@@ -21,8 +21,8 @@ const EditWineForm = ({ wine, winery, setModal }) => {
     e.preventDefault();
 
     const errors = [];
-    const imgRegex = /(http(s?):)|([/|.|\w|\s])*\.(?:jpg|gif|png)/;
-    if (!imgRegex.test(editImage)) errors.push('Please enter a valid image URL for your wine');
+    // const imgRegex = /(http(s?):)|([/|.|\w|\s])*\.(?:jpg|gif|png)/;
+    // if (!imgRegex.test(editImage)) errors.push('Please enter a valid image URL for your wine');
     if (editVintage < 1000 || editVintage > 2022) errors.push('Please enter a valid 4-digit vintage year');
     setValidationErrors(errors);
 
@@ -68,12 +68,11 @@ const EditWineForm = ({ wine, winery, setModal }) => {
           required
         />
         <label>
-          Image URL
+          Image
         </label>
         <input
-          type="text"
-          value={editImage}
-          onChange={(e) => setEditImage(e.target.value)}
+          type="file"
+          onChange={(e) => setEditImage(e.target.files[0])}
         />
         <label>
           Vintage

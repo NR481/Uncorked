@@ -33,17 +33,19 @@ router.delete('/:id(\\d+)', asyncHandler(async (req, res) => {
   return res.json({});
 }));
 
-router.put('/:id(\\d+)', asyncHandler(async (req, res) => {
+router.put('/:id(\\d+)',
+singleMulterUpload("editImage"),
+asyncHandler(async (req, res) => {
   const id = req.params.id;
   const {
     editName,
-    editImage,
     editVintage,
     editVarietal,
     editWinery,
     editDescription,
     editLocation
   } = req.body;
+  const wineImageUrl = await singlePublicFileUpload(req.file);
 
   const wine = await Wine.findByPk(id);
   const winery = await Winery.findOne({
@@ -55,7 +57,7 @@ router.put('/:id(\\d+)', asyncHandler(async (req, res) => {
   if (winery) {
     await wine.update({
       name: editName,
-      image: editImage,
+      image: wineImageUrl,
       vintage: editVintage,
       description: editDescription,
       varietal: editVarietal,
@@ -77,7 +79,7 @@ router.put('/:id(\\d+)', asyncHandler(async (req, res) => {
     });
     await wine.update({
       name: editName,
-      image: editImage,
+      image: wineImageUrl,
       vintage: editVintage,
       description: editDescription,
       varietal: editVarietal,
